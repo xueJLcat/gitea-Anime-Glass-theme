@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-01-source-layer-cleanup */
+/* Anime Glass Light v2026-06-02-popup-transparency */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-01-source-layer-cleanup";
+  --theme-version: "2026-06-02-popup-transparency";
 }
 
 :root {
@@ -11,9 +11,11 @@ gitea-theme-meta-info {
 
   /*
     Replace this with your image-host URL, for example:
-    --anime-bg-url: url("/assets/img/anime-light-bg.webp");
+    --anime-bg-url: url("https://cdn.example.com/gitea/bg.webp");
+    You can also host it in Gitea custom assets:
+    --anime-bg-url: url("../img/bg.webp");
   */
-  --anime-bg-url: url("/assets/img/anime-light-bg.webp");
+  --anime-bg-url: url("../img/bg.webp");
 
   --anime-bg-opacity: 1;
   --anime-bg-position: center center;
@@ -23,10 +25,14 @@ gitea-theme-meta-info {
   --anime-glass-bg: rgba(255, 255, 255, 0.52);
   --anime-glass-bg-strong: rgba(255, 255, 255, 0.68);
   --anime-glass-bg-soft: rgba(255, 255, 255, 0.36);
+  --anime-popup-bg: rgba(255, 255, 255, 0.78);
+  --anime-popup-bg-strong: rgba(255, 255, 255, 0.86);
+  --anime-popup-arrow-bg: rgba(255, 255, 255, 0.84);
   --anime-glass-border: rgba(95, 139, 180, 0.24);
   --anime-glass-border-strong: rgba(83, 169, 255, 0.34);
   --anime-glass-shadow: 0 18px 44px rgba(51, 93, 132, 0.14);
   --anime-glass-shadow-soft: 0 10px 26px rgba(51, 93, 132, 0.1);
+  --anime-glass-shadow-hover: 0 22px 54px rgba(51, 93, 132, 0.18);
   --anime-glass-blur: 24px;
   --anime-accent-blue: #47a3ff;
   --anime-accent-cyan: #67d9ce;
@@ -43,6 +49,13 @@ gitea-theme-meta-info {
   --anime-z-dropdown: 2100;
   --anime-z-tooltip: 3000;
   --anime-z-modal: 5000;
+  --anime-motion-fast: 140ms;
+  --anime-motion-medium: 220ms;
+  --anime-motion-slow: 360ms;
+  --anime-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --anime-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --anime-hover-lift: -2px;
+  --anime-focus-ring: 0 0 0 3px rgba(71, 163, 255, 0.14);
 
   --fonts-proportional: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans", sans-serif;
   --fonts-monospace: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
@@ -171,7 +184,9 @@ footer {
 
 a {
   color: #237ed4;
-  transition: color 160ms ease, opacity 160ms ease;
+  transition:
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    opacity var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 a:hover {
@@ -223,6 +238,32 @@ footer {
 .page-content.dashboard > .ui.container,
 .page-content.dashboard.feeds > .ui.container {
   width: min(1280px, calc(100vw - 48px)) !important;
+}
+
+/*
+  Gitea 1.24+ dashboard source uses:
+  .ui.container.flex-container > .flex-container-main + #dashboard-repo-list.flex-container-sidebar
+*/
+.page-content.dashboard > .ui.container.flex-container,
+.page-content.dashboard.feeds > .ui.container.flex-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.page-content.dashboard .flex-container-main,
+.page-content.dashboard.feeds .flex-container-main {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.page-content.dashboard #dashboard-repo-list.flex-container-sidebar,
+.page-content.dashboard.feeds #dashboard-repo-list.flex-container-sidebar {
+  position: sticky;
+  top: 74px;
+  width: 448px;
+  max-width: 448px;
+  flex: 0 0 448px;
 }
 
 .page-content.dashboard > .ui.container > .ui.stackable.grid,
@@ -297,11 +338,19 @@ footer {
   box-shadow: 0 8px 22px rgba(51, 93, 132, 0.08);
   backdrop-filter: blur(18px) saturate(1.18);
   -webkit-backdrop-filter: blur(18px) saturate(1.18);
+  transition:
+    transform var(--anime-motion-medium) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-medium) var(--anime-ease-standard),
+    background-color var(--anime-motion-medium) var(--anime-ease-standard),
+    border-color var(--anime-motion-medium) var(--anime-ease-standard);
 }
 
-.dashboard.feeds .news:hover {
+.dashboard.feeds .news:hover,
+.dashboard.feeds .news:focus-within {
+  border-color: rgba(83, 169, 255, 0.24) !important;
   background: rgba(255, 255, 255, 0.48) !important;
-  transform: translateY(-1px);
+  box-shadow: var(--anime-glass-shadow-hover);
+  transform: translate3d(0, var(--anime-hover-lift), 0);
 }
 
 .dashboard.feeds .news .commit-id,
@@ -412,7 +461,18 @@ footer {
 .page-content.dashboard .repo-owner-name-list .item,
 .page-content.dashboard.feeds .repo-owner-name-list .item {
   background: rgba(255, 255, 255, 0.16) !important;
-  transition: background-color 160ms ease, transform 160ms ease;
+  transition:
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-medium) var(--anime-ease-standard);
+}
+
+.page-content.dashboard #dashboard-repo-list .repo-owner-name-list li,
+.page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list li {
+  background: rgba(255, 255, 255, 0.16) !important;
+  transition:
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-medium) var(--anime-ease-standard);
 }
 
 .page-content.dashboard .repository.list .item:hover,
@@ -420,6 +480,15 @@ footer {
 .page-content.dashboard .repo-owner-name-list .item:hover,
 .page-content.dashboard.feeds .repo-owner-name-list .item:hover {
   background: rgba(103, 217, 206, 0.16) !important;
+  transform: translate3d(2px, 0, 0);
+}
+
+.page-content.dashboard #dashboard-repo-list .repo-owner-name-list li:hover,
+.page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list li:hover,
+.page-content.dashboard #dashboard-repo-list .repo-owner-name-list li.active,
+.page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list li.active {
+  background: rgba(103, 217, 206, 0.16) !important;
+  transform: translate3d(2px, 0, 0);
 }
 
 #dashboard-repo-list .overflow-menu-items,
@@ -437,6 +506,10 @@ footer {
 .page-content.dashboard.feeds .overflow-menu-items .item {
   color: var(--anime-text-muted) !important;
   background: transparent !important;
+  transition:
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 #dashboard-repo-list .overflow-menu-items .item:hover,
@@ -511,10 +584,10 @@ header .navbar {
   color: var(--anime-text-muted) !important;
   border-radius: 8px !important;
   transition:
-    color 160ms ease,
-    background-color 160ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-medium) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-medium) var(--anime-ease-standard);
 }
 
 .ui.menu .item:hover,
@@ -522,6 +595,12 @@ header .navbar {
 .ui.tabs.container .item:hover {
   color: var(--anime-text) !important;
   background: rgba(71, 163, 255, 0.12) !important;
+}
+
+.ui.menu > .item:hover,
+.ui.secondary.menu > .item:hover,
+.ui.tabs.container > .item:hover {
+  transform: translate3d(0, -1px, 0);
 }
 
 .ui.menu .active.item,
@@ -575,6 +654,20 @@ header .navbar {
   box-shadow: var(--anime-glass-shadow);
   backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.22);
   -webkit-backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.22);
+  transition:
+    border-color var(--anime-motion-medium) var(--anime-ease-standard),
+    background-color var(--anime-motion-medium) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-medium) var(--anime-ease-standard),
+    transform var(--anime-motion-medium) var(--anime-ease-standard);
+}
+
+.ui.card:hover,
+.ui.cards > .card:hover,
+.repository .issue.list > .item:hover,
+.repository .timeline-item .content:hover {
+  border-color: rgba(83, 169, 255, 0.26) !important;
+  box-shadow: var(--anime-glass-shadow-hover);
+  transform: translate3d(0, var(--anime-hover-lift), 0);
 }
 
 .ui.segments > .segment,
@@ -587,7 +680,11 @@ header .navbar {
 
 .ui.segment.basic,
 .ui.basic.segment {
-  box-shadow: none;
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .ui.header,
@@ -610,15 +707,14 @@ h4 {
 }
 
 .ui.button,
-button,
 .btn {
   border-radius: 8px !important;
   transition:
-    transform 160ms ease,
-    box-shadow 160ms ease,
-    background-color 160ms ease,
-    border-color 160ms ease,
-    color 160ms ease;
+    transform var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    color var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 .ui.button {
@@ -628,11 +724,22 @@ button,
   box-shadow: 0 8px 18px rgba(55, 96, 132, 0.08);
 }
 
-.ui.button:hover,
-button:hover,
+.ui.button:not(.icon):hover,
 .btn:hover {
-  transform: translateY(-1px);
+  transform: translate3d(0, -1px, 0);
   box-shadow: 0 12px 28px rgba(55, 96, 132, 0.14);
+}
+
+.ui.button:not(.icon):active,
+.btn:active {
+  transform: translate3d(0, 0, 0);
+  box-shadow: 0 6px 14px rgba(55, 96, 132, 0.1);
+}
+
+.ui.button:focus-visible,
+.btn:focus-visible {
+  outline: 0;
+  box-shadow: var(--anime-focus-ring), 0 8px 18px rgba(55, 96, 132, 0.08);
 }
 
 .ui.primary.button,
@@ -663,7 +770,6 @@ button:hover,
 .ui.form input[type="time"],
 .ui.form input[type="url"],
 .ui.form textarea,
-.ui.dropdown,
 .ui.selection.dropdown,
 .CodeMirror,
 .cm-editor {
@@ -672,6 +778,10 @@ button:hover,
   background: var(--color-input-background) !important;
   color: var(--anime-text) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  transition:
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 .ui.dropdown {
@@ -689,11 +799,12 @@ button:hover,
 .ui.input > input:focus,
 .ui.form input:focus,
 .ui.form textarea:focus,
-.ui.dropdown:focus,
+.ui.selection.dropdown:focus,
 .ui.selection.active.dropdown,
 .ui.selection.active.dropdown:hover {
   border-color: var(--color-input-border-hover) !important;
-  box-shadow: 0 0 0 3px rgba(71, 163, 255, 0.14) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: var(--anime-focus-ring) !important;
 }
 
 .repository.file.list #repo-files-table {
@@ -708,9 +819,7 @@ button:hover,
 .repository.file.list #repo-files-table tbody tr,
 .ui.table tbody tr,
 .commit-list .commit-list-row {
-  transition:
-    background-color 160ms ease,
-    transform 160ms ease;
+  transition: background-color var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 .repository.file.list #repo-files-table tbody tr:hover,
@@ -733,17 +842,18 @@ button:hover,
   color: #4883b8;
 }
 
-.ui.label,
-.ui.labels .label,
-.issue.list .labels .label {
+.page-content.dashboard #dashboard-repo-list .ui.grey.label,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.grey.label {
   border: 1px solid rgba(95, 139, 180, 0.2) !important;
   border-radius: 999px !important;
   background: rgba(238, 248, 255, 0.78) !important;
   color: var(--anime-text-muted) !important;
 }
 
-.ui.label.primary,
-.ui.labels .primary.label {
+.page-content.dashboard #dashboard-repo-list .ui.label.primary,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.label.primary,
+.page-content.dashboard #dashboard-repo-list .ui.labels .primary.label,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.labels .primary.label {
   background: rgba(71, 163, 255, 0.16) !important;
   color: #176fc2 !important;
 }
@@ -835,11 +945,11 @@ button:hover,
   z-index: var(--anime-z-dropdown) !important;
   border: 1px solid var(--anime-glass-border-strong) !important;
   border-radius: 8px !important;
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: var(--anime-popup-bg) !important;
   color: var(--anime-text) !important;
   box-shadow: 0 22px 54px rgba(45, 78, 112, 0.18) !important;
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  backdrop-filter: blur(24px) saturate(1.24);
+  -webkit-backdrop-filter: blur(24px) saturate(1.24);
 }
 
 .ui.modal,
@@ -904,6 +1014,9 @@ footer {
   :root {
     --anime-glass-bg: rgba(255, 255, 255, 0.9);
     --anime-glass-bg-strong: rgba(255, 255, 255, 0.94);
+    --anime-popup-bg: rgba(255, 255, 255, 0.94);
+    --anime-popup-bg-strong: rgba(255, 255, 255, 0.96);
+    --anime-popup-arrow-bg: rgba(255, 255, 255, 0.94);
     --color-navbar: rgba(255, 255, 255, 0.92);
   }
 }
@@ -912,19 +1025,40 @@ footer {
   .page-content > .ui.container,
   .repository .ui.container,
   .dashboard .ui.container {
-    animation: anime-glass-enter 360ms ease-out both;
+    animation: anime-glass-enter var(--anime-motion-slow) var(--anime-ease-emphasized) both;
+  }
+
+  .ui.dropdown.visible > .menu,
+  .ui.dropdown.active > .menu,
+  .ui.popup,
+  .ui.context.menu,
+  [data-tippy-root] .tippy-box {
+    animation: anime-glass-pop var(--anime-motion-fast) var(--anime-ease-emphasized) both;
+    transform-origin: top center;
   }
 }
 
 @keyframes anime-glass-enter {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translate3d(0, 6px, 0);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes anime-glass-pop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -4px, 0) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -934,8 +1068,31 @@ footer {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 1ms !important;
+    animation: none !important;
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .dashboard.feeds .news:hover,
+  .dashboard.feeds .news:focus-within,
+  .page-content.dashboard .repository.list .item:hover,
+  .page-content.dashboard.feeds .repository.list .item:hover,
+  .page-content.dashboard .repo-owner-name-list .item:hover,
+  .page-content.dashboard.feeds .repo-owner-name-list .item:hover,
+  .page-content.dashboard #dashboard-repo-list .repo-owner-name-list li:hover,
+  .page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list li:hover,
+  .page-content.dashboard #dashboard-repo-list .repo-owner-name-list li.active,
+  .page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list li.active,
+  .ui.menu > .item:hover,
+  .ui.secondary.menu > .item:hover,
+  .ui.tabs.container > .item:hover,
+  .ui.card:hover,
+  .ui.cards > .card:hover,
+  .repository .issue.list > .item:hover,
+  .repository .timeline-item .content:hover,
+  .ui.button:not(.icon):hover,
+  .btn:hover {
+    transform: none !important;
   }
 }
 
@@ -948,6 +1105,21 @@ footer {
   .page-content.dashboard > .ui.container > .ui.stackable.grid,
   .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid {
     display: block !important;
+  }
+
+  .page-content.dashboard > .ui.container.flex-container,
+  .page-content.dashboard.feeds > .ui.container.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .page-content.dashboard #dashboard-repo-list.flex-container-sidebar,
+  .page-content.dashboard.feeds #dashboard-repo-list.flex-container-sidebar {
+    position: static;
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
   }
 
   .page-content.dashboard > .ui.container > .ui.stackable.grid > .ten.wide.column,
@@ -1185,6 +1357,10 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item {
   color: var(--anime-text-muted) !important;
   background: transparent !important;
+  transition:
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
@@ -1333,22 +1509,47 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 /*
   Gitea tooltip source:
   web_src/js/modules/tippy.ts appends tooltip tippies to body with
-  theme="tooltip"; web_src/css/modules/tippy.css styles [data-tippy-root].
+  theme="tooltip", "menu", "default", or "box-with-header";
+  web_src/css/modules/tippy.css styles [data-tippy-root].
 */
 [data-tippy-root] {
   z-index: var(--anime-z-tooltip) !important;
   max-width: calc(100vw - 32px);
 }
 
+[data-tippy-root] .tippy-box[data-theme="default"],
+[data-tippy-root] .tippy-box[data-theme="menu"],
+[data-tippy-root] .tippy-box[data-theme="box-with-header"],
+.tippy-box[data-theme="default"],
+.tippy-box[data-theme="menu"],
+.tippy-box[data-theme="box-with-header"] {
+  z-index: calc(var(--anime-z-tooltip) + 1) !important;
+  border: 1px solid rgba(95, 139, 180, 0.2) !important;
+  background-color: var(--anime-popup-bg) !important;
+  color: var(--anime-text) !important;
+  box-shadow: 0 18px 44px rgba(45, 78, 112, 0.18) !important;
+  backdrop-filter: blur(24px) saturate(1.24);
+  -webkit-backdrop-filter: blur(24px) saturate(1.24);
+}
+
+[data-tippy-root] .tippy-box[data-theme="default"] .tippy-svg-arrow-inner,
+[data-tippy-root] .tippy-box[data-theme="menu"] .tippy-svg-arrow-inner,
+[data-tippy-root] .tippy-box[data-theme="box-with-header"] .tippy-svg-arrow-inner,
+.tippy-box[data-theme="default"] .tippy-svg-arrow-inner,
+.tippy-box[data-theme="menu"] .tippy-svg-arrow-inner,
+.tippy-box[data-theme="box-with-header"] .tippy-svg-arrow-inner {
+  fill: var(--anime-popup-arrow-bg) !important;
+}
+
 [data-tippy-root] .tippy-box[data-theme="tooltip"],
 .tippy-box[data-theme="tooltip"] {
   z-index: calc(var(--anime-z-tooltip) + 1) !important;
-  background-color: rgba(255, 255, 255, 0.94) !important;
+  background-color: var(--anime-popup-bg-strong) !important;
   color: var(--anime-text) !important;
   border: 1px solid rgba(95, 139, 180, 0.18) !important;
   box-shadow: 0 14px 34px rgba(45, 78, 112, 0.16) !important;
-  backdrop-filter: blur(18px) saturate(1.18);
-  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
 }
 
 [data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-content,
@@ -1360,7 +1561,7 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 [data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-svg-arrow-outer,
 .tippy-box[data-theme="tooltip"] .tippy-svg-arrow-inner,
 .tippy-box[data-theme="tooltip"] .tippy-svg-arrow-outer {
-  fill: rgba(255, 255, 255, 0.94) !important;
+  fill: var(--anime-popup-bg-strong) !important;
 }
 
 .ui.modal,
