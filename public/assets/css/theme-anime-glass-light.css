@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-02-dropdown-soften */
+/* Anime Glass Light v2026-06-02-v58-source-stable-polish */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-02-dropdown-soften";
+  --theme-version: "2026-06-02-v58-source-stable-polish";
 }
 
 :root {
@@ -42,8 +42,18 @@ gitea-theme-meta-info {
   --anime-commit-bg: rgba(255, 255, 255, 0.62);
   --anime-commit-bg-strong: rgba(255, 255, 255, 0.72);
   --anime-diff-toolbar-bg: rgba(255, 255, 255, 0.74);
-  --anime-code-panel-bg: rgba(251, 254, 255, 0.86);
+  --anime-code-panel-bg: rgba(251, 254, 255, 0.72);
+  --anime-repo-dropdown-bg: rgba(255, 255, 255, 0.72);
+  --anime-repo-dropdown-bg-strong: rgba(255, 255, 255, 0.78);
   --anime-diff-detail-height: 52px;
+  --anime-commits-table-bg: rgba(255, 255, 255, 0.22);
+  --anime-commits-table-head-bg: rgba(255, 255, 255, 0.28);
+  --anime-commits-table-hover-bg: rgba(103, 217, 206, 0.11);
+  --anime-control-bg: rgba(255, 255, 255, 0.72);
+  --anime-control-border: rgba(88, 132, 170, 0.38);
+  --anime-control-hover-bg: rgba(255, 255, 255, 0.82);
+  --anime-control-checked-bg: linear-gradient(135deg, var(--anime-accent-blue), var(--anime-accent-cyan));
+  --anime-control-checked-shadow: 0 8px 18px rgba(71, 163, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.44);
   --anime-glass-border: rgba(95, 139, 180, 0.24);
   --anime-glass-border-strong: rgba(83, 169, 255, 0.34);
   --anime-glass-shadow: 0 18px 44px rgba(51, 93, 132, 0.14);
@@ -714,7 +724,6 @@ header .navbar {
 .repository .markup,
 .repository .comment.form,
 .repository .timeline-item .content,
-.repository .issue.list > .item,
 .feeds .news,
 .commit-list,
 .branch-tag-choice,
@@ -737,12 +746,74 @@ header .navbar {
 
 .ui.card:hover,
 .ui.cards > .card:hover,
-.repository .issue.list > .item:hover,
 .repository .timeline-item .content:hover {
   border-color: rgba(83, 169, 255, 0.26) !important;
   box-shadow: var(--anime-glass-shadow-hover), var(--anime-glass-inset-highlight);
   transform: translate3d(0, var(--anime-hover-lift), 0);
 }
+
+.repository .ui.attached.table.segment.commit-table,
+.repository .ui.attached.segment.commit-table,
+.repository .commit-table,
+.repository .commit-list,
+.commit-list {
+  border-radius: 8px !important;
+  overflow: hidden;
+  border-color: rgba(95, 139, 180, 0.17) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03) 54%),
+    var(--anime-commits-table-bg) !important;
+  box-shadow: 0 8px 22px rgba(51, 93, 132, 0.08), var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.repository #commits-table,
+#commits-table.ui.table,
+#commits-table {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.commits-table :is(thead, th, .commit-list-row-header),
+.repository .commits-table :is(thead, th, .commit-list-row-header),
+.repository #commits-table :is(thead, th, .commit-list-row-header),
+#commits-table :is(thead, th, .commit-list-row-header),
+.repository .commit-list :is(thead, th, .commit-list-row-header),
+.commit-list :is(thead, th, .commit-list-row-header) {
+  background: var(--anime-commits-table-head-bg) !important;
+}
+
+.commits-table :is(tr, td, th),
+.repository .commits-table :is(tr, td, th),
+.repository #commits-table :is(thead, tbody, tr, td, th),
+#commits-table :is(thead, tbody, tr, td, th),
+.repository .commit-list :is(tr, td, th),
+.commit-list :is(tr, td, th) {
+  border-color: rgba(95, 139, 180, 0.13) !important;
+  background-color: transparent !important;
+}
+
+.repository #commits-table.ui.table > tbody > tr,
+.repository #commits-table.ui.striped.table > tbody > tr,
+.repository #commits-table.ui.very.basic.table > tbody > tr,
+#commits-table.ui.table > tbody > tr,
+#commits-table.ui.striped.table > tbody > tr,
+#commits-table.ui.very.basic.table > tbody > tr {
+  background: transparent !important;
+}
+
+.commits-table :is(tr, .commit-list-row):hover,
+.repository .commits-table :is(tr, .commit-list-row):hover,
+.repository #commits-table tbody tr:hover,
+#commits-table tbody tr:hover,
+.repository .commit-list .commit-list-row:hover,
+.commit-list .commit-list-row:hover {
+  background: var(--anime-commits-table-hover-bg) !important;
+}
+
+/* Repository issues/pulls list readability overrides removed intentionally; keep Gitea defaults here. */
 
 .ui.segments > .segment,
 .ui.attached.segment,
@@ -1061,6 +1132,404 @@ h4 {
   box-shadow: var(--anime-focus-ring) !important;
 }
 
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--anime-accent-blue);
+}
+
+body input[type="checkbox"]:not(.hidden),
+body input[type="radio"]:not(.hidden) {
+  position: relative;
+  display: inline-grid;
+  place-content: center;
+  width: 15px;
+  height: 15px;
+  margin: 0 4px 0 0;
+  vertical-align: -2px;
+  border: 1px solid var(--anime-control-border) !important;
+  background: var(--anime-control-bg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    background var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
+    opacity var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+body input[type="checkbox"]:not(.hidden) {
+  border-radius: 4px;
+}
+
+body input[type="radio"]:not(.hidden) {
+  border-radius: 50%;
+}
+
+body input[type="checkbox"]:not(.hidden)::before,
+body input[type="radio"]:not(.hidden)::before {
+  display: block;
+  content: "";
+  transform: scale(0);
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+body input[type="checkbox"]:not(.hidden)::before {
+  width: 5px;
+  height: 9px;
+  margin-top: -1px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18);
+  transform: rotate(45deg) scale(0);
+}
+
+body input[type="radio"]:not(.hidden)::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(18, 76, 128, 0.18);
+}
+
+body input[type="checkbox"]:not(.hidden):hover,
+body input[type="radio"]:not(.hidden):hover {
+  border-color: rgba(71, 163, 255, 0.58) !important;
+  background: var(--anime-control-hover-bg) !important;
+}
+
+body input[type="checkbox"]:not(.hidden):focus-visible,
+body input[type="radio"]:not(.hidden):focus-visible {
+  outline: 0;
+  border-color: rgba(71, 163, 255, 0.68) !important;
+  box-shadow: var(--anime-focus-ring), inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+}
+
+body input[type="checkbox"]:not(.hidden):is(:checked, .checked),
+body input[type="radio"]:not(.hidden):is(:checked, .checked),
+body input[type="checkbox"]:not(.hidden):is(:indeterminate, .indeterminate) {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+body input[type="checkbox"]:not(.hidden):is(:checked, .checked)::before {
+  transform: rotate(45deg) scale(1);
+}
+
+body input[type="radio"]:not(.hidden):is(:checked, .checked)::before {
+  transform: scale(1);
+}
+
+body input[type="checkbox"]:not(.hidden):is(:indeterminate, .indeterminate)::before {
+  width: 9px;
+  height: 2px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18);
+  transform: scale(1);
+}
+
+body input[type="checkbox"]:not(.hidden):disabled,
+body input[type="radio"]:not(.hidden):disabled {
+  cursor: default;
+  opacity: 0.58;
+}
+
+body .ui.checkbox input[type="checkbox"],
+body .ui.checkbox input[type="radio"],
+body .ui.checkbox input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+body .ui.checkbox input[type="radio"]:is(:checked, .checked) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  opacity: 0 !important;
+  z-index: 3;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+}
+
+body .ui.checkbox input[type="checkbox"]::before,
+body .ui.checkbox input[type="radio"]::before,
+body .ui.checkbox input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate)::before,
+body .ui.checkbox input[type="radio"]:is(:checked, .checked)::before {
+  display: none !important;
+  content: none !important;
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"],
+body .ui.checkbox:not(:has(label)) input[type="radio"],
+body .ui.checkbox.issue-checkbox input[type="checkbox"],
+body .ui.checkbox.issue-checkbox input[type="radio"],
+body .issue-checkbox input[type="checkbox"],
+body .issue-checkbox input[type="radio"] {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: inline-grid;
+  place-content: center;
+  width: 15px;
+  height: 15px;
+  margin: 0 4px 0 0;
+  vertical-align: -2px;
+  border: 1px solid var(--anime-control-border) !important;
+  background: var(--anime-control-bg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+  opacity: 1 !important;
+  z-index: auto;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"],
+body .ui.checkbox.issue-checkbox input[type="checkbox"],
+body .issue-checkbox input[type="checkbox"] {
+  border-radius: 4px;
+}
+
+body .ui.checkbox:not(:has(label)) input[type="radio"],
+body .ui.checkbox.issue-checkbox input[type="radio"],
+body .issue-checkbox input[type="radio"] {
+  border-radius: 50%;
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"]::before,
+body .ui.checkbox:not(:has(label)) input[type="radio"]::before,
+body .ui.checkbox.issue-checkbox input[type="checkbox"]::before,
+body .ui.checkbox.issue-checkbox input[type="radio"]::before,
+body .issue-checkbox input[type="checkbox"]::before,
+body .issue-checkbox input[type="radio"]::before {
+  display: block !important;
+  content: "" !important;
+  transform: scale(0);
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"]::before,
+body .ui.checkbox.issue-checkbox input[type="checkbox"]::before,
+body .issue-checkbox input[type="checkbox"]::before {
+  width: 5px;
+  height: 9px;
+  margin-top: -1px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18);
+  transform: rotate(45deg) scale(0);
+}
+
+body .ui.checkbox:not(:has(label)) input[type="radio"]::before,
+body .ui.checkbox.issue-checkbox input[type="radio"]::before,
+body .issue-checkbox input[type="radio"]::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(18, 76, 128, 0.18);
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+body .ui.checkbox:not(:has(label)) input[type="radio"]:is(:checked, .checked),
+body .ui.checkbox.issue-checkbox input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+body .ui.checkbox.issue-checkbox input[type="radio"]:is(:checked, .checked),
+body .issue-checkbox input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+body .issue-checkbox input[type="radio"]:is(:checked, .checked) {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+  opacity: 1 !important;
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"]:is(:checked, .checked)::before,
+body .ui.checkbox.issue-checkbox input[type="checkbox"]:is(:checked, .checked)::before,
+body .issue-checkbox input[type="checkbox"]:is(:checked, .checked)::before {
+  transform: rotate(45deg) scale(1);
+}
+
+body .ui.checkbox:not(:has(label)) input[type="radio"]:is(:checked, .checked)::before,
+body .ui.checkbox.issue-checkbox input[type="radio"]:is(:checked, .checked)::before,
+body .issue-checkbox input[type="radio"]:is(:checked, .checked)::before {
+  transform: scale(1);
+}
+
+body .ui.checkbox:not(:has(label)) input[type="checkbox"]:is(:indeterminate, .indeterminate)::before,
+body .ui.checkbox.issue-checkbox input[type="checkbox"]:is(:indeterminate, .indeterminate)::before,
+body .issue-checkbox input[type="checkbox"]:is(:indeterminate, .indeterminate)::before {
+  width: 9px;
+  height: 2px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18);
+  transform: scale(1);
+}
+
+.ui.checkbox,
+.ui.checkbox label,
+.ui.checkbox + label {
+  color: var(--anime-text) !important;
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label::before {
+  border-color: rgba(88, 132, 170, 0.36) !important;
+  border-radius: 5px !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label::after {
+  top: 2px !important;
+  left: 6px !important;
+  width: 5px !important;
+  height: 10px !important;
+  border: solid #ffffff !important;
+  border-width: 0 2px 2px 0 !important;
+  background: transparent !important;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18) !important;
+  color: transparent !important;
+  content: "" !important;
+  opacity: 0 !important;
+  transform: rotate(45deg) scale(0.82);
+  transform-origin: center;
+}
+
+.ui.right.aligned.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label::after {
+  right: 6px !important;
+  left: auto !important;
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label:hover::before {
+  border-color: rgba(71, 163, 255, 0.52) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input:focus ~ label::before {
+  border-color: rgba(71, 163, 255, 0.62) !important;
+  box-shadow: var(--anime-focus-ring), inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input:checked ~ label::before,
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input.checked ~ label::before,
+.ui.checkbox.checked:not(.toggle):not(.slider):not(.radio):not(.invisible) label::before,
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input:not([type="radio"]):indeterminate ~ label::before,
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input.indeterminate ~ label::before,
+.ui.indeterminate.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label::before {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input:checked ~ label::after,
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input.checked ~ label::after,
+.ui.checkbox.checked:not(.toggle):not(.slider):not(.radio):not(.invisible) label::after {
+  opacity: 1 !important;
+  transform: rotate(45deg) scale(1);
+}
+
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input:not([type="radio"]):indeterminate ~ label::after,
+.ui.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input.indeterminate ~ label::after,
+.ui.indeterminate.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label::after {
+  top: 8px !important;
+  left: 4px !important;
+  width: 9px !important;
+  height: 2px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18) !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.ui.right.aligned.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) input:not([type="radio"]):indeterminate ~ label::after,
+.ui.right.aligned.indeterminate.checkbox:not(.toggle):not(.slider):not(.radio):not(.invisible) label::after {
+  right: 4px !important;
+  left: auto !important;
+}
+
+.ui.radio.checkbox label::before {
+  border-color: rgba(88, 132, 170, 0.36) !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+}
+
+.ui.radio.checkbox input:checked ~ label::before,
+.ui.radio.checkbox input.checked ~ label::before,
+.ui.radio.checkbox.checked label::before {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+.ui.radio.checkbox input:checked ~ label::after,
+.ui.radio.checkbox input.checked ~ label::after,
+.ui.radio.checkbox.checked label::after {
+  background: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.44), 0 1px 2px rgba(18, 76, 128, 0.18) !important;
+  opacity: 1 !important;
+}
+
+.ui.toggle.checkbox label::before,
+.ui.slider.checkbox label::before {
+  background: rgba(88, 132, 170, 0.18) !important;
+  box-shadow: inset 0 1px 2px rgba(51, 93, 132, 0.12) !important;
+}
+
+.ui.toggle.checkbox label::after,
+.ui.slider.checkbox label::after {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(236, 247, 255, 0.92)) !important;
+  box-shadow: 0 5px 12px rgba(51, 93, 132, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+}
+
+.ui.toggle.checkbox input:checked ~ label::before,
+.ui.toggle.checkbox input.checked ~ label::before,
+.ui.toggle.checkbox.checked label::before,
+.ui.slider.checkbox input:checked ~ label::before,
+.ui.slider.checkbox input.checked ~ label::before,
+.ui.slider.checkbox.checked label::before {
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+.ui.toggle.checkbox input.checked ~ label::after,
+.ui.toggle.checkbox.checked label::after {
+  left: 2.15rem !important;
+}
+
+.ui.right.aligned.toggle.checkbox input.checked ~ label::after,
+.ui.right.aligned.toggle.checkbox.checked label::after {
+  right: -0.05rem !important;
+  left: auto !important;
+}
+
+.ui.slider.checkbox input.checked ~ label::after,
+.ui.slider.checkbox.checked label::after {
+  left: 2rem !important;
+}
+
+.ui.right.aligned.slider.checkbox input.checked ~ label::after,
+.ui.right.aligned.slider.checkbox.checked label::after {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.ui.disabled.checkbox label,
+.ui.checkbox input[disabled] ~ label {
+  opacity: 0.62 !important;
+}
+
 .repository.file.list #repo-files-table {
   overflow: hidden;
 }
@@ -1080,6 +1549,15 @@ h4 {
 .ui.table tbody tr:hover,
 .commit-list .commit-list-row:hover {
   background: rgba(103, 217, 206, 0.13) !important;
+}
+
+.commits-table :is(tbody tr, .commit-list-row):hover,
+.repository .commits-table :is(tbody tr, .commit-list-row):hover,
+.repository #commits-table tbody tr:hover,
+#commits-table tbody tr:hover,
+.repository .commit-list .commit-list-row:hover,
+.commit-list .commit-list-row:hover {
+  background: var(--anime-commits-table-hover-bg) !important;
 }
 
 .repository .repo-view-file-tree-container {
@@ -1364,8 +1842,8 @@ h4 {
   padding: 8px !important;
   overflow: hidden !important;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08) 52%),
-    var(--anime-popup-bg-strong) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04) 52%),
+    var(--anime-repo-dropdown-bg-strong) !important;
 }
 
 .page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .ui.icon.search.input {
@@ -1374,14 +1852,14 @@ h4 {
 }
 
 .page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .ui.icon.search.input input {
-  background: rgba(255, 255, 255, 0.68) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
 }
 
 .page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .header {
   margin: 0 0 6px;
-  border: 1px solid rgba(95, 139, 180, 0.18);
+  border: 1px solid rgba(95, 139, 180, 0.14);
   border-radius: 6px;
-  background: rgba(238, 248, 255, 0.48) !important;
+  background: rgba(238, 248, 255, 0.3) !important;
 }
 
 .page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .header .column {
@@ -1495,6 +1973,51 @@ h4 {
   z-index: var(--anime-z-dropdown-menu) !important;
 }
 
+.page-content.repository.diff :is(
+  .commit-header-buttons,
+  .diff-detail-actions,
+  .diff-file-header-actions,
+  .choose.branch
+) .ui.dropdown > .menu,
+.page-content.repository.diff .ui.dropdown.branch-selector-dropdown > .menu {
+  border-color: rgba(95, 139, 180, 0.22) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.38);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04) 52%),
+    var(--anime-repo-dropdown-bg) !important;
+  box-shadow: 0 18px 44px rgba(30, 61, 92, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.36), var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.14);
+  -webkit-backdrop-filter: blur(18px) saturate(1.14);
+}
+
+.page-content.repository.diff :is(
+  .commit-header-buttons,
+  .diff-detail-actions,
+  .diff-file-header-actions,
+  .choose.branch
+) .ui.dropdown > .menu > .header,
+.page-content.repository.diff .ui.dropdown.branch-selector-dropdown > .menu > .header {
+  color: var(--anime-text-muted) !important;
+  background: transparent !important;
+}
+
+.page-content.repository.diff :is(
+  .commit-header-buttons,
+  .diff-detail-actions,
+  .diff-file-header-actions,
+  .choose.branch
+) .ui.dropdown > .menu > .item:hover,
+.page-content.repository.diff :is(
+  .commit-header-buttons,
+  .diff-detail-actions,
+  .diff-file-header-actions,
+  .choose.branch
+) .ui.dropdown > .menu > .item:focus-visible,
+.page-content.repository.diff .ui.dropdown.branch-selector-dropdown > .menu > .item:hover,
+.page-content.repository.diff .ui.dropdown.branch-selector-dropdown > .menu > .item:focus-visible {
+  background: rgba(71, 163, 255, 0.1) !important;
+}
+
 .page-content.repository.diff .commit-body {
   margin: 10px 0 0;
   padding: 10px 12px;
@@ -1562,6 +2085,27 @@ h4 {
   background: rgba(238, 248, 255, 0.9) !important;
   color: #176fc2 !important;
   box-shadow: var(--anime-glass-inset-highlight);
+}
+
+.page-content.repository.diff .ui.attached.table.segment.commit-table,
+.page-content.repository.diff .ui.attached.segment.commit-table,
+.page-content.repository.diff .commit-table {
+  border-color: rgba(95, 139, 180, 0.18) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    var(--anime-commits-table-bg) !important;
+  box-shadow: 0 8px 22px rgba(51, 93, 132, 0.08), var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.14);
+  -webkit-backdrop-filter: blur(18px) saturate(1.14);
+}
+
+.page-content.repository.diff .commit-table :is(tr, td, th) {
+  border-color: rgba(95, 139, 180, 0.14) !important;
+  background-color: transparent !important;
+}
+
+.page-content.repository.diff .commit-table :is(thead, th) {
+  background: var(--anime-commits-table-head-bg) !important;
 }
 
 .page-content.repository.diff .diff-detail-box {
@@ -1636,17 +2180,18 @@ h4 {
   max-width: 100%;
   padding: 0 !important;
   flex: 1 1 auto;
+  background: transparent !important;
 }
 
 .page-content.repository.diff .diff-file-box {
   position: relative;
   z-index: var(--anime-z-content);
   overflow: visible !important;
-  border-color: rgba(95, 139, 180, 0.28) !important;
+  border-color: rgba(95, 139, 180, 0.22) !important;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
-    rgba(255, 255, 255, 0.5) !important;
-  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.36) !important;
+  box-shadow: 0 8px 22px rgba(51, 93, 132, 0.08), var(--anime-glass-inset-highlight);
 }
 
 .page-content.repository.diff .diff-file-box:target {
@@ -1689,11 +2234,11 @@ h4 {
 }
 
 .page-content.repository.diff .diff-file-body {
-  border-color: rgba(95, 139, 180, 0.24) !important;
+  border-color: rgba(95, 139, 180, 0.18) !important;
   border-radius: 0 0 8px 8px !important;
   overflow-x: auto;
   background: var(--anime-code-panel-bg) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.44);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
 .page-content.repository.diff .diff-file-body .file-body.file-code {
@@ -2120,7 +2665,6 @@ footer {
   .ui.tabs.container > .item:hover,
   .ui.card:hover,
   .ui.cards > .card:hover,
-  .repository .issue.list > .item:hover,
   .repository .timeline-item .content:hover,
   .repository .repo-view-file-tree-container :is(a, button, .item):hover,
   .repository .repo-view-file-tree-container :is(a, button, .item):focus-visible,
@@ -2988,3 +3532,1620 @@ html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-re
 .page-content.dashboard.feeds #dashboard-repo-list .ui.two.item.menu {
   margin-top: 0 !important;
 }
+/*
+  v2026-06-02-button-fix
+  Gitea 1.24+ button compatibility guard.
+
+  Gitea's current button module defines .ui.button as an inline-flex action
+  control, .ui.buttons as an inline-flex group, .ui.labeled.button as a
+  wrapper, and .btn as a plain icon/action button. Keep those structure rules
+  intact here, then apply the glass look only on the visible button surface.
+*/
+html[data-theme="anime-glass-light"] {
+  --border-radius: 8px;
+  --gap-block: 0.45rem;
+  --gap-inline: 0.32rem;
+  --opacity-disabled: 0.56;
+  --font-weight-normal: 400;
+  --fonts-regular: var(--fonts-proportional);
+  --color-button: rgba(255, 255, 255, 0.66);
+  --color-light-border: rgba(95, 139, 180, 0.24);
+  --color-primary-contrast: #ffffff;
+  --color-primary-hover: #2f92ec;
+  --color-primary-active: #227fda;
+  --color-green: var(--anime-accent-mint);
+  --color-green-dark-1: #55c780;
+  --color-green-dark-2: #42ad69;
+  --color-red: #ff7eaa;
+  --color-red-dark-1: #f26898;
+  --color-red-dark-2: #dd557f;
+  --color-white: #ffffff;
+}
+
+html[data-theme="anime-glass-light"] .ui.button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--gap-block, 0.45rem) !important;
+  min-width: 0 !important;
+  min-height: 38px;
+  margin: 0 0.25em 0 0;
+  padding: 0.57em 1.43em;
+  border: 1px solid var(--color-light-border) !important;
+  border-radius: var(--border-radius) !important;
+  outline: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.06)),
+    var(--color-button) !important;
+  color: var(--anime-text) !important;
+  font-family: var(--fonts-regular, var(--fonts-proportional)) !important;
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal, 400);
+  line-height: 1 !important;
+  text-align: center;
+  text-decoration: none !important;
+  white-space: nowrap;
+  vertical-align: baseline;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 8px 18px rgba(55, 96, 132, 0.08), var(--anime-glass-inset-highlight) !important;
+}
+
+html[data-theme="anime-glass-light"] button.ui.button,
+html[data-theme="anime-glass-light"] input.ui.button {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+html[data-theme="anime-glass-light"] .ui.button:not(.disabled):not(:disabled) {
+  pointer-events: auto !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.button:hover {
+  border-color: rgba(83, 169, 255, 0.34) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.1)),
+    var(--anime-surface-hover) !important;
+  color: var(--anime-text) !important;
+  box-shadow: 0 12px 28px rgba(55, 96, 132, 0.14), var(--anime-glass-inset-highlight) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.button:active,
+html[data-theme="anime-glass-light"] .ui.active.button,
+html[data-theme="anime-glass-light"] .ui.active.button:hover {
+  background: var(--anime-surface-pressed) !important;
+  color: var(--anime-text) !important;
+  box-shadow: 0 6px 14px rgba(55, 96, 132, 0.1), inset 0 1px 2px rgba(51, 93, 132, 0.12) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.button:focus-visible {
+  outline: 0;
+  box-shadow: var(--anime-focus-ring), var(--anime-accent-glow), var(--anime-glass-inset-highlight) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.disabled.button,
+html[data-theme="anime-glass-light"] .ui.button:disabled,
+html[data-theme="anime-glass-light"] .ui.disabled.button:hover,
+html[data-theme="anime-glass-light"] .ui.disabled.active.button,
+html[data-theme="anime-glass-light"] a.ui.button.disabled {
+  cursor: default !important;
+  opacity: var(--opacity-disabled, 0.56) !important;
+  background-image: none !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.primary.button,
+html[data-theme="anime-glass-light"] .ui.primary.buttons .button,
+html[data-theme="anime-glass-light"] .ui.green.button,
+html[data-theme="anime-glass-light"] .ui.green.buttons .button,
+html[data-theme="anime-glass-light"] .ui.blue.button,
+html[data-theme="anime-glass-light"] .ui.blue.buttons .button {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, var(--anime-accent-blue), var(--anime-accent-cyan)) !important;
+  color: var(--color-primary-contrast, #ffffff) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.primary.button:hover,
+html[data-theme="anime-glass-light"] .ui.primary.buttons .button:hover,
+html[data-theme="anime-glass-light"] .ui.green.button:hover,
+html[data-theme="anime-glass-light"] .ui.green.buttons .button:hover,
+html[data-theme="anime-glass-light"] .ui.blue.button:hover,
+html[data-theme="anime-glass-light"] .ui.blue.buttons .button:hover {
+  background: linear-gradient(135deg, var(--color-primary-hover), var(--anime-accent-cyan)) !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.red.button,
+html[data-theme="anime-glass-light"] .ui.red.buttons .button,
+html[data-theme="anime-glass-light"] .ui.negative.button,
+html[data-theme="anime-glass-light"] .ui.negative.buttons .button {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, var(--color-red), var(--anime-accent-pink)) !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.red.button:hover,
+html[data-theme="anime-glass-light"] .ui.red.buttons .button:hover,
+html[data-theme="anime-glass-light"] .ui.negative.button:hover,
+html[data-theme="anime-glass-light"] .ui.negative.buttons .button:hover {
+  background: linear-gradient(135deg, var(--color-red-dark-1), var(--anime-accent-pink)) !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.basic.button,
+html[data-theme="anime-glass-light"] .ui.basic.buttons .button {
+  border-color: var(--color-light-border) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.48) !important;
+  color: var(--anime-text-muted) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.basic.button:hover,
+html[data-theme="anime-glass-light"] .ui.basic.buttons .button:hover {
+  border-color: rgba(83, 169, 255, 0.32) !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+  color: var(--anime-text) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.basic.primary.button,
+html[data-theme="anime-glass-light"] .ui.basic.primary.buttons .button {
+  border-color: rgba(71, 163, 255, 0.46) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: #176fc2 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.basic.red.button,
+html[data-theme="anime-glass-light"] .ui.basic.red.buttons .button {
+  border-color: rgba(255, 126, 170, 0.5) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: #c74670 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.compact.button,
+html[data-theme="anime-glass-light"] .ui.compact.buttons .button {
+  gap: var(--gap-inline, 0.32rem) !important;
+  min-height: 32px;
+  padding: 0.42em 1.07em;
+}
+
+html[data-theme="anime-glass-light"] .ui.mini.buttons .dropdown,
+html[data-theme="anime-glass-light"] .ui.mini.buttons .dropdown .menu > .item,
+html[data-theme="anime-glass-light"] .ui.mini.buttons .button,
+html[data-theme="anime-glass-light"] .ui.ui.ui.ui.mini.button {
+  gap: var(--gap-inline, 0.32rem) !important;
+  min-height: 30px;
+  font-size: 11px;
+}
+
+html[data-theme="anime-glass-light"] .ui.tiny.buttons .dropdown,
+html[data-theme="anime-glass-light"] .ui.tiny.buttons .dropdown .menu > .item,
+html[data-theme="anime-glass-light"] .ui.tiny.buttons .button,
+html[data-theme="anime-glass-light"] .ui.ui.ui.ui.tiny.button {
+  gap: var(--gap-inline, 0.32rem) !important;
+  min-height: 32px;
+  font-size: 12px;
+}
+
+html[data-theme="anime-glass-light"] .ui.small.buttons .dropdown,
+html[data-theme="anime-glass-light"] .ui.small.buttons .dropdown .menu > .item,
+html[data-theme="anime-glass-light"] .ui.small.buttons .button,
+html[data-theme="anime-glass-light"] .ui.ui.ui.ui.small.button {
+  min-height: 34px;
+  font-size: 13px;
+}
+
+html[data-theme="anime-glass-light"] .ui.icon.button:not(.compact),
+html[data-theme="anime-glass-light"] .ui.icon.buttons .button {
+  min-width: 38px;
+  padding: 0.57em !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.compact.icon.button,
+html[data-theme="anime-glass-light"] .ui.compact.icon.buttons .button {
+  min-width: 32px;
+  padding: 0.42em !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.button > .icon:not(.button),
+html[data-theme="anime-glass-light"] .ui.button > .svg,
+html[data-theme="anime-glass-light"] .ui.button > svg,
+html[data-theme="anime-glass-light"] .ui.icon.button > .icon,
+html[data-theme="anime-glass-light"] .ui.icon.button > .svg,
+html[data-theme="anime-glass-light"] .ui.icon.button > svg {
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  margin: 0 !important;
+  color: currentColor !important;
+  opacity: 0.9;
+  vertical-align: top;
+  pointer-events: none;
+}
+
+html[data-theme="anime-glass-light"] .ui.button:not(.icon) > .icon:not(.button):not(.dropdown),
+html[data-theme="anime-glass-light"] .ui.button:not(.icon) > .svg:not(.button):not(.dropdown),
+html[data-theme="anime-glass-light"] .ui.button:not(.icon) > svg:not(.button):not(.dropdown) {
+  margin: 0 0.42em 0 -0.18em !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.buttons {
+  display: inline-flex !important;
+  flex-direction: row;
+  align-items: stretch;
+  margin: 0 0.25em 0 0;
+  font-size: 0;
+  vertical-align: baseline;
+}
+
+html[data-theme="anime-glass-light"] .ui.buttons .button {
+  flex-shrink: 0;
+  margin: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.buttons .button:first-child,
+html[data-theme="anime-glass-light"] .ui.buttons .button.tw-hidden:first-child + .button {
+  border-left: 1px solid var(--color-light-border) !important;
+  border-top-left-radius: var(--border-radius) !important;
+  border-bottom-left-radius: var(--border-radius) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.buttons .button:last-child,
+html[data-theme="anime-glass-light"] .ui.buttons .button:nth-last-child(2):has(+ .button.tw-hidden) {
+  border-right: 1px solid var(--color-light-border) !important;
+  border-top-right-radius: var(--border-radius) !important;
+  border-bottom-right-radius: var(--border-radius) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.buttons .button:hover + .button {
+  border-left: 1px solid rgba(83, 169, 255, 0.32) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.buttons .button.active {
+  border-right: 1px solid var(--color-light-border) !important;
+  border-left: 1px solid var(--color-light-border) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.labeled.button:not(.icon) {
+  display: inline-flex !important;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0 !important;
+  min-height: unset;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.labeled.button:not(.icon):hover,
+html[data-theme="anime-glass-light"] .ui.labeled.button:not(.icon):active,
+html[data-theme="anime-glass-light"] .ui.labeled.button:not(.icon):focus-visible {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.labeled.button > .button {
+  margin: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.labeled.button > .label {
+  display: inline-flex !important;
+  align-items: center;
+  margin: 0 0 0 -1px !important;
+  border-color: var(--color-light-border) !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  color: var(--anime-text-muted) !important;
+  font-size: 1em;
+  box-shadow: var(--anime-glass-inset-highlight);
+}
+
+html[data-theme="anime-glass-light"] .ui.labeled.button > .label:hover,
+html[data-theme="anime-glass-light"] .ui.labeled.button > .button:hover + .label {
+  border-color: rgba(83, 169, 255, 0.32) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--anime-text) !important;
+}
+
+html[data-theme="anime-glass-light"] .btn:not(.ui.button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0 !important;
+  border-radius: var(--border-radius) !important;
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  line-height: 1;
+  text-decoration: none !important;
+  cursor: pointer;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] .btn:not(.ui.button):hover,
+html[data-theme="anime-glass-light"] .btn:not(.ui.button):active,
+html[data-theme="anime-glass-light"] .btn:not(.ui.button):focus-visible {
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] .btn:not(.ui.button):focus-visible {
+  outline: 0;
+  box-shadow: var(--anime-focus-ring) !important;
+}
+
+html[data-theme="anime-glass-light"] .btn:not(.ui.button) > .svg,
+html[data-theme="anime-glass-light"] .btn:not(.ui.button) > svg,
+html[data-theme="anime-glass-light"] .btn:not(.ui.button) > .icon {
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  color: currentColor !important;
+  pointer-events: none;
+}
+
+html[data-theme="anime-glass-light"] .repository .repo-buttons,
+html[data-theme="anime-glass-light"] .repo-buttons,
+html[data-theme="anime-glass-light"] .repo-button-row {
+  position: relative;
+  z-index: 2;
+  display: flex !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  pointer-events: auto !important;
+}
+
+html[data-theme="anime-glass-light"] .repo-buttons .ui.button,
+html[data-theme="anime-glass-light"] .repo-button-row .ui.button {
+  margin-right: 0;
+}
+
+@media (max-width: 767.98px) {
+  html[data-theme="anime-glass-light"] .ui.button {
+    white-space: normal;
+  }
+}
+
+/*
+  v2026-06-02-checkbox-radio-fix
+
+  Gitea 1.24+ uses the real input element for normal checkbox/radio controls:
+    .ui.checkbox input[type="checkbox"],
+    .ui.checkbox input[type="radio"]
+  The previous theme inherited an old Fomantic-style approach: it hid the real
+  input with opacity: 0 and expected label::before/label::after to draw the
+  control. In current Gitea those pseudo elements are not the main control
+  surface, so normal radio/checkbox controls on settings pages became invisible.
+
+  Keep toggle/slider controls on the label-pseudo implementation, but restore
+  normal checkbox/radio controls to visible native-Gitea-like inputs.
+*/
+html[data-theme="anime-glass-light"] {
+  --checkbox-size: 15px;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible),
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) {
+  position: relative;
+  display: inline-block;
+  min-width: var(--checkbox-size);
+  min-height: var(--checkbox-size);
+  padding: 1px;
+  line-height: var(--checkbox-size);
+  vertical-align: baseline;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label {
+  position: relative;
+  display: block;
+  min-height: var(--checkbox-size);
+  margin-left: 22px !important;
+  padding-left: 0 !important;
+  color: var(--anime-text) !important;
+  cursor: pointer;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::after,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::after {
+  display: none !important;
+  content: none !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"] {
+  position: absolute !important;
+  top: 1px !important;
+  left: 0 !important;
+  z-index: 1 !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  width: var(--checkbox-size) !important;
+  height: var(--checkbox-size) !important;
+  min-width: var(--checkbox-size) !important;
+  min-height: var(--checkbox-size) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid var(--anime-control-border) !important;
+  background: var(--anime-control-bg) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  print-color-adjust: exact;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"] {
+  border-radius: 4px !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"] {
+  border-radius: 50% !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before {
+  display: block !important;
+  width: 5px;
+  height: 9px;
+  margin-top: -1px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  background: transparent !important;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18);
+  content: "" !important;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before {
+  display: block !important;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(18, 76, 128, 0.18);
+  content: "" !important;
+  transform: scale(0);
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:hover,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:hover,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:hover,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:hover {
+  border-color: rgba(71, 163, 255, 0.58) !important;
+  background: var(--anime-control-hover-bg) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:focus-visible,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:focus-visible,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:focus-visible,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:focus-visible {
+  outline: 0 !important;
+  border-color: rgba(71, 163, 255, 0.68) !important;
+  box-shadow: var(--anime-focus-ring), inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked::before,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked::before {
+  transform: rotate(45deg) scale(1);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate::before,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate::before {
+  width: 9px;
+  height: 2px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18);
+  transform: scale(1);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked::before,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked::before {
+  transform: scale(1);
+}
+
+html[data-theme="anime-glass-light"] .ui.disabled.checkbox:not(.toggle):not(.slider):not(.invisible) input,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[disabled],
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[disabled] ~ label {
+  cursor: default !important;
+  opacity: var(--opacity-disabled, 0.56) !important;
+  pointer-events: none !important;
+}
+
+/*
+  Checkbox-only variants used in issue lists or table rows may not have a label.
+  Keep them visible and inline.
+*/
+html[data-theme="anime-glass-light"] .ui.checkbox:not(:has(label)):not(.toggle):not(.slider) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.checkbox:not(:has(label)):not(.toggle):not(.slider) input[type="radio"],
+html[data-theme="anime-glass-light"] .ui.checkbox.issue-checkbox:not(.toggle):not(.slider) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.checkbox.issue-checkbox:not(.toggle):not(.slider) input[type="radio"],
+html[data-theme="anime-glass-light"] .issue-checkbox input[type="checkbox"],
+html[data-theme="anime-glass-light"] .issue-checkbox input[type="radio"] {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: inline-grid !important;
+  margin: 0 4px 0 0 !important;
+  vertical-align: -2px !important;
+}
+
+
+/*
+  Unscoped fallback for installations whose data-theme value is renamed by the
+  CSS filename. This must stay after the old checkbox rules, because the old
+  rules used !important and opacity: 0 on .ui.checkbox input.
+*/
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible),
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) {
+  position: relative;
+  display: inline-block;
+  min-width: var(--checkbox-size, 15px);
+  min-height: var(--checkbox-size, 15px);
+  padding: 1px;
+  line-height: var(--checkbox-size, 15px);
+  vertical-align: baseline;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label {
+  position: relative;
+  display: block;
+  min-height: var(--checkbox-size, 15px);
+  margin-left: 22px !important;
+  padding-left: 0 !important;
+  color: var(--anime-text) !important;
+  cursor: pointer;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::after,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::after {
+  display: none !important;
+  content: none !important;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"] {
+  position: absolute !important;
+  top: 1px !important;
+  left: 0 !important;
+  z-index: 1 !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  width: var(--checkbox-size, 15px) !important;
+  height: var(--checkbox-size, 15px) !important;
+  min-width: var(--checkbox-size, 15px) !important;
+  min-height: var(--checkbox-size, 15px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid var(--anime-control-border) !important;
+  background: var(--anime-control-bg) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  print-color-adjust: exact;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"] {
+  border-radius: 4px !important;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"] {
+  border-radius: 50% !important;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before {
+  display: block !important;
+  width: 5px;
+  height: 9px;
+  margin-top: -1px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  background: transparent !important;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18);
+  content: "" !important;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before {
+  display: block !important;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(18, 76, 128, 0.18);
+  content: "" !important;
+  transform: scale(0);
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg) !important;
+  box-shadow: var(--anime-control-checked-shadow) !important;
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:checked::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].checked::before {
+  transform: rotate(45deg) scale(1);
+}
+
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:checked::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"].checked::before {
+  transform: scale(1);
+}
+
+body .ui.checkbox:not(:has(label)):not(.toggle):not(.slider) input[type="checkbox"],
+body .ui.checkbox:not(:has(label)):not(.toggle):not(.slider) input[type="radio"],
+body .ui.checkbox.issue-checkbox:not(.toggle):not(.slider) input[type="checkbox"],
+body .ui.checkbox.issue-checkbox:not(.toggle):not(.slider) input[type="radio"],
+body .issue-checkbox input[type="checkbox"],
+body .issue-checkbox input[type="radio"] {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: inline-grid !important;
+  margin: 0 4px 0 0 !important;
+  vertical-align: -2px !important;
+}
+
+
+
+/*
+  v2026-06-02-v56-repo-filter-source-clean
+
+  Removed the old v46-v51 dashboard repository filter patches. Those patches mixed
+  the real dropdown popup with overflow-menu.repos-filter and used a legacy
+  checkbox/icon/text sibling layout. Keep only the source-based v52 block below.
+*/
+
+/*
+  v2026-06-02-v52-repo-filter-dom-fixed
+
+  Fix the dashboard repository filter according to Gitea's current DOM:
+
+    1. The archive/private popup is:
+       #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input + label
+
+    2. The repository type tabs are:
+       #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item
+
+  v51 accidentally treated overflow-menu.repos-filter .overflow-menu-items as if it were the small
+  archive/private dropdown popup, forcing the tab bar to 138px and making "自建 / 派生 / 镜像..."
+  look squeezed. It also sized the .ui.checkbox wrapper to only 16px even though Gitea places
+  the icon and text inside the checkbox label, which could hide or overlap the real input box.
+*/
+
+/* The repository type filter tabs are a full-width tab row, not the archive/private popup. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter,
+#dashboard-repo-list overflow-menu.repos-filter,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter {
+  position: relative !important;
+  z-index: var(--anime-z-content) !important;
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items.tw-justify-center,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items.tw-justify-center,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.1rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 2.35rem !important;
+  margin: 0 !important;
+  padding: 0.18rem 0.25rem 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Keep tab items readable and prevent the count label from forcing an accidental wrap. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item {
+  display: inline-flex !important;
+  flex: 0 1 auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.28rem !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 2.15rem !important;
+  margin: 0 !important;
+  padding: 0.55rem 0.58rem !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  border-radius: 7px 7px 0 0 !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item::after,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item::after,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item::after,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item::after,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item::after,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item::after {
+  right: 8px !important;
+  left: 8px !important;
+  bottom: 2px !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item .ui.label,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item .ui.label,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item .ui.label,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item .ui.label,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item .ui.label,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item .ui.label {
+  flex: 0 0 auto !important;
+  margin-left: 0.16rem !important;
+}
+
+/* Only the real dropdown popup gets a compact glass panel. Do not include overflow-menu.repos-filter here. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.visible > .menu,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.active > .menu,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu.visible,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu.transition.visible,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown.visible > .menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown.active > .menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu.transition.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .overflow-menu-popup,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown.visible > .menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown.active > .menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu.transition.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .overflow-menu-popup,
+#dashboard-repo-list .ui.dropdown.visible > .menu,
+#dashboard-repo-list .ui.dropdown.active > .menu,
+#dashboard-repo-list .ui.dropdown > .menu.visible,
+#dashboard-repo-list .ui.dropdown > .menu.transition.visible,
+#dashboard-repo-list .overflow-menu-popup,
+.page-content.dashboard #dashboard-repo-list .ui.dropdown.visible > .menu,
+.page-content.dashboard #dashboard-repo-list .ui.dropdown.active > .menu,
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu.visible,
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu.transition.visible,
+.page-content.dashboard #dashboard-repo-list .overflow-menu-popup,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown.visible > .menu,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown.active > .menu,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu.visible,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu.transition.visible,
+.page-content.dashboard.feeds #dashboard-repo-list .overflow-menu-popup {
+  width: max-content !important;
+  min-width: 148px !important;
+  max-width: min(184px, calc(100vw - 24px)) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Dropdown rows follow Gitea's real structure: item > .ui.checkbox > input + label. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]),
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]),
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]),
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]),
+#dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]),
+#dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]),
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]),
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 7px 9px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  border-radius: 7px !important;
+  color: var(--anime-text) !important;
+  text-align: left !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+#dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+#dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 16px minmax(0, 1fr) !important;
+  align-items: center !important;
+  column-gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 20px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  line-height: 20px !important;
+  pointer-events: none !important;
+}
+
+/* Keep the real input visible; it is a passive state indicator, not the click target. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > input[type="checkbox"],
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > input[type="checkbox"],
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > input[type="checkbox"],
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > input[type="checkbox"],
+#dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > input[type="checkbox"],
+#dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > input[type="checkbox"],
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > input[type="checkbox"],
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > input[type="checkbox"] {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  place-self: center !important;
+  display: inline-grid !important;
+  flex: 0 0 16px !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  max-width: 16px !important;
+  height: 16px !important;
+  min-height: 16px !important;
+  max-height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > label,
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label,
+#dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label,
+#dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > label,
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label {
+  position: relative !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  color: var(--anime-text) !important;
+  line-height: 20px !important;
+  cursor: pointer !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+#dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+#dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+.page-content.dashboard #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg, .svg, .octicon),
+.page-content.dashboard.feeds #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg, .svg, .octicon) {
+  flex: 0 0 16px !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  color: #2d74b8 !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):hover,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):focus-visible,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]):hover,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]):focus-visible,
+#dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):hover,
+#dashboard-repo-list .ui.dropdown > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):focus-visible,
+#dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]):hover,
+#dashboard-repo-list .overflow-menu-popup > .item:has(> .ui.checkbox > input[type="checkbox"]):focus-visible {
+  background: rgba(71, 163, 255, 0.09) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+@media (max-width: 520px) {
+  html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+  #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+  }
+
+  html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items::-webkit-scrollbar,
+  #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+  v2026-06-02-v58-source-stable-polish
+
+  Restore the dashboard repository filter tri-state behavior/visuals without
+  reintroducing the old layout bug:
+    - overflow-menu.repos-filter remains a full-width tab row.
+    - only .ui.dropdown > .menu / .overflow-menu-popup are treated as popup menus.
+    - the checkbox is a passive state indicator; the parent .item remains the
+      click target so Gitea can cycle empty -> checked -> indeterminate.
+    - checked = include, indeterminate = exclude.
+*/
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]),
+.page-content.dashboard #dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]),
+.page-content.dashboard.feeds #dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]) {
+  cursor: pointer !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox > input[type="checkbox"],
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox > label,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item:has(> .ui.checkbox > input[type="checkbox"]) > .ui.checkbox > label * {
+  pointer-events: none !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > label::before,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > label::after {
+  display: none !important;
+  content: none !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"],
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input.tw-pointer-events-none[type="checkbox"],
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input.no-select[type="checkbox"] {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 1 !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  place-self: center !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  flex: 0 0 16px !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  max-width: 16px !important;
+  height: 16px !important;
+  min-height: 16px !important;
+  max-height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+  border: 1px solid rgba(87, 128, 164, 0.44) !important;
+  border-radius: 5px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 248, 255, 0.84)) !important;
+  color: #ffffff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 2px 6px rgba(51, 93, 132, 0.08) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  transform: none !important;
+  transition:
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    background var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard) !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]::before,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input.tw-pointer-events-none[type="checkbox"]::before,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input.no-select[type="checkbox"]::before {
+  display: block !important;
+  place-self: center !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  content: "" !important;
+  opacity: 0 !important;
+  transform: scale(0) !important;
+}
+
+/* State 1: empty = no filter. */
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]:not(:checked):not(:indeterminate):not(.checked):not(.indeterminate) {
+  border-color: rgba(87, 128, 164, 0.44) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 248, 255, 0.84)) !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]:not(:checked):not(:indeterminate):not(.checked):not(.indeterminate)::before {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+}
+
+/* State 2: checked = include. */
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]:checked:not(:indeterminate):not(.indeterminate),
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"].checked:not(:indeterminate):not(.indeterminate) {
+  border-color: rgba(47, 146, 236, 0.78) !important;
+  background:
+    linear-gradient(135deg, rgba(71, 163, 255, 0.94), rgba(103, 217, 206, 0.9)) !important;
+  box-shadow:
+    0 5px 12px rgba(71, 163, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46) !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]:checked:not(:indeterminate):not(.indeterminate)::before,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"].checked:not(:indeterminate):not(.indeterminate)::before {
+  width: 5px !important;
+  height: 9px !important;
+  margin: -2px 0 0 0 !important;
+  border: solid #ffffff !important;
+  border-width: 0 2px 2px 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.16) !important;
+  opacity: 1 !important;
+  transform: rotate(45deg) scale(1) !important;
+}
+
+/* State 3: indeterminate = exclude. */
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]:indeterminate,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"].indeterminate {
+  border-color: rgba(225, 102, 132, 0.74) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 143, 167, 0.92), rgba(255, 184, 140, 0.86)) !important;
+  box-shadow:
+    0 5px 12px rgba(225, 102, 132, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46) !important;
+}
+
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"]:indeterminate::before,
+#dashboard-repo-list :is(.ui.dropdown > .menu, .overflow-menu-popup) > .item > .ui.checkbox > input[type="checkbox"].indeterminate::before {
+  width: 9px !important;
+  height: 2px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(112, 38, 64, 0.16) !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/* Restore the unscoped fallback third-state glyph for installations with renamed data-theme values. */
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:indeterminate::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"].indeterminate::before,
+body input[type="checkbox"]:not(.hidden):indeterminate::before,
+body input[type="checkbox"]:not(.hidden).indeterminate::before {
+  display: block !important;
+  width: 9px !important;
+  height: 2px !important;
+  margin-top: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18) !important;
+  content: "" !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/*
+  v2026-06-02-v58-source-stable-polish
+
+  Final source-aligned stabilization for the dashboard repository list:
+    - Gitea renders the archive/private filter as:
+        #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input + label
+    - Gitea renders the repository type filter as:
+        #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item
+    - The checkbox input uses tw-pointer-events-none in Gitea, so CSS must keep the
+      parent .item as the click target. Do not move click handling back to input.
+    - The overflow-menu tab row is not a dropdown popup. It must never receive the
+      small archive/private popup width.
+    - Issue / Pull Request list overrides remain intentionally disabled.
+*/
+
+/* Dashboard repo filter stacking: the real dropdown should appear above the tab row and glass panels. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .repos-search.ui.attached.segment,
+#dashboard-repo-list .repos-search.ui.attached.segment {
+  position: relative !important;
+  z-index: var(--anime-z-dropdown-scope) !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button,
+#dashboard-repo-list .ui.dropdown.icon.button {
+  position: relative !important;
+  z-index: var(--anime-z-dropdown) !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button.visible,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button.active,
+#dashboard-repo-list .ui.dropdown.icon.button.visible,
+#dashboard-repo-list .ui.dropdown.icon.button.active {
+  z-index: var(--anime-z-dropdown-menu) !important;
+}
+
+/* Only the archive/private dropdown gets the compact popup sizing. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button.visible > .menu,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button.active > .menu,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu.visible,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu.transition.visible,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu,
+#dashboard-repo-list .ui.dropdown.icon.button.visible > .menu,
+#dashboard-repo-list .ui.dropdown.icon.button.active > .menu,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu.visible,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu.transition.visible {
+  z-index: var(--anime-z-dropdown-menu) !important;
+  width: max-content !important;
+  min-width: 150px !important;
+  max-width: min(188px, calc(100vw - 24px)) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  border: 1px solid rgba(72, 117, 158, 0.36) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.18)),
+    rgba(255, 255, 255, 0.88) !important;
+  background-clip: padding-box !important;
+  box-shadow:
+    0 18px 42px rgba(30, 61, 92, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.58),
+    var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.16) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.16) !important;
+}
+
+/* The repository type filter is the full-width tab row, not the popup. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter,
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.ui.secondary.pointing.tabular.borderless.menu.repos-filter,
+#dashboard-repo-list overflow-menu.repos-filter,
+#dashboard-repo-list overflow-menu.ui.secondary.pointing.tabular.borderless.menu.repos-filter {
+  position: relative !important;
+  z-index: var(--anime-z-content) !important;
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-bottom-width: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items.tw-justify-center,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items.tw-justify-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 1 1 auto !important;
+  flex-wrap: nowrap !important;
+  gap: 2px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item {
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 7px 6px !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item > .ui.label,
+#dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items > .item > .ui.label {
+  flex: 0 0 auto !important;
+  margin-left: 5px !important;
+}
+
+/* If overflow-menu creates its own popup for tab overflow, let it be wider than the archive/private menu. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-popup,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-popup {
+  z-index: var(--anime-z-dropdown-menu) !important;
+  width: max-content !important;
+  min-width: 156px !important;
+  max-width: min(280px, calc(100vw - 24px)) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(72, 117, 158, 0.34) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.16)),
+    rgba(255, 255, 255, 0.88) !important;
+  box-shadow:
+    0 18px 42px rgba(30, 61, 92, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.58),
+    var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.16) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.16) !important;
+}
+
+/* Archive/private filter rows: source DOM is item > .ui.checkbox > input + label. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]),
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]) {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 7px 9px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  border-radius: 7px !important;
+  color: var(--anime-text) !important;
+  background: transparent !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):hover,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):focus-visible,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):hover,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item:has(> .ui.checkbox > input[type="checkbox"]):focus-visible {
+  background: rgba(71, 163, 255, 0.1) !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.46) !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox {
+  --repo-filter-check-size: 16px;
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: var(--repo-filter-check-size) minmax(0, 1fr) !important;
+  align-items: center !important;
+  column-gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  line-height: 20px !important;
+  color: var(--anime-text) !important;
+  pointer-events: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"],
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"] {
+  position: relative !important;
+  inset: auto !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  place-self: center !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  width: var(--repo-filter-check-size) !important;
+  min-width: var(--repo-filter-check-size) !important;
+  max-width: var(--repo-filter-check-size) !important;
+  height: var(--repo-filter-check-size) !important;
+  min-height: var(--repo-filter-check-size) !important;
+  max-height: var(--repo-filter-check-size) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(87, 128, 164, 0.44) !important;
+  border-radius: 5px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 248, 255, 0.84)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 2px 6px rgba(51, 93, 132, 0.08) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: var(--anime-text) !important;
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  line-height: 20px !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  pointer-events: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label::before,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label::after,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label::before,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label::after {
+  display: none !important;
+  content: none !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label :is(svg, .svg, .octicon),
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > label :is(svg, .svg, .octicon) {
+  flex: 0 0 16px !important;
+  width: 16px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  color: #5a6f86 !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]::before,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]::before {
+  display: block !important;
+  content: "" !important;
+  transform-origin: center !important;
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard), opacity var(--anime-motion-fast) var(--anime-ease-standard) !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:checked,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].checked,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:checked,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].checked {
+  border-color: rgba(47, 146, 236, 0.78) !important;
+  background: linear-gradient(135deg, var(--anime-accent-blue), var(--anime-accent-cyan)) !important;
+  box-shadow:
+    0 6px 14px rgba(71, 163, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.44) !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:checked::before,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].checked::before,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:checked::before,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].checked::before {
+  width: 5px !important;
+  height: 9px !important;
+  margin-top: -1px !important;
+  border: solid #ffffff !important;
+  border-width: 0 2px 2px 0 !important;
+  background: transparent !important;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18) !important;
+  transform: rotate(45deg) scale(1) !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:indeterminate,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].indeterminate,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:indeterminate,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].indeterminate {
+  border-color: rgba(255, 143, 104, 0.82) !important;
+  background: linear-gradient(135deg, #ff9f7a, #ff7fa8) !important;
+  box-shadow:
+    0 6px 14px rgba(255, 127, 168, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.44) !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:indeterminate::before,
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].indeterminate::before,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"]:indeterminate::before,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input[type="checkbox"].indeterminate::before {
+  width: 9px !important;
+  height: 2px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18) !important;
+  transform: scale(1) !important;
+}
+
+/* Hide only plain tooltip tippies while the filter dropdown is open, leaving menu/default tippies alone. */
+body:has(#dashboard-repo-list .ui.dropdown.icon.button.visible > .menu) [data-tippy-root]:has(.tippy-box[data-theme="tooltip"]),
+body:has(#dashboard-repo-list .ui.dropdown.icon.button.active > .menu) [data-tippy-root]:has(.tippy-box[data-theme="tooltip"]),
+body:has(#dashboard-repo-list .ui.dropdown.icon.button > .menu.visible) [data-tippy-root]:has(.tippy-box[data-theme="tooltip"]),
+body:has(#dashboard-repo-list .ui.dropdown.icon.button > .menu.transition.visible) [data-tippy-root]:has(.tippy-box[data-theme="tooltip"]) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 520px) {
+  html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+  html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items.tw-justify-center,
+  #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items,
+  #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items.tw-justify-center {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+  }
+
+  html[data-theme="anime-glass-light"] #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items::-webkit-scrollbar,
+  #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
