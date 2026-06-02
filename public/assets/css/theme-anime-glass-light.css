@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-02-v58-source-stable-polish */
+/* Anime Glass Light v2026-06-02-v59-icon-color-polish */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-02-v58-source-stable-polish";
+  --theme-version: "2026-06-02-v59-icon-color-polish";
 }
 
 :root {
@@ -5147,5 +5147,383 @@ body:has(#dashboard-repo-list .ui.dropdown.icon.button > .menu.transition.visibl
   #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items::-webkit-scrollbar {
     display: none !important;
   }
+}
+
+/*
+  v2026-06-02-v59-icon-color-polish
+
+  Icon color polish for Anime Glass Light.
+
+  Gitea/Octicon SVG icons mostly follow currentColor. Keep this block near the
+  end of the file so it can override older hard-coded icon colors such as the
+  file-tree #4883b8 and repository-filter #2d74b8 rules without editing every
+  historical section above.
+
+  Do not use a global "svg path { fill: ... }" rule here. That would recolor
+  logos, avatars, emoji, heatmaps, and other multi-color SVG assets.
+*/
+
+:root,
+html[data-theme="anime-glass-light"] {
+  --anime-icon-default: #3f719f;
+  --anime-icon-muted: #6f86a0;
+  --anime-icon-subtle: #8aa0b6;
+
+  --anime-icon-primary: #2d8fe8;
+  --anime-icon-primary-hover: #176fc2;
+  --anime-icon-cyan: #22b8c7;
+  --anime-icon-mint: #3fbf7f;
+  --anime-icon-pink: #e86f9f;
+  --anime-icon-orange: #e99a3a;
+  --anime-icon-red: #e0567a;
+  --anime-icon-purple: #8b7cf6;
+
+  --anime-icon-folder: #2d8fe8;
+  --anime-icon-file: #527a9f;
+  --anime-icon-private: #d86f9f;
+  --anime-icon-fork: #22a9bd;
+  --anime-icon-mirror: #4fbf98;
+  --anime-icon-archived: #d8933a;
+  --anime-icon-branch: #3f88d9;
+  --anime-icon-pr: #8b7cf6;
+
+  /* Gitea's git-brand icon variable, used by some migration/source icons. */
+  --color-git: #f07b58;
+}
+
+/* Base icon tone. The stylesheet is a theme file, so an unscoped fallback is intentional. */
+html[data-theme="anime-glass-light"] :is(svg.svg, .svg, .octicon),
+body :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-default);
+  fill: currentColor;
+  transition:
+    color var(--anime-motion-fast, 140ms) var(--anime-ease-standard, ease),
+    opacity var(--anime-motion-fast, 140ms) var(--anime-ease-standard, ease),
+    transform var(--anime-motion-fast, 140ms) var(--anime-ease-standard, ease);
+}
+
+/* Do not recolor image-like or multi-color assets. */
+html[data-theme="anime-glass-light"] :is(
+  .ui.avatar svg,
+  .avatar svg,
+  .emoji svg,
+  .emoji img,
+  .heatmap svg,
+  .heatmap image,
+  .color-icon,
+  img.svg
+),
+body :is(
+  .ui.avatar svg,
+  .avatar svg,
+  .emoji svg,
+  .emoji img,
+  .heatmap svg,
+  .heatmap image,
+  .color-icon,
+  img.svg
+) {
+  color: inherit !important;
+  fill: initial;
+}
+
+/* Link/button/menu interactions. */
+html[data-theme="anime-glass-light"] :is(a, button, .ui.button, .btn, .ui.menu .item):hover :is(svg.svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] :is(a, button, .ui.button, .btn, .ui.menu .item):focus-visible :is(svg.svg, .svg, .octicon),
+body :is(a, button, .ui.button, .btn, .ui.menu .item):hover :is(svg.svg, .svg, .octicon),
+body :is(a, button, .ui.button, .btn, .ui.menu .item):focus-visible :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-primary-hover) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.ui.menu, .ui.dropdown, .ui.button, .btn) :is(svg.svg, .svg, .octicon),
+body :is(.ui.menu, .ui.dropdown, .ui.button, .btn) :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-default);
+}
+
+html[data-theme="anime-glass-light"] :is(.ui.menu .active.item, .ui.secondary.menu .active.item, .ui.tabs.container .active.item) :is(svg.svg, .svg, .octicon),
+body :is(.ui.menu .active.item, .ui.secondary.menu .active.item, .ui.tabs.container .active.item) :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-primary) !important;
+}
+
+/* Repository/dashboard icon groups. */
+html[data-theme="anime-glass-light"] :is(#dashboard-repo-list, .dashboard-repos, .repository.list, .repo-owner-name-list) :is(svg.svg, .svg, .octicon),
+body :is(#dashboard-repo-list, .dashboard-repos, .repository.list, .repo-owner-name-list) :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-default);
+}
+
+/* Repository type semantic colors. */
+html[data-theme="anime-glass-light"] :is(.svg.octicon-repo, .octicon-repo),
+body :is(.svg.octicon-repo, .octicon-repo) {
+  color: var(--anime-icon-primary) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.svg.octicon-lock, .octicon-lock, .svg.octicon-shield-lock, .octicon-shield-lock),
+body :is(.svg.octicon-lock, .octicon-lock, .svg.octicon-shield-lock, .octicon-shield-lock) {
+  color: var(--anime-icon-private) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.svg.octicon-repo-forked, .octicon-repo-forked),
+body :is(.svg.octicon-repo-forked, .octicon-repo-forked) {
+  color: var(--anime-icon-fork) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.svg.octicon-mirror, .octicon-mirror),
+body :is(.svg.octicon-mirror, .octicon-mirror) {
+  color: var(--anime-icon-mirror) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.svg.octicon-archive, .octicon-archive, .svg.octicon-package, .octicon-package),
+body :is(.svg.octicon-archive, .octicon-archive, .svg.octicon-package, .octicon-package) {
+  color: var(--anime-icon-archived) !important;
+}
+
+/* Git graph / branch / PR / merge icons. */
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-git-branch,
+  .octicon-git-branch,
+  .svg.octicon-git-commit,
+  .octicon-git-commit
+),
+body :is(
+  .svg.octicon-git-branch,
+  .octicon-git-branch,
+  .svg.octicon-git-commit,
+  .octicon-git-commit
+) {
+  color: var(--anime-icon-branch) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-git-pull-request,
+  .octicon-git-pull-request,
+  .svg.octicon-git-pull-request-closed,
+  .octicon-git-pull-request-closed,
+  .svg.octicon-git-pull-request-draft,
+  .octicon-git-pull-request-draft
+),
+body :is(
+  .svg.octicon-git-pull-request,
+  .octicon-git-pull-request,
+  .svg.octicon-git-pull-request-closed,
+  .octicon-git-pull-request-closed,
+  .svg.octicon-git-pull-request-draft,
+  .octicon-git-pull-request-draft
+) {
+  color: var(--anime-icon-pr) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.svg.octicon-git-merge, .octicon-git-merge),
+body :is(.svg.octicon-git-merge, .octicon-git-merge) {
+  color: var(--anime-icon-mint) !important;
+}
+
+/* File list / file tree icons. */
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-file-directory-fill,
+  .svg.octicon-file-directory-open-fill,
+  .svg.octicon-file-submodule,
+  .octicon-file-directory-fill,
+  .octicon-file-directory-open-fill,
+  .octicon-file-submodule
+),
+body :is(
+  .svg.octicon-file-directory-fill,
+  .svg.octicon-file-directory-open-fill,
+  .svg.octicon-file-submodule,
+  .octicon-file-directory-fill,
+  .octicon-file-directory-open-fill,
+  .octicon-file-submodule
+) {
+  color: var(--anime-icon-folder) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-file,
+  .svg.octicon-file-symlink-file,
+  .svg.octicon-file-directory-symlink,
+  .octicon-file,
+  .octicon-file-symlink-file,
+  .octicon-file-directory-symlink
+),
+body :is(
+  .svg.octicon-file,
+  .svg.octicon-file-symlink-file,
+  .svg.octicon-file-directory-symlink,
+  .octicon-file,
+  .octicon-file-symlink-file,
+  .octicon-file-directory-symlink
+) {
+  color: var(--anime-icon-file) !important;
+}
+
+/* Override earlier hard-coded file-tree icon colors. */
+html[data-theme="anime-glass-light"] .repository :is(
+  .repo-view-file-tree-container,
+  #diff-file-tree,
+  .diff-file-tree,
+  #repo-files-table
+) :is(.svg, .octicon, svg.svg),
+body .repository :is(
+  .repo-view-file-tree-container,
+  #diff-file-tree,
+  .diff-file-tree,
+  #repo-files-table
+) :is(.svg, .octicon, svg.svg) {
+  color: var(--anime-icon-file) !important;
+  flex: 0 0 auto;
+}
+
+html[data-theme="anime-glass-light"] .repository :is(
+  .repo-view-file-tree-container,
+  #diff-file-tree,
+  .diff-file-tree,
+  #repo-files-table
+) :is(.active, .selected, [aria-current="page"], [aria-selected="true"], tr:hover, a:hover) :is(.svg, .octicon, svg.svg),
+body .repository :is(
+  .repo-view-file-tree-container,
+  #diff-file-tree,
+  .diff-file-tree,
+  #repo-files-table
+) :is(.active, .selected, [aria-current="page"], [aria-selected="true"], tr:hover, a:hover) :is(.svg, .octicon, svg.svg) {
+  color: var(--anime-icon-primary) !important;
+}
+
+/* Status icons. */
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-check,
+  .svg.octicon-check-circle,
+  .svg.octicon-issue-opened,
+  .octicon-check,
+  .octicon-check-circle,
+  .octicon-issue-opened,
+  .text.green .svg,
+  .text.positive .svg,
+  .tw-text-green .svg,
+  .tw-text-green svg
+),
+body :is(
+  .svg.octicon-check,
+  .svg.octicon-check-circle,
+  .svg.octicon-issue-opened,
+  .octicon-check,
+  .octicon-check-circle,
+  .octicon-issue-opened,
+  .text.green .svg,
+  .text.positive .svg,
+  .tw-text-green .svg,
+  .tw-text-green svg
+) {
+  color: var(--anime-icon-mint) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-alert,
+  .svg.octicon-alert-fill,
+  .svg.octicon-report,
+  .octicon-alert,
+  .octicon-alert-fill,
+  .octicon-report,
+  .text.yellow .svg,
+  .text.orange .svg,
+  .text.warning .svg,
+  .tw-text-yellow .svg,
+  .tw-text-orange .svg,
+  .tw-text-yellow svg,
+  .tw-text-orange svg
+),
+body :is(
+  .svg.octicon-alert,
+  .svg.octicon-alert-fill,
+  .svg.octicon-report,
+  .octicon-alert,
+  .octicon-alert-fill,
+  .octicon-report,
+  .text.yellow .svg,
+  .text.orange .svg,
+  .text.warning .svg,
+  .tw-text-yellow .svg,
+  .tw-text-orange .svg,
+  .tw-text-yellow svg,
+  .tw-text-orange svg
+) {
+  color: var(--anime-icon-orange) !important;
+}
+
+html[data-theme="anime-glass-light"] :is(
+  .svg.octicon-x,
+  .svg.octicon-x-circle,
+  .svg.octicon-issue-closed,
+  .svg.octicon-blocked,
+  .octicon-x,
+  .octicon-x-circle,
+  .octicon-issue-closed,
+  .octicon-blocked,
+  .text.red .svg,
+  .text.negative .svg,
+  .tw-text-red .svg,
+  .tw-text-red svg
+),
+body :is(
+  .svg.octicon-x,
+  .svg.octicon-x-circle,
+  .svg.octicon-issue-closed,
+  .svg.octicon-blocked,
+  .octicon-x,
+  .octicon-x-circle,
+  .octicon-issue-closed,
+  .octicon-blocked,
+  .text.red .svg,
+  .text.negative .svg,
+  .tw-text-red .svg,
+  .tw-text-red svg
+) {
+  color: var(--anime-icon-red) !important;
+}
+
+/* Dashboard repository filter popup icon color, overriding the v52/v58 hard-coded #2d74b8. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg.svg, svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] #dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > label > :is(svg.svg, svg, .svg, .octicon),
+body #dashboard-repo-list .ui.dropdown > .menu > .item > .ui.checkbox > label > :is(svg.svg, svg, .svg, .octicon),
+body #dashboard-repo-list .overflow-menu-popup > .item > .ui.checkbox > label > :is(svg.svg, svg, .svg, .octicon) {
+  color: var(--anime-icon-primary) !important;
+}
+
+/* Dashboard repository filter trigger icon. */
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > :is(svg.svg, svg, .svg, .octicon),
+body #dashboard-repo-list .ui.dropdown.icon.button > :is(svg.svg, svg, .svg, .octicon) {
+  color: var(--anime-icon-default) !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button:hover > :is(svg.svg, svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button.active > :is(svg.svg, svg, .svg, .octicon),
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button.visible > :is(svg.svg, svg, .svg, .octicon),
+body #dashboard-repo-list .ui.dropdown.icon.button:hover > :is(svg.svg, svg, .svg, .octicon),
+body #dashboard-repo-list .ui.dropdown.icon.button.active > :is(svg.svg, svg, .svg, .octicon),
+body #dashboard-repo-list .ui.dropdown.icon.button.visible > :is(svg.svg, svg, .svg, .octicon) {
+  color: var(--anime-icon-primary) !important;
+}
+
+/* Button icon contrast. */
+html[data-theme="anime-glass-light"] :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, .ui.negative.button) :is(svg.svg, .svg, .octicon),
+body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, .ui.negative.button) :is(svg.svg, .svg, .octicon) {
+  color: #ffffff !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.delete-button, .remove-button, .danger, .negative) :is(svg.svg, .svg, .octicon),
+body :is(.delete-button, .remove-button, .danger, .negative) :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-red) !important;
+}
+
+/* Disabled icons. */
+html[data-theme="anime-glass-light"] :is(.disabled, [disabled], .ui.disabled) :is(svg.svg, .svg, .octicon),
+body :is(.disabled, [disabled], .ui.disabled) :is(svg.svg, .svg, .octicon) {
+  color: var(--anime-icon-subtle) !important;
+  opacity: 0.62;
+}
+
+/* Final safeguard: icons inside active primary/negative buttons must remain white. */
+html[data-theme="anime-glass-light"] :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, .ui.negative.button, .ui.button.primary, .ui.button.negative) :is(svg.svg, .svg, .octicon),
+body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, .ui.negative.button, .ui.button.primary, .ui.button.negative) :is(svg.svg, .svg, .octicon) {
+  color: #ffffff !important;
 }
 
