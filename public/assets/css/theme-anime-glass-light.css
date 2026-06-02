@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-02-dropdown-scroll-fix */
+/* Anime Glass Light v2026-06-02-dashboard-hard-align */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-02-dropdown-scroll-fix";
+  --theme-version: "2026-06-02-dashboard-hard-align";
 }
 
 :root {
@@ -268,9 +268,11 @@ footer {
 .page-content.dashboard #dashboard-repo-list.flex-container-sidebar,
 .page-content.dashboard.feeds #dashboard-repo-list.flex-container-sidebar {
   position: sticky;
-  top: 74px;
+  top: 0;
   width: 448px;
   max-width: 448px;
+  margin-top: 0 !important;
+  align-self: flex-start;
   flex: 0 0 448px;
 }
 
@@ -297,7 +299,8 @@ footer {
 .page-content.dashboard > .ui.container > .ui.stackable.grid > .six.wide.column,
 .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .six.wide.column {
   position: sticky;
-  top: 74px;
+  top: 0;
+  margin-top: 0 !important;
   width: 448px !important;
   flex: 0 0 448px;
 }
@@ -1685,6 +1688,11 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
   -webkit-backdrop-filter: blur(22px) saturate(1.2);
 }
 
+.page-content.dashboard #dashboard-repo-list .ui.two.item.menu,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.two.item.menu {
+  margin-top: 0 !important;
+}
+
 [data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-content,
 .tippy-box[data-theme="tooltip"] .tippy-content {
   z-index: calc(var(--anime-z-tooltip) + 2) !important;
@@ -1713,4 +1721,23 @@ html[data-theme="anime-glass-light"] .ui.selection.dropdown.active > .menu,
   overflow-x: hidden !important;
   overflow-y: auto !important;
   overscroll-behavior: contain;
+}
+
+/*
+  Final dashboard sidebar alignment guard.
+*/
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list.flex-container-sidebar,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list.flex-container-sidebar,
+.page-content.dashboard #dashboard-repo-list.flex-container-sidebar,
+.page-content.dashboard.feeds #dashboard-repo-list.flex-container-sidebar {
+  top: 0 !important;
+  margin-top: 0 !important;
+  align-self: flex-start !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.dashboard #dashboard-repo-list .ui.two.item.menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds #dashboard-repo-list .ui.two.item.menu,
+.page-content.dashboard #dashboard-repo-list .ui.two.item.menu,
+.page-content.dashboard.feeds #dashboard-repo-list .ui.two.item.menu {
+  margin-top: 0 !important;
 }
