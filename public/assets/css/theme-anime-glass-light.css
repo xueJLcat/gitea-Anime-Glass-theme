@@ -1,0 +1,1369 @@
+/* Anime Glass Light v2026-06-01-source-layer-cleanup */
+
+gitea-theme-meta-info {
+  --theme-display-name: "Anime Glass Light";
+  --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
+  --theme-version: "2026-06-01-source-layer-cleanup";
+}
+
+:root {
+  --is-dark-theme: false;
+
+  /*
+    Replace this with your image-host URL, for example:
+    --anime-bg-url: url("/assets/img/anime-light-bg.webp");
+  */
+  --anime-bg-url: url("/assets/img/anime-light-bg.webp");
+
+  --anime-bg-opacity: 1;
+  --anime-bg-position: center center;
+  --anime-bg-size: cover;
+  --anime-bg-wash: rgba(244, 250, 255, 0.46);
+  --anime-bg-wash-strong: rgba(255, 255, 255, 0.66);
+  --anime-glass-bg: rgba(255, 255, 255, 0.52);
+  --anime-glass-bg-strong: rgba(255, 255, 255, 0.68);
+  --anime-glass-bg-soft: rgba(255, 255, 255, 0.36);
+  --anime-glass-border: rgba(95, 139, 180, 0.24);
+  --anime-glass-border-strong: rgba(83, 169, 255, 0.34);
+  --anime-glass-shadow: 0 18px 44px rgba(51, 93, 132, 0.14);
+  --anime-glass-shadow-soft: 0 10px 26px rgba(51, 93, 132, 0.1);
+  --anime-glass-blur: 24px;
+  --anime-accent-blue: #47a3ff;
+  --anime-accent-cyan: #67d9ce;
+  --anime-accent-mint: #76d99a;
+  --anime-accent-pink: #ff9fc3;
+  --anime-text: #263447;
+  --anime-text-muted: #607086;
+  --anime-text-subtle: #7a8799;
+  --anime-z-content: 10;
+  --anime-z-pagebar: 1000;
+  --anime-z-dashboard-dropdown: 1100;
+  --anime-z-navbar: 2000;
+  --anime-z-navbar-dropdown: 2100;
+  --anime-z-dropdown: 2100;
+  --anime-z-tooltip: 3000;
+  --anime-z-modal: 5000;
+
+  --fonts-proportional: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans", sans-serif;
+  --fonts-monospace: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+
+  --color-primary: var(--anime-accent-blue);
+  --color-primary-dark-1: #2f92ec;
+  --color-primary-dark-2: #227fda;
+  --color-primary-dark-3: #176fc2;
+  --color-primary-dark-4: #0f5faa;
+  --color-primary-dark-5: #0b4e8d;
+  --color-primary-dark-6: #083f73;
+  --color-primary-dark-7: #06325b;
+  --color-primary-light-1: #63b2ff;
+  --color-primary-light-2: #82c3ff;
+  --color-primary-light-3: #a6d5ff;
+  --color-primary-light-4: #cbe8ff;
+  --color-primary-light-5: #e6f4ff;
+  --color-primary-light-6: #f2f9ff;
+  --color-primary-light-7: #f8fcff;
+
+  --color-secondary: rgba(255, 255, 255, 0.56);
+  --color-secondary-alpha-60: rgba(255, 255, 255, 0.42);
+  --color-secondary-dark-1: rgba(236, 245, 252, 0.7);
+  --color-secondary-dark-2: rgba(218, 234, 246, 0.76);
+  --color-secondary-dark-3: rgba(201, 223, 239, 0.82);
+  --color-secondary-dark-4: rgba(182, 210, 231, 0.88);
+  --color-secondary-light-1: rgba(255, 255, 255, 0.66);
+  --color-secondary-light-2: rgba(255, 255, 255, 0.74);
+  --color-secondary-light-3: rgba(255, 255, 255, 0.82);
+  --color-secondary-light-4: #ffffff;
+
+  --color-body: transparent;
+  --color-box-header: rgba(255, 255, 255, 0.58);
+  --color-box-body: rgba(255, 255, 255, 0.44);
+  --color-box-body-highlight: rgba(238, 248, 255, 0.56);
+  --color-text: var(--anime-text);
+  --color-text-light: var(--anime-text-muted);
+  --color-text-light-1: #4c5d72;
+  --color-text-light-2: #6f7f92;
+  --color-text-light-3: #8a96a6;
+  --color-footer: rgba(255, 255, 255, 0.58);
+  --color-timeline: rgba(96, 134, 169, 0.24);
+  --color-input-text: var(--anime-text);
+  --color-input-background: rgba(255, 255, 255, 0.58);
+  --color-input-border: rgba(88, 132, 170, 0.28);
+  --color-input-border-hover: rgba(71, 163, 255, 0.52);
+  --color-navbar: rgba(255, 255, 255, 0.5);
+  --color-light: rgba(255, 255, 255, 0.56);
+  --color-light-mimic-enabled: rgba(255, 255, 255, 0.56);
+  --color-hover: rgba(92, 190, 216, 0.16);
+  --color-active: rgba(71, 163, 255, 0.16);
+  --color-menu: rgba(255, 255, 255, 0.5);
+  --color-card: rgba(255, 255, 255, 0.48);
+  --color-markup-table-row: rgba(255, 255, 255, 0.38);
+  --color-markup-code-block: rgba(248, 252, 255, 0.54);
+  --color-code-bg: rgba(248, 252, 255, 0.54);
+  --color-code-sidebar-bg: rgba(255, 255, 255, 0.54);
+  --color-diff-removed-row-bg: rgba(255, 159, 195, 0.16);
+  --color-diff-added-row-bg: rgba(118, 217, 154, 0.16);
+  --color-diff-removed-word-bg: rgba(255, 118, 161, 0.28);
+  --color-diff-added-word-bg: rgba(93, 205, 136, 0.28);
+  --color-border: rgba(95, 139, 180, 0.22);
+  --color-reaction-bg: rgba(255, 255, 255, 0.68);
+  --color-reaction-active-bg: rgba(71, 163, 255, 0.18);
+  --color-label-bg: rgba(238, 248, 255, 0.78);
+  --color-heatmap-0: rgba(255, 255, 255, 0.42);
+  --color-heatmap-1: rgba(183, 224, 255, 0.94);
+  --color-heatmap-2: rgba(129, 204, 255, 0.96);
+  --color-heatmap-3: rgba(65, 164, 245, 0.98);
+  --color-heatmap-4: rgba(31, 120, 214, 1);
+}
+
+html,
+body {
+  min-height: 100%;
+  background: #f7fbff !important;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background: transparent !important;
+  color: var(--anime-text) !important;
+  font-family: var(--fonts-proportional) !important;
+  letter-spacing: 0;
+}
+
+body::before,
+body::after {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+}
+
+body::before {
+  z-index: -2;
+  background-color: #f7fbff;
+  background-image:
+    linear-gradient(135deg, var(--anime-bg-wash-strong), var(--anime-bg-wash) 42%, rgba(250, 253, 255, 0.56)),
+    var(--anime-bg-url);
+  background-position: var(--anime-bg-position);
+  background-size: var(--anime-bg-size);
+  background-repeat: no-repeat;
+  opacity: var(--anime-bg-opacity);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+body::after {
+  z-index: -1;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 159, 195, 0.22), transparent 24rem),
+    radial-gradient(circle at 84% 12%, rgba(103, 217, 206, 0.2), transparent 24rem),
+    radial-gradient(circle at 52% 92%, rgba(71, 163, 255, 0.14), transparent 28rem);
+  mix-blend-mode: normal;
+}
+
+#app,
+.full.height,
+.page-content,
+footer {
+  position: relative;
+  z-index: auto;
+}
+
+a {
+  color: #237ed4;
+  transition: color 160ms ease, opacity 160ms ease;
+}
+
+a:hover {
+  color: #0f67ba;
+}
+
+.full.height,
+.full.height > .page-content,
+body > .full.height,
+.page-content,
+.page-content.home,
+.page-content.dashboard,
+.page-content.dashboard.feeds,
+.page-content .ui.container,
+.page-content > .ui.container,
+#app,
+#app .full.height,
+#app > .full.height,
+#app > .full.height > .page-content,
+#app > .full.height > .page-content > .ui.container,
+.app,
+.main-content,
+main,
+.page-wrapper,
+.content-wrapper,
+.ui.main.container,
+.repository,
+.repository .ui.container,
+.dashboard,
+.dashboard .ui.container,
+.dashboard .ui.grid,
+.organization,
+.user.profile,
+.admin,
+.explore,
+footer {
+  background: transparent !important;
+}
+
+.ui.container {
+  max-width: 1280px;
+}
+
+.page-content.dashboard,
+.page-content.dashboard.feeds {
+  padding-top: 18px;
+}
+
+.page-content.dashboard > .ui.container,
+.page-content.dashboard.feeds > .ui.container {
+  width: min(1280px, calc(100vw - 48px)) !important;
+}
+
+.page-content.dashboard > .ui.container > .ui.stackable.grid,
+.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid {
+  gap: 22px;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.page-content.dashboard > .ui.container > .ui.stackable.grid > .column,
+.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .column {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.page-content.dashboard > .ui.container > .ui.stackable.grid > .ten.wide.column,
+.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .ten.wide.column {
+  width: calc(100% - 470px) !important;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.page-content.dashboard > .ui.container > .ui.stackable.grid > .six.wide.column,
+.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .six.wide.column {
+  position: sticky;
+  top: 74px;
+  width: 448px !important;
+  flex: 0 0 448px;
+}
+
+.dashboard-navbar,
+.page-content.dashboard .dashboard-navbar,
+.page-content.dashboard.feeds .dashboard-navbar {
+  position: relative;
+  z-index: var(--anime-z-pagebar);
+  overflow: visible !important;
+  border-bottom: 1px solid var(--anime-glass-border) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 8px 22px rgba(55, 96, 132, 0.08);
+  backdrop-filter: blur(22px) saturate(1.22);
+  -webkit-backdrop-filter: blur(22px) saturate(1.22);
+}
+
+.dashboard.feeds .heatmap-container,
+.page-content.dashboard #user-heatmap,
+.page-content.dashboard .heatmap,
+.page-content.dashboard .user-heatmap {
+  position: relative;
+  z-index: var(--anime-z-content);
+  border: 1px solid var(--anime-glass-border) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: var(--anime-glass-shadow-soft);
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+}
+
+.dashboard.feeds .news,
+.dashboard.feeds .news .content,
+.dashboard.feeds .news .ui.grid,
+.dashboard.feeds .news .ui.segment,
+.dashboard.feeds .news .content .text {
+  background: transparent !important;
+}
+
+.dashboard.feeds .news {
+  margin-bottom: 12px;
+  padding: 14px 16px !important;
+  border: 1px solid rgba(95, 139, 180, 0.16) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.34) !important;
+  box-shadow: 0 8px 22px rgba(51, 93, 132, 0.08);
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+}
+
+.dashboard.feeds .news:hover {
+  background: rgba(255, 255, 255, 0.48) !important;
+  transform: translateY(-1px);
+}
+
+.dashboard.feeds .news .commit-id,
+.dashboard.feeds .news .sha,
+.dashboard.feeds .news code {
+  border: 1px solid rgba(95, 139, 180, 0.16);
+  border-radius: 999px;
+  background: rgba(238, 248, 255, 0.58);
+}
+
+.page-content.dashboard .dashboard-repos,
+.page-content.dashboard.feeds .dashboard-repos,
+.page-content.dashboard .repository.list,
+.page-content.dashboard.feeds .repository.list,
+.page-content.dashboard .repos-search,
+.page-content.dashboard.feeds .repos-search,
+.page-content.dashboard .ui.attached.segment,
+.page-content.dashboard.feeds .ui.attached.segment,
+.page-content.dashboard .ui.attached.table,
+.page-content.dashboard.feeds .ui.attached.table {
+  position: relative;
+  z-index: var(--anime-z-content);
+  border-color: var(--anime-glass-border) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+  backdrop-filter: blur(24px) saturate(1.22);
+  -webkit-backdrop-filter: blur(24px) saturate(1.22);
+}
+
+.page-content.dashboard .dashboard-repos,
+.page-content.dashboard.feeds .dashboard-repos,
+.page-content.dashboard .repository.list,
+.page-content.dashboard.feeds .repository.list,
+.page-content.dashboard .ui.attached.table,
+.page-content.dashboard.feeds .ui.attached.table {
+  background: rgba(255, 255, 255, 0.32) !important;
+}
+
+.page-content.dashboard .repos-search,
+.page-content.dashboard.feeds .repos-search,
+.page-content.dashboard .repos-search.ui.attached.segment,
+.page-content.dashboard.feeds .repos-search.ui.attached.segment {
+  background: rgba(255, 255, 255, 0.36) !important;
+}
+
+.page-content.dashboard .dashboard-repos,
+.page-content.dashboard.feeds .dashboard-repos,
+.page-content.dashboard .repos-search,
+.page-content.dashboard.feeds .repos-search,
+.page-content.dashboard .repos-search.ui.attached.segment,
+.page-content.dashboard.feeds .repos-search.ui.attached.segment {
+  overflow: visible !important;
+}
+
+.page-content.dashboard .repos-search,
+.page-content.dashboard.feeds .repos-search,
+.page-content.dashboard .repos-search.ui.attached.segment,
+.page-content.dashboard.feeds .repos-search.ui.attached.segment {
+  position: relative;
+  z-index: var(--anime-z-pagebar) !important;
+}
+
+.page-content.dashboard .repository.list,
+.page-content.dashboard.feeds .repository.list,
+.page-content.dashboard .ui.two.item.menu,
+.page-content.dashboard.feeds .ui.two.item.menu,
+.page-content.dashboard .repo-owner-name-list,
+.page-content.dashboard.feeds .repo-owner-name-list {
+  position: relative;
+  z-index: var(--anime-z-content);
+}
+
+.page-content.dashboard .dashboard-repos .ui.dropdown,
+.page-content.dashboard.feeds .dashboard-repos .ui.dropdown,
+.page-content.dashboard .repos-search .ui.dropdown,
+.page-content.dashboard.feeds .repos-search .ui.dropdown,
+.page-content.dashboard .dashboard-repos .ui.dropdown .menu,
+.page-content.dashboard.feeds .dashboard-repos .ui.dropdown .menu {
+  overflow: visible !important;
+}
+
+.page-content.dashboard .dashboard-repos .ui.dropdown.active,
+.page-content.dashboard.feeds .dashboard-repos .ui.dropdown.active,
+.page-content.dashboard .dashboard-repos .ui.dropdown.visible,
+.page-content.dashboard.feeds .dashboard-repos .ui.dropdown.visible,
+.page-content.dashboard .repos-search .ui.dropdown.active,
+.page-content.dashboard.feeds .repos-search .ui.dropdown.active,
+.page-content.dashboard .repos-search .ui.dropdown.visible,
+.page-content.dashboard.feeds .repos-search .ui.dropdown.visible {
+  position: relative;
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.page-content.dashboard .ui.two.item.menu,
+.page-content.dashboard.feeds .ui.two.item.menu,
+.page-content.dashboard .repo-owner-name-list,
+.page-content.dashboard.feeds .repo-owner-name-list {
+  border: 1px solid var(--anime-glass-border) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: var(--anime-glass-shadow-soft);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+}
+
+.page-content.dashboard .repository.list .item,
+.page-content.dashboard.feeds .repository.list .item,
+.page-content.dashboard .repo-owner-name-list .item,
+.page-content.dashboard.feeds .repo-owner-name-list .item {
+  background: rgba(255, 255, 255, 0.16) !important;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.page-content.dashboard .repository.list .item:hover,
+.page-content.dashboard.feeds .repository.list .item:hover,
+.page-content.dashboard .repo-owner-name-list .item:hover,
+.page-content.dashboard.feeds .repo-owner-name-list .item:hover {
+  background: rgba(103, 217, 206, 0.16) !important;
+}
+
+#dashboard-repo-list .overflow-menu-items,
+.page-content.dashboard .overflow-menu-items,
+.page-content.dashboard.feeds .overflow-menu-items {
+  border-color: rgba(95, 139, 180, 0.14) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(18px) saturate(1.16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.16);
+}
+
+#dashboard-repo-list .overflow-menu-items .item,
+.page-content.dashboard .overflow-menu-items .item,
+.page-content.dashboard.feeds .overflow-menu-items .item {
+  color: var(--anime-text-muted) !important;
+  background: transparent !important;
+}
+
+#dashboard-repo-list .overflow-menu-items .item:hover,
+.page-content.dashboard .overflow-menu-items .item:hover,
+.page-content.dashboard.feeds .overflow-menu-items .item:hover {
+  color: var(--anime-text) !important;
+  background: rgba(103, 217, 206, 0.1) !important;
+}
+
+#dashboard-repo-list .overflow-menu-items .item.active,
+.page-content.dashboard .overflow-menu-items .item.active,
+.page-content.dashboard.feeds .overflow-menu-items .item.active {
+  color: #176fc2 !important;
+  background: rgba(71, 163, 255, 0.08) !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.62);
+}
+
+#dashboard-repo-list .overflow-menu-items .ui.label,
+.page-content.dashboard .overflow-menu-items .ui.label,
+.page-content.dashboard.feeds .overflow-menu-items .ui.label {
+  border-color: rgba(95, 139, 180, 0.16) !important;
+  background: rgba(238, 248, 255, 0.46) !important;
+}
+
+.ui.top.menu,
+.ui.main.menu,
+#navbar,
+header .navbar {
+  position: relative;
+  z-index: var(--anime-z-navbar);
+  overflow: visible !important;
+  border-color: var(--anime-glass-border) !important;
+  background: var(--color-navbar) !important;
+  box-shadow: 0 10px 28px rgba(55, 96, 132, 0.1);
+  backdrop-filter: blur(22px) saturate(1.24);
+  -webkit-backdrop-filter: blur(22px) saturate(1.24);
+}
+
+.ui.menu {
+  overflow: visible !important;
+  border-color: var(--anime-glass-border) !important;
+  background: var(--anime-glass-bg) !important;
+  box-shadow: var(--anime-glass-shadow-soft);
+  backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.2);
+}
+
+.following.bar,
+.following.bar.light,
+.repository .header-wrapper,
+.repository .repo-header {
+  position: relative;
+  z-index: var(--anime-z-pagebar);
+  overflow: visible !important;
+}
+
+.dashboard-navbar .ui.menu,
+.dashboard-navbar .ui.dropdown,
+.dashboard-navbar .ui.dropdown .menu {
+  overflow: visible !important;
+}
+
+.dashboard-navbar .ui.dropdown.active,
+.dashboard-navbar .ui.dropdown.visible {
+  position: relative;
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.ui.menu .item,
+.ui.secondary.menu .item,
+.ui.tabs.container .item {
+  color: var(--anime-text-muted) !important;
+  border-radius: 8px !important;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.ui.menu .item:hover,
+.ui.secondary.menu .item:hover,
+.ui.tabs.container .item:hover {
+  color: var(--anime-text) !important;
+  background: rgba(71, 163, 255, 0.12) !important;
+}
+
+.ui.menu .active.item,
+.ui.secondary.menu .active.item,
+.ui.tabs.container .active.item {
+  color: #176fc2 !important;
+  background: rgba(71, 163, 255, 0.16) !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.72);
+}
+
+.repository .header-wrapper,
+.repository .repo-header,
+.repo-header,
+.repo-title,
+.repo-buttons,
+.dashboard-navbar {
+  border-color: var(--anime-glass-border) !important;
+  background: rgba(255, 255, 255, 0.54) !important;
+  backdrop-filter: blur(20px) saturate(1.22);
+  -webkit-backdrop-filter: blur(20px) saturate(1.22);
+}
+
+.repository .header-wrapper {
+  box-shadow: 0 14px 32px rgba(55, 96, 132, 0.1);
+}
+
+.ui.segment,
+.ui.segments,
+.ui.attached.segment,
+.ui.card,
+.ui.cards > .card,
+.ui.table,
+.ui.panel,
+.ui.message,
+.ui.basic.segment,
+.repository.file.list #repo-files-table,
+.repository .diff-file-box,
+.repository .file-view,
+.repository .markup,
+.repository .comment.form,
+.repository .timeline-item .content,
+.repository .issue.list > .item,
+.feeds .news,
+.commit-list,
+.branch-tag-choice,
+.runner-container,
+.settings .key.list .item {
+  border: 1px solid var(--anime-glass-border) !important;
+  border-radius: 8px !important;
+  background: var(--anime-glass-bg) !important;
+  box-shadow: var(--anime-glass-shadow);
+  backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.22);
+  -webkit-backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.22);
+}
+
+.ui.segments > .segment,
+.ui.attached.segment,
+.ui.table tr,
+.ui.table td,
+.ui.table th {
+  border-color: var(--anime-glass-border) !important;
+}
+
+.ui.segment.basic,
+.ui.basic.segment {
+  box-shadow: none;
+}
+
+.ui.header,
+h1,
+h2,
+h3,
+h4 {
+  color: var(--anime-text) !important;
+  letter-spacing: 0;
+}
+
+.muted,
+.text.light,
+.ui.header .sub.header,
+.repo-description,
+.repository-meta,
+.ui.breadcrumb,
+.ui.breadcrumb a {
+  color: var(--anime-text-muted) !important;
+}
+
+.ui.button,
+button,
+.btn {
+  border-radius: 8px !important;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.ui.button {
+  border: 1px solid rgba(95, 139, 180, 0.24) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--anime-text) !important;
+  box-shadow: 0 8px 18px rgba(55, 96, 132, 0.08);
+}
+
+.ui.button:hover,
+button:hover,
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(55, 96, 132, 0.14);
+}
+
+.ui.primary.button,
+.ui.green.button,
+.ui.blue.button,
+.ui.basic.primary.button:hover {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, var(--anime-accent-blue), var(--anime-accent-cyan)) !important;
+  color: #ffffff !important;
+}
+
+.ui.red.button,
+.ui.negative.button {
+  border-color: transparent !important;
+  background: linear-gradient(135deg, #ff7eaa, #ff9fc3) !important;
+  color: #ffffff !important;
+}
+
+.ui.input > input,
+.ui.form input:not([type]),
+.ui.form input[type="date"],
+.ui.form input[type="datetime-local"],
+.ui.form input[type="email"],
+.ui.form input[type="number"],
+.ui.form input[type="password"],
+.ui.form input[type="search"],
+.ui.form input[type="text"],
+.ui.form input[type="time"],
+.ui.form input[type="url"],
+.ui.form textarea,
+.ui.dropdown,
+.ui.selection.dropdown,
+.CodeMirror,
+.cm-editor {
+  border-color: var(--color-input-border) !important;
+  border-radius: 8px !important;
+  background: var(--color-input-background) !important;
+  color: var(--anime-text) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.ui.dropdown {
+  position: relative;
+  overflow: visible !important;
+}
+
+.ui.dropdown.active,
+.ui.dropdown.visible,
+.ui.dropdown.item.active,
+.ui.dropdown.item.visible {
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.ui.input > input:focus,
+.ui.form input:focus,
+.ui.form textarea:focus,
+.ui.dropdown:focus,
+.ui.selection.active.dropdown,
+.ui.selection.active.dropdown:hover {
+  border-color: var(--color-input-border-hover) !important;
+  box-shadow: 0 0 0 3px rgba(71, 163, 255, 0.14) !important;
+}
+
+.repository.file.list #repo-files-table {
+  overflow: hidden;
+}
+
+.repository.file.list #repo-files-table thead th,
+.repository.file.list #repo-files-table .repo-file-last-commit {
+  background: rgba(255, 255, 255, 0.62) !important;
+}
+
+.repository.file.list #repo-files-table tbody tr,
+.ui.table tbody tr,
+.commit-list .commit-list-row {
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.repository.file.list #repo-files-table tbody tr:hover,
+.ui.table tbody tr:hover,
+.commit-list .commit-list-row:hover {
+  background: rgba(103, 217, 206, 0.13) !important;
+}
+
+.repository.file.list #repo-files-table td.name a,
+.repository.file.list #repo-files-table td.message a,
+.commit-list a,
+.repo-title a {
+  color: #1e517e !important;
+}
+
+.repository.file.list #repo-files-table svg,
+.svg,
+.octicon,
+.repo-icon {
+  color: #4883b8;
+}
+
+.ui.label,
+.ui.labels .label,
+.issue.list .labels .label {
+  border: 1px solid rgba(95, 139, 180, 0.2) !important;
+  border-radius: 999px !important;
+  background: rgba(238, 248, 255, 0.78) !important;
+  color: var(--anime-text-muted) !important;
+}
+
+.ui.label.primary,
+.ui.labels .primary.label {
+  background: rgba(71, 163, 255, 0.16) !important;
+  color: #176fc2 !important;
+}
+
+.markup,
+.file-view,
+.blob-wrapper,
+.code-view,
+.diff-file-box,
+.chroma {
+  background: rgba(251, 254, 255, 0.74) !important;
+}
+
+.lines-num,
+.lines-code,
+.code-view code,
+.code-view pre,
+.markup code,
+.markup pre {
+  font-family: var(--fonts-monospace) !important;
+}
+
+.lines-num,
+.code-line-menu,
+.blob-excerpt {
+  background: rgba(235, 246, 253, 0.72) !important;
+  color: #7b8da2 !important;
+}
+
+.lines-code,
+.lines-code pre,
+.chroma,
+.cm-editor,
+.cm-scroller {
+  color: #213145 !important;
+}
+
+.diff-file-box .file-header,
+.file-header,
+.box-header,
+.ui .header-wrapper {
+  border-color: var(--anime-glass-border) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.timeline-item .badge,
+.activity-bar-graph,
+.heatmap-color-1,
+.heatmap-color-2,
+.heatmap-color-3,
+.heatmap-color-4 {
+  box-shadow: 0 8px 20px rgba(71, 163, 255, 0.12);
+}
+
+.heatmap-color-0 {
+  fill: var(--color-heatmap-0) !important;
+  background-color: var(--color-heatmap-0) !important;
+}
+
+#user-heatmap .heatmap-day[style*="--color-secondary-alpha-60"],
+#user-heatmap .heatmap-legend-svg rect[style*="--color-secondary-alpha-60"],
+#user-heatmap rect[style*="--color-secondary-alpha-60"] {
+  fill: var(--color-heatmap-0) !important;
+}
+
+.heatmap-color-1 {
+  fill: var(--color-heatmap-1) !important;
+  background-color: var(--color-heatmap-1) !important;
+}
+
+.heatmap-color-2 {
+  fill: var(--color-heatmap-2) !important;
+  background-color: var(--color-heatmap-2) !important;
+}
+
+.heatmap-color-3 {
+  fill: var(--color-heatmap-3) !important;
+  background-color: var(--color-heatmap-3) !important;
+}
+
+.heatmap-color-4 {
+  fill: var(--color-heatmap-4) !important;
+  background-color: var(--color-heatmap-4) !important;
+}
+
+.ui.popup,
+.ui.dropdown .menu,
+.ui.context.menu {
+  z-index: var(--anime-z-dropdown) !important;
+  border: 1px solid var(--anime-glass-border-strong) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--anime-text) !important;
+  box-shadow: 0 22px 54px rgba(45, 78, 112, 0.18) !important;
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+}
+
+.ui.modal,
+.ui.dimmer {
+  z-index: var(--anime-z-modal) !important;
+}
+
+.ui.dropdown .menu {
+  overflow: visible !important;
+}
+
+.ui.dropdown .menu > .item {
+  color: var(--anime-text) !important;
+}
+
+.ui.dropdown .menu > .item:hover {
+  background: rgba(71, 163, 255, 0.12) !important;
+}
+
+.ui.divider {
+  border-color: rgba(95, 139, 180, 0.18) !important;
+}
+
+.ui.warning.message {
+  background: rgba(255, 248, 221, 0.78) !important;
+}
+
+.ui.info.message,
+.ui.positive.message {
+  background: rgba(228, 251, 247, 0.78) !important;
+}
+
+.ui.negative.message,
+.ui.error.message {
+  background: rgba(255, 232, 240, 0.78) !important;
+}
+
+footer {
+  color: var(--anime-text-subtle) !important;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.36);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(71, 163, 255, 0.42);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 163, 255, 0.62);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --anime-glass-bg: rgba(255, 255, 255, 0.9);
+    --anime-glass-bg-strong: rgba(255, 255, 255, 0.94);
+    --color-navbar: rgba(255, 255, 255, 0.92);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-content > .ui.container,
+  .repository .ui.container,
+  .dashboard .ui.container {
+    animation: anime-glass-enter 360ms ease-out both;
+  }
+}
+
+@keyframes anime-glass-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .page-content.dashboard > .ui.container,
+  .page-content.dashboard.feeds > .ui.container {
+    width: calc(100% - 20px) !important;
+  }
+
+  .page-content.dashboard > .ui.container > .ui.stackable.grid,
+  .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid {
+    display: block !important;
+  }
+
+  .page-content.dashboard > .ui.container > .ui.stackable.grid > .ten.wide.column,
+  .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .ten.wide.column,
+  .page-content.dashboard > .ui.container > .ui.stackable.grid > .six.wide.column,
+  .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .six.wide.column {
+    position: static;
+    width: 100% !important;
+    flex-basis: auto;
+  }
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --anime-bg-wash: rgba(247, 251, 255, 0.86);
+    --anime-bg-wash-strong: rgba(255, 255, 255, 0.94);
+    --anime-glass-blur: 18px;
+  }
+
+  .ui.container {
+    width: calc(100% - 16px) !important;
+    margin-right: 8px !important;
+    margin-left: 8px !important;
+  }
+
+  .ui.menu .item,
+  .ui.secondary.menu .item,
+  .ui.button {
+    border-radius: 7px !important;
+  }
+
+  .repository .header-wrapper,
+  .ui.segment,
+  .ui.card,
+  .ui.table,
+  .repository.file.list #repo-files-table {
+    box-shadow: var(--anime-glass-shadow-soft);
+  }
+}
+
+/*
+  Final background safety net for Gitea 1.27+ pages.
+  Keep this at the end so utility classes or page-specific wrappers cannot
+  repaint the first viewport with the default light background.
+*/
+html[data-theme="anime-glass-light"],
+html[data-theme="anime-glass-light"] body {
+  min-height: 100%;
+  background: #f7fbff !important;
+}
+
+html[data-theme="anime-glass-light"] body {
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+html[data-theme="anime-glass-light"] body::before {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: -2 !important;
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: #f7fbff !important;
+  background-image:
+    linear-gradient(135deg, var(--anime-bg-wash-strong), var(--anime-bg-wash) 42%, rgba(250, 253, 255, 0.56)),
+    var(--anime-bg-url) !important;
+  background-position: var(--anime-bg-position) !important;
+  background-size: var(--anime-bg-size) !important;
+  background-repeat: no-repeat !important;
+  opacity: var(--anime-bg-opacity) !important;
+  transform: translate3d(0, 0, 0) !important;
+  backface-visibility: hidden !important;
+  content: "" !important;
+  pointer-events: none !important;
+}
+
+html[data-theme="anime-glass-light"] body::after {
+  z-index: -1 !important;
+}
+
+html[data-theme="anime-glass-light"] body > .full.height,
+html[data-theme="anime-glass-light"] .full.height,
+html[data-theme="anime-glass-light"] .page-content,
+html[data-theme="anime-glass-light"] .page-content.home,
+html[data-theme="anime-glass-light"] .page-content.dashboard,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds,
+html[data-theme="anime-glass-light"] .page-content > .ui.container,
+html[data-theme="anime-glass-light"] .page-content .ui.container,
+html[data-theme="anime-glass-light"] .ui.main.container,
+html[data-theme="anime-glass-light"] main,
+html[data-theme="anime-glass-light"] .main-content,
+html[data-theme="anime-glass-light"] .content-wrapper {
+  position: relative;
+  z-index: auto;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+html[data-theme="anime-glass-light"] #navbar,
+html[data-theme="anime-glass-light"] header .navbar,
+html[data-theme="anime-glass-light"] .ui.top.menu,
+html[data-theme="anime-glass-light"] .ui.main.menu {
+  position: relative;
+  z-index: var(--anime-z-navbar) !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .following.bar,
+html[data-theme="anime-glass-light"] .following.bar.light,
+html[data-theme="anime-glass-light"] .dashboard-navbar,
+html[data-theme="anime-glass-light"] .repository .header-wrapper,
+html[data-theme="anime-glass-light"] .repository .repo-header {
+  position: relative;
+  z-index: var(--anime-z-pagebar) !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .dashboard.feeds .heatmap-container,
+html[data-theme="anime-glass-light"] .page-content.dashboard #user-heatmap,
+html[data-theme="anime-glass-light"] .page-content.dashboard .heatmap,
+html[data-theme="anime-glass-light"] .page-content.dashboard .user-heatmap {
+  position: relative;
+  z-index: var(--anime-z-content) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.dashboard .dashboard-repos,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .dashboard-repos,
+html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search,
+html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search.ui.attached.segment,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search.ui.attached.segment {
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search,
+html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search.ui.attached.segment,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search.ui.attached.segment {
+  position: relative;
+  z-index: var(--anime-z-pagebar) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.dashboard .repository.list,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repository.list,
+html[data-theme="anime-glass-light"] .page-content.dashboard .ui.two.item.menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .ui.two.item.menu,
+html[data-theme="anime-glass-light"] .page-content.dashboard .repo-owner-name-list,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repo-owner-name-list {
+  position: relative;
+  z-index: var(--anime-z-content) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.menu,
+html[data-theme="anime-glass-light"] .dashboard-navbar .ui.menu,
+html[data-theme="anime-glass-light"] .ui.dropdown,
+html[data-theme="anime-glass-light"] .ui.dropdown .menu {
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.dropdown.active,
+html[data-theme="anime-glass-light"] .ui.dropdown.visible,
+html[data-theme="anime-glass-light"] .ui.dropdown.item.active,
+html[data-theme="anime-glass-light"] .ui.dropdown.item.visible {
+  position: relative;
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.dashboard .dashboard-repos .ui.dropdown.active,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .dashboard-repos .ui.dropdown.active,
+html[data-theme="anime-glass-light"] .page-content.dashboard .dashboard-repos .ui.dropdown.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .dashboard-repos .ui.dropdown.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search .ui.dropdown.active,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search .ui.dropdown.active,
+html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search .ui.dropdown.visible,
+html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search .ui.dropdown.visible {
+  position: relative;
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.dropdown .menu,
+html[data-theme="anime-glass-light"] .ui.popup,
+html[data-theme="anime-glass-light"] .ui.context.menu {
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.modal,
+html[data-theme="anime-glass-light"] .ui.dimmer {
+  z-index: var(--anime-z-modal) !important;
+}
+
+/*
+  Final repository filter glass overrides.
+  Gitea renders this area as:
+  #dashboard-repo-list .repos-search.ui.attached.segment
+    overflow-menu.ui.secondary.pointing.tabular.borderless.menu.repos-filter
+      .overflow-menu-items > .item
+  Keep these rules after the generic .ui.segment/.ui.menu glass styles so
+  they cannot repaint this section as a solid white block.
+*/
+#dashboard-repo-list .dashboard-repos .repos-search.ui.attached.segment,
+.page-content.dashboard #dashboard-repo-list .repos-search.ui.attached.segment,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search.ui.attached.segment {
+  border-color: rgba(95, 139, 180, 0.16) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 12px 30px rgba(51, 93, 132, 0.08) !important;
+  backdrop-filter: blur(24px) saturate(1.18) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.18) !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter,
+#dashboard-repo-list overflow-menu.ui.secondary.pointing.tabular.borderless.menu.repos-filter,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter {
+  border-color: rgba(95, 139, 180, 0.12) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(18px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items.tw-justify-center,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item {
+  color: var(--anime-text-muted) !important;
+  background: transparent !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover {
+  color: var(--anime-text) !important;
+  background: rgba(103, 217, 206, 0.1) !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active {
+  color: #176fc2 !important;
+  background: rgba(71, 163, 255, 0.06) !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.58) !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item .ui.circular.mini.grey.label,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item .ui.circular.mini.grey.label,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item .ui.circular.mini.grey.label {
+  border-color: rgba(95, 139, 180, 0.14) !important;
+  background: rgba(238, 248, 255, 0.34) !important;
+  color: var(--anime-text-muted) !important;
+}
+
+/*
+  Final source-based overlay rules.
+  Kept unscoped on purpose because this CSS file is only loaded by the theme;
+  the selectors are still tied to Gitea's real dashboard/navbar/tippy DOM.
+*/
+.page-content.dashboard,
+.page-content.dashboard.feeds {
+  position: relative !important;
+  z-index: 0 !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+.page-content.dashboard > .ui.container.flex-container,
+.page-content.dashboard.feeds > .ui.container.flex-container,
+.page-content.dashboard .flex-container-main,
+.page-content.dashboard.feeds .flex-container-main,
+.page-content.dashboard #dashboard-repo-list,
+.page-content.dashboard.feeds #dashboard-repo-list,
+.page-content.dashboard .activity-heatmap-container,
+.page-content.dashboard.feeds .activity-heatmap-container,
+.page-content.dashboard #user-heatmap,
+.page-content.dashboard.feeds #user-heatmap,
+.page-content.dashboard .news,
+.page-content.dashboard.feeds .news {
+  position: relative !important;
+  z-index: var(--anime-z-content) !important;
+  overflow: visible !important;
+}
+
+.page-content.dashboard > .secondary-nav,
+.page-content.dashboard.feeds > .secondary-nav,
+.page-content.dashboard > .secondary-nav .ui.secondary.stackable.menu,
+.page-content.dashboard.feeds > .secondary-nav .ui.secondary.stackable.menu,
+.page-content.dashboard > .secondary-nav .ui.secondary.stackable.menu > .item,
+.page-content.dashboard.feeds > .secondary-nav .ui.secondary.stackable.menu > .item,
+.page-content.dashboard > .secondary-nav .ui.floating.dropdown.jump,
+.page-content.dashboard.feeds > .secondary-nav .ui.floating.dropdown.jump,
+.page-content.dashboard #dashboard-repo-list .repos-search,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search {
+  position: relative !important;
+  z-index: var(--anime-z-pagebar) !important;
+  overflow: visible !important;
+}
+
+.page-content.dashboard > .secondary-nav:has(.ui.dropdown.visible),
+.page-content.dashboard > .secondary-nav:has(.ui.dropdown.active),
+.page-content.dashboard.feeds > .secondary-nav:has(.ui.dropdown.visible),
+.page-content.dashboard.feeds > .secondary-nav:has(.ui.dropdown.active),
+.page-content.dashboard > .secondary-nav .ui.secondary.stackable.menu:has(.ui.dropdown.visible),
+.page-content.dashboard > .secondary-nav .ui.secondary.stackable.menu:has(.ui.dropdown.active),
+.page-content.dashboard.feeds > .secondary-nav .ui.secondary.stackable.menu:has(.ui.dropdown.visible),
+.page-content.dashboard.feeds > .secondary-nav .ui.secondary.stackable.menu:has(.ui.dropdown.active),
+.page-content.dashboard #dashboard-repo-list .repos-search:has(.ui.dropdown.visible),
+.page-content.dashboard #dashboard-repo-list .repos-search:has(.ui.dropdown.active),
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search:has(.ui.dropdown.visible),
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search:has(.ui.dropdown.active) {
+  z-index: var(--anime-z-dashboard-dropdown) !important;
+  overflow: visible !important;
+}
+
+.page-content.dashboard > .secondary-nav .ui.dropdown.visible,
+.page-content.dashboard > .secondary-nav .ui.dropdown.active,
+.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.visible,
+.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.active,
+.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.visible,
+.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.active,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.visible,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.active {
+  position: relative !important;
+  z-index: var(--anime-z-dashboard-dropdown) !important;
+  overflow: visible !important;
+}
+
+.page-content.dashboard > .secondary-nav .menu.context-user-switch,
+.page-content.dashboard > .secondary-nav .context.user.overflow.menu,
+.page-content.dashboard > .secondary-nav .ui.dropdown.visible .menu,
+.page-content.dashboard > .secondary-nav .ui.dropdown.active .menu,
+.page-content.dashboard.feeds > .secondary-nav .menu.context-user-switch,
+.page-content.dashboard.feeds > .secondary-nav .context.user.overflow.menu,
+.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.visible .menu,
+.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.active .menu,
+.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.visible .menu,
+.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.active .menu,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.visible .menu,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.active .menu {
+  z-index: calc(var(--anime-z-dashboard-dropdown) + 1) !important;
+  overflow: visible !important;
+}
+
+/*
+  Gitea navbar source: templates/base/head_navbar.tmpl
+  #navbar contains .navbar-right, create dropdown, and .menu.user-menu.
+*/
+#navbar,
+#navbar .navbar-left,
+#navbar .navbar-right,
+#navbar .navbar-mobile-right {
+  position: relative !important;
+  z-index: var(--anime-z-navbar) !important;
+  overflow: visible !important;
+}
+
+#navbar .ui.dropdown.jump.item,
+#navbar .ui.dropdown.jump.item.visible,
+#navbar .ui.dropdown.jump.item.active {
+  position: relative !important;
+  z-index: var(--anime-z-navbar-dropdown) !important;
+  overflow: visible !important;
+}
+
+#navbar .ui.dropdown.jump.item .menu,
+#navbar .ui.dropdown.jump.item.visible .menu,
+#navbar .ui.dropdown.jump.item.active .menu,
+#navbar .ui.dropdown.jump.item .menu.user-menu {
+  z-index: calc(var(--anime-z-navbar-dropdown) + 1) !important;
+  overflow: visible !important;
+}
+
+/*
+  Gitea tooltip source:
+  web_src/js/modules/tippy.ts appends tooltip tippies to body with
+  theme="tooltip"; web_src/css/modules/tippy.css styles [data-tippy-root].
+*/
+[data-tippy-root] {
+  z-index: var(--anime-z-tooltip) !important;
+  max-width: calc(100vw - 32px);
+}
+
+[data-tippy-root] .tippy-box[data-theme="tooltip"],
+.tippy-box[data-theme="tooltip"] {
+  z-index: calc(var(--anime-z-tooltip) + 1) !important;
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  color: var(--anime-text) !important;
+  border: 1px solid rgba(95, 139, 180, 0.18) !important;
+  box-shadow: 0 14px 34px rgba(45, 78, 112, 0.16) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+}
+
+[data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-content,
+.tippy-box[data-theme="tooltip"] .tippy-content {
+  z-index: calc(var(--anime-z-tooltip) + 2) !important;
+}
+
+[data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-svg-arrow-inner,
+[data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-svg-arrow-outer,
+.tippy-box[data-theme="tooltip"] .tippy-svg-arrow-inner,
+.tippy-box[data-theme="tooltip"] .tippy-svg-arrow-outer {
+  fill: rgba(255, 255, 255, 0.94) !important;
+}
+
+.ui.modal,
+.ui.dimmer {
+  z-index: var(--anime-z-modal) !important;
+}
