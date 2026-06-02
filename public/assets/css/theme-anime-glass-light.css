@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-02-dashboard-hard-align */
+/* Anime Glass Light v2026-06-02-dropdown-soften */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-02-dashboard-hard-align";
+  --theme-version: "2026-06-02-dropdown-soften";
 }
 
 :root {
@@ -28,11 +28,22 @@ gitea-theme-meta-info {
   --anime-surface-hover: rgba(255, 255, 255, 0.58);
   --anime-surface-active: rgba(71, 163, 255, 0.16);
   --anime-surface-pressed: rgba(103, 217, 206, 0.18);
-  --anime-popup-bg: rgba(255, 255, 255, 0.78);
+  --anime-popup-bg: rgba(255, 255, 255, 0.8);
   --anime-popup-bg-strong: rgba(255, 255, 255, 0.86);
   --anime-popup-arrow-bg: rgba(255, 255, 255, 0.84);
-  --anime-dropdown-long-bg: rgba(255, 255, 255, 0.88);
+  --anime-popup-border: rgba(72, 117, 158, 0.38);
+  --anime-popup-shadow: 0 24px 64px rgba(30, 61, 92, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.54), var(--anime-glass-inset-highlight);
+  --anime-dropdown-long-bg: rgba(255, 255, 255, 0.86);
   --anime-dropdown-max-height: min(14rem, calc(100vh - 12rem));
+  --anime-admin-nav-width: 12.5rem;
+  --anime-file-tree-bg: rgba(255, 255, 255, 0.5);
+  --anime-file-tree-row-hover: rgba(103, 217, 206, 0.14);
+  --anime-file-tree-row-active: rgba(71, 163, 255, 0.16);
+  --anime-commit-bg: rgba(255, 255, 255, 0.62);
+  --anime-commit-bg-strong: rgba(255, 255, 255, 0.72);
+  --anime-diff-toolbar-bg: rgba(255, 255, 255, 0.74);
+  --anime-code-panel-bg: rgba(251, 254, 255, 0.86);
+  --anime-diff-detail-height: 52px;
   --anime-glass-border: rgba(95, 139, 180, 0.24);
   --anime-glass-border-strong: rgba(83, 169, 255, 0.34);
   --anime-glass-shadow: 0 18px 44px rgba(51, 93, 132, 0.14);
@@ -50,11 +61,14 @@ gitea-theme-meta-info {
   --anime-text-subtle: #7a8799;
   --anime-z-content: 10;
   --anime-z-pagebar: 1000;
-  --anime-z-dashboard-dropdown: 1100;
-  --anime-z-navbar: 2000;
-  --anime-z-navbar-dropdown: 2100;
-  --anime-z-dropdown: 2100;
-  --anime-z-tooltip: 3000;
+  --anime-z-dropdown-scope: 1790;
+  --anime-z-dropdown: 1800;
+  --anime-z-dropdown-menu: 1850;
+  --anime-z-dashboard-dropdown: var(--anime-z-dropdown);
+  --anime-z-navbar: 3000;
+  --anime-z-navbar-dropdown: 4600;
+  --anime-z-navbar-dropdown-menu: 4700;
+  --anime-z-tooltip: 4000;
   --anime-z-modal: 5000;
   --anime-motion-fast: 140ms;
   --anime-motion-medium: 220ms;
@@ -136,8 +150,7 @@ gitea-theme-meta-info {
   --color-heatmap-4: rgba(31, 120, 214, 1);
 }
 
-html,
-body {
+html {
   min-height: 100%;
   background: #f7fbff !important;
 }
@@ -276,35 +289,6 @@ footer {
   flex: 0 0 448px;
 }
 
-.page-content.dashboard > .ui.container > .ui.stackable.grid,
-.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid {
-  gap: 22px;
-  margin-right: 0 !important;
-  margin-left: 0 !important;
-}
-
-.page-content.dashboard > .ui.container > .ui.stackable.grid > .column,
-.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .column {
-  padding-right: 0 !important;
-  padding-left: 0 !important;
-}
-
-.page-content.dashboard > .ui.container > .ui.stackable.grid > .ten.wide.column,
-.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .ten.wide.column {
-  width: calc(100% - 470px) !important;
-  min-width: 0;
-  flex: 1 1 auto;
-}
-
-.page-content.dashboard > .ui.container > .ui.stackable.grid > .six.wide.column,
-.page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .six.wide.column {
-  position: sticky;
-  top: 0;
-  margin-top: 0 !important;
-  width: 448px !important;
-  flex: 0 0 448px;
-}
-
 .dashboard-navbar,
 .page-content.dashboard .dashboard-navbar,
 .page-content.dashboard.feeds .dashboard-navbar {
@@ -332,7 +316,6 @@ footer {
   -webkit-backdrop-filter: blur(18px) saturate(1.18);
 }
 
-.dashboard.feeds .news,
 .dashboard.feeds .news .content,
 .dashboard.feeds .news .ui.grid,
 .dashboard.feeds .news .ui.segment,
@@ -356,8 +339,7 @@ footer {
     border-color var(--anime-motion-medium) var(--anime-ease-standard);
 }
 
-.dashboard.feeds .news:hover,
-.dashboard.feeds .news:focus-within {
+.dashboard.feeds .news:hover {
   border-color: rgba(83, 169, 255, 0.24) !important;
   background: rgba(255, 255, 255, 0.48) !important;
   box-shadow: var(--anime-glass-shadow-hover);
@@ -365,12 +347,17 @@ footer {
 }
 
 .dashboard.feeds .news:focus-within {
+  border-color: rgba(83, 169, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.48) !important;
   box-shadow: var(--anime-glass-shadow-hover), var(--anime-focus-ring);
+  transform: translate3d(0, var(--anime-hover-lift), 0);
 }
 
 .dashboard.feeds .news .commit-id,
 .dashboard.feeds .news .sha,
 .dashboard.feeds .news code {
+  position: relative;
+  z-index: 0 !important;
   border: 1px solid rgba(95, 139, 180, 0.16);
   border-radius: 999px;
   background: rgba(238, 248, 255, 0.58);
@@ -380,8 +367,6 @@ footer {
 .page-content.dashboard.feeds .dashboard-repos,
 .page-content.dashboard .repository.list,
 .page-content.dashboard.feeds .repository.list,
-.page-content.dashboard .repos-search,
-.page-content.dashboard.feeds .repos-search,
 .page-content.dashboard .ui.attached.segment,
 .page-content.dashboard.feeds .ui.attached.segment,
 .page-content.dashboard .ui.attached.table,
@@ -389,9 +374,13 @@ footer {
   position: relative;
   z-index: var(--anime-z-content);
   border-color: var(--anime-glass-border) !important;
-  background: rgba(255, 255, 255, 0.42) !important;
   backdrop-filter: blur(24px) saturate(1.22);
   -webkit-backdrop-filter: blur(24px) saturate(1.22);
+}
+
+.page-content.dashboard .ui.attached.segment,
+.page-content.dashboard.feeds .ui.attached.segment {
+  background: rgba(255, 255, 255, 0.42) !important;
 }
 
 .page-content.dashboard .dashboard-repos,
@@ -407,7 +396,12 @@ footer {
 .page-content.dashboard.feeds .repos-search,
 .page-content.dashboard .repos-search.ui.attached.segment,
 .page-content.dashboard.feeds .repos-search.ui.attached.segment {
+  position: relative;
+  z-index: var(--anime-z-pagebar) !important;
+  border-color: var(--anime-glass-border) !important;
   background: rgba(255, 255, 255, 0.36) !important;
+  backdrop-filter: blur(24px) saturate(1.22);
+  -webkit-backdrop-filter: blur(24px) saturate(1.22);
 }
 
 .page-content.dashboard .dashboard-repos,
@@ -417,14 +411,6 @@ footer {
 .page-content.dashboard .repos-search.ui.attached.segment,
 .page-content.dashboard.feeds .repos-search.ui.attached.segment {
   overflow: visible !important;
-}
-
-.page-content.dashboard .repos-search,
-.page-content.dashboard.feeds .repos-search,
-.page-content.dashboard .repos-search.ui.attached.segment,
-.page-content.dashboard.feeds .repos-search.ui.attached.segment {
-  position: relative;
-  z-index: var(--anime-z-pagebar) !important;
 }
 
 .page-content.dashboard .repository.list,
@@ -441,8 +427,8 @@ footer {
 .page-content.dashboard.feeds .dashboard-repos .ui.dropdown,
 .page-content.dashboard .repos-search .ui.dropdown,
 .page-content.dashboard.feeds .repos-search .ui.dropdown,
-.page-content.dashboard .dashboard-repos .ui.dropdown .menu,
-.page-content.dashboard.feeds .dashboard-repos .ui.dropdown .menu {
+.page-content.dashboard .dashboard-repos .ui.dropdown:not(.selection) > .menu,
+.page-content.dashboard.feeds .dashboard-repos .ui.dropdown:not(.selection) > .menu {
   overflow: visible !important;
 }
 
@@ -528,27 +514,36 @@ footer {
 #dashboard-repo-list .overflow-menu-items .item,
 .page-content.dashboard .overflow-menu-items .item,
 .page-content.dashboard.feeds .overflow-menu-items .item {
+  position: relative;
+  border-radius: 6px !important;
   color: var(--anime-text-muted) !important;
   background: transparent !important;
+  transform: translate3d(0, 0, 0);
   transition:
     color var(--anime-motion-fast) var(--anime-ease-standard),
     background-color var(--anime-motion-fast) var(--anime-ease-standard),
-    box-shadow var(--anime-motion-fast) var(--anime-ease-standard);
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
 #dashboard-repo-list .overflow-menu-items .item:hover,
 .page-content.dashboard .overflow-menu-items .item:hover,
-.page-content.dashboard.feeds .overflow-menu-items .item:hover {
+.page-content.dashboard.feeds .overflow-menu-items .item:hover,
+#dashboard-repo-list .overflow-menu-items .item:focus-visible,
+.page-content.dashboard .overflow-menu-items .item:focus-visible,
+.page-content.dashboard.feeds .overflow-menu-items .item:focus-visible {
   color: var(--anime-text) !important;
-  background: rgba(103, 217, 206, 0.1) !important;
+  background: rgba(103, 217, 206, 0.14) !important;
+  box-shadow: 0 8px 18px rgba(55, 96, 132, 0.08), var(--anime-glass-inset-highlight) !important;
+  transform: translate3d(0, -1px, 0);
 }
 
 #dashboard-repo-list .overflow-menu-items .item.active,
 .page-content.dashboard .overflow-menu-items .item.active,
 .page-content.dashboard.feeds .overflow-menu-items .item.active {
   color: #176fc2 !important;
-  background: rgba(71, 163, 255, 0.08) !important;
-  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.62);
+  background: rgba(71, 163, 255, 0.1) !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.62), var(--anime-glass-inset-highlight);
 }
 
 #dashboard-repo-list .overflow-menu-items .ui.label,
@@ -556,6 +551,21 @@ footer {
 .page-content.dashboard.feeds .overflow-menu-items .ui.label {
   border-color: rgba(95, 139, 180, 0.16) !important;
   background: rgba(238, 248, 255, 0.46) !important;
+  transition:
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    color var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+#dashboard-repo-list .overflow-menu-items .item:hover .ui.label,
+.page-content.dashboard .overflow-menu-items .item:hover .ui.label,
+.page-content.dashboard.feeds .overflow-menu-items .item:hover .ui.label,
+#dashboard-repo-list .overflow-menu-items .item:focus-visible .ui.label,
+.page-content.dashboard .overflow-menu-items .item:focus-visible .ui.label,
+.page-content.dashboard.feeds .overflow-menu-items .item:focus-visible .ui.label {
+  border-color: rgba(71, 163, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.54) !important;
+  color: #176fc2 !important;
 }
 
 .ui.top.menu,
@@ -592,7 +602,7 @@ header .navbar {
 
 .dashboard-navbar .ui.menu,
 .dashboard-navbar .ui.dropdown,
-.dashboard-navbar .ui.dropdown .menu {
+.dashboard-navbar .ui.dropdown:not(.selection) > .menu {
   overflow: visible !important;
 }
 
@@ -679,8 +689,7 @@ header .navbar {
 .repository .repo-header,
 .repo-header,
 .repo-title,
-.repo-buttons,
-.dashboard-navbar {
+.repo-buttons {
   border-color: var(--anime-glass-border) !important;
   background: rgba(255, 255, 255, 0.54) !important;
   backdrop-filter: blur(20px) saturate(1.22);
@@ -699,7 +708,6 @@ header .navbar {
 .ui.table,
 .ui.panel,
 .ui.message,
-.ui.basic.segment,
 .repository.file.list #repo-files-table,
 .repository .diff-file-box,
 .repository .file-view,
@@ -751,6 +759,180 @@ header .navbar {
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+}
+
+.page-content.admin {
+  padding-top: 18px;
+}
+
+.page-content.admin > .ui.container.flex-container {
+  width: min(1360px, calc(100vw - 48px)) !important;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.page-content.admin .flex-container-nav {
+  position: sticky;
+  top: 74px;
+  z-index: var(--anime-z-pagebar);
+  width: var(--anime-admin-nav-width);
+  min-width: var(--anime-admin-nav-width);
+  max-width: var(--anime-admin-nav-width);
+  flex: 0 0 var(--anime-admin-nav-width);
+}
+
+.page-content.admin .flex-container-main {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu {
+  width: 100% !important;
+  border: 1px solid var(--anime-glass-border) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  background: rgba(255, 255, 255, 0.38) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > .item::after {
+  display: none;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > .item:hover {
+  transform: none;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu .item,
+.page-content.admin .flex-container-nav > .ui.vertical.menu summary {
+  min-width: 0;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > .header.item {
+  padding: 14px 16px !important;
+  background: rgba(255, 255, 255, 0.24) !important;
+  color: var(--anime-text) !important;
+  font-weight: 600;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item {
+  padding: 0 !important;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 11px 14px;
+  color: var(--anime-text-muted);
+  cursor: pointer;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item > summary::after {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item[open] > summary::after {
+  transform: rotate(225deg) translate(-1px, -1px);
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item > .menu {
+  margin: 0 !important;
+  padding: 4px 8px 8px !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item > .menu > .item,
+.page-content.admin .flex-container-nav > .ui.vertical.menu > a.item {
+  margin: 3px 0 !important;
+  padding: 10px 12px !important;
+  border-radius: 6px !important;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu > details.item > .menu > .item {
+  padding-left: 20px !important;
+}
+
+.page-content.admin .flex-container-nav > .ui.vertical.menu .active.item {
+  background: rgba(71, 163, 255, 0.18) !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.66), var(--anime-glass-inset-highlight);
+}
+
+.page-content.admin .admin-setting-content {
+  min-width: 0;
+}
+
+.page-content.admin .admin-setting-content > .ui.top.attached.header {
+  border: 1px solid var(--anime-glass-border) !important;
+  border-bottom: 0 !important;
+  border-radius: 8px 8px 0 0 !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: var(--anime-glass-inset-highlight);
+}
+
+.page-content.admin .admin-setting-content > .ui.attached.table.segment {
+  overflow: hidden !important;
+  border-color: var(--anime-glass-border) !important;
+  border-radius: 0 0 8px 8px !important;
+  background: rgba(255, 255, 255, 0.34) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+}
+
+.page-content.admin.dashboard .admin-setting-content > .ui.attached.table.segment > form {
+  margin: 0;
+}
+
+.page-content.admin.dashboard .admin-setting-content .ui.very.basic.table {
+  width: 100%;
+  margin-top: 0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+}
+
+.page-content.admin.dashboard .admin-setting-content .ui.very.basic.table tr {
+  background: transparent !important;
+}
+
+.page-content.admin.dashboard .admin-setting-content .ui.very.basic.table td {
+  padding: 12px 16px !important;
+  border-top: 1px solid rgba(95, 139, 180, 0.14) !important;
+  background: transparent !important;
+  vertical-align: middle;
+}
+
+.page-content.admin.dashboard .admin-setting-content .ui.very.basic.table tr:first-child td {
+  border-top: 0 !important;
+}
+
+.page-content.admin.dashboard .admin-setting-content .ui.very.basic.table td:last-child {
+  width: 8.5rem;
+  white-space: nowrap;
+}
+
+.page-content.admin.dashboard .admin-setting-content .ui.very.basic.table .ui.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 5.75rem;
 }
 
 .ui.header,
@@ -900,11 +1082,669 @@ h4 {
   background: rgba(103, 217, 206, 0.13) !important;
 }
 
+.repository .repo-view-file-tree-container {
+  position: relative;
+  z-index: var(--anime-z-content);
+  max-height: calc(100vh - 12rem);
+  border: 1px solid rgba(95, 139, 180, 0.22) !important;
+  border-radius: 8px !important;
+  overflow: auto;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08) 48%),
+    var(--anime-file-tree-bg) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  scrollbar-gutter: stable;
+}
+
+.repository .repo-view-file-tree-container::before {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: block;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.58);
+  content: "";
+}
+
+.repository .repo-view-file-tree-container :is(ul, ol) {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.repository .repo-view-file-tree-container :is(.item, li, a, button) {
+  min-width: 0;
+}
+
+.repository .repo-view-file-tree-container :is(a, button, .item, li) {
+  border-radius: 6px !important;
+}
+
+.repository .repo-view-file-tree-container :is(a, button) {
+  color: var(--anime-text) !important;
+}
+
+.repository .repo-view-file-tree-container :is(a, button, .item) {
+  transition:
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+.repository .repo-view-file-tree-container :is(a, button, .item):hover,
+.repository .repo-view-file-tree-container :is(a, button, .item):focus-visible {
+  outline: 0;
+  background: var(--anime-file-tree-row-hover) !important;
+  box-shadow: 0 6px 14px rgba(55, 96, 132, 0.08), var(--anime-glass-inset-highlight);
+  color: var(--anime-text) !important;
+  transform: translate3d(1px, 0, 0);
+}
+
+.repository .repo-view-file-tree-container :is(.active, .selected, [aria-current="page"], [aria-selected="true"]) {
+  background: var(--anime-file-tree-row-active) !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.68), var(--anime-glass-inset-highlight);
+  color: #176fc2 !important;
+}
+
+.repository .repo-view-file-tree-container :is(.svg, .octicon, svg) {
+  color: #4883b8;
+  flex: 0 0 auto;
+}
+
+.repository .repo-view-file-tree-container :is(.text, .name, .entry-name, .file-name) {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repository .repo-view-file-tree-container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.repository .repo-view-file-tree-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.repository .repo-view-file-tree-container::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  background: rgba(71, 163, 255, 0.42);
+}
+
+.repository #diff-file-tree,
+.repository .diff-file-tree,
+#diff-file-tree.diff-file-tree {
+  position: sticky;
+  top: 47px;
+  z-index: var(--anime-z-content);
+  flex: 0 0 min(22rem, 24%);
+  max-width: min(24rem, 32vw);
+  max-height: calc(100vh - 4rem);
+  padding: 8px !important;
+  border: 1px solid rgba(95, 139, 180, 0.22) !important;
+  border-radius: 8px !important;
+  overflow: auto !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08) 48%),
+    var(--anime-file-tree-bg) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  scrollbar-gutter: stable;
+}
+
+.repository #diff-file-tree .diff-file-tree-items,
+.repository .diff-file-tree .diff-file-tree-items {
+  gap: 2px;
+  margin-right: 0;
+}
+
+.repository #diff-file-tree :is(.item-file, .item-directory),
+.repository .diff-file-tree :is(.item-file, .item-directory) {
+  min-width: 0;
+  border-radius: 6px !important;
+  color: var(--anime-text) !important;
+  transition:
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+.repository #diff-file-tree :is(.item-file, .item-directory):hover,
+.repository #diff-file-tree :is(.item-file, .item-directory):focus-visible,
+.repository .diff-file-tree :is(.item-file, .item-directory):hover,
+.repository .diff-file-tree :is(.item-file, .item-directory):focus-visible {
+  outline: 0;
+  background: var(--anime-file-tree-row-hover) !important;
+  box-shadow: 0 6px 14px rgba(55, 96, 132, 0.08), var(--anime-glass-inset-highlight);
+  color: var(--anime-text) !important;
+  transform: translate3d(1px, 0, 0);
+}
+
+.repository #diff-file-tree .item-file.selected,
+.repository .diff-file-tree .item-file.selected {
+  background: var(--anime-file-tree-row-active) !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.68), var(--anime-glass-inset-highlight);
+  color: #176fc2 !important;
+}
+
+.repository #diff-file-tree :is(.item-file.viewed, .item-directory.viewed),
+.repository .diff-file-tree :is(.item-file.viewed, .item-directory.viewed) {
+  color: var(--anime-text-subtle) !important;
+  opacity: 0.78;
+}
+
+.repository #diff-file-tree .sub-items,
+.repository .diff-file-tree .sub-items {
+  gap: 2px;
+  border-left-color: rgba(95, 139, 180, 0.22) !important;
+}
+
+.repository #diff-file-tree .gt-ellipsis,
+.repository .diff-file-tree .gt-ellipsis {
+  min-width: 0;
+}
+
+.repository #diff-file-tree .tw-text-green,
+.repository .diff-file-tree .tw-text-green {
+  color: #2f9f6a !important;
+}
+
+.repository #diff-file-tree .tw-text-yellow,
+.repository .diff-file-tree .tw-text-yellow {
+  color: #bc7a12 !important;
+}
+
+.repository #diff-file-tree .tw-text-red,
+.repository .diff-file-tree .tw-text-red {
+  color: #df5d7c !important;
+}
+
+.repository #diff-file-tree .tw-text-teal,
+.repository .diff-file-tree .tw-text-teal {
+  color: #218f9a !important;
+}
+
+.repository #diff-file-tree::-webkit-scrollbar,
+.repository .diff-file-tree::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.repository #diff-file-tree::-webkit-scrollbar-track,
+.repository .diff-file-tree::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.repository #diff-file-tree::-webkit-scrollbar-thumb,
+.repository .diff-file-tree::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  background: rgba(71, 163, 255, 0.42);
+}
+
+.page-content.repository.diff {
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+.page-content.repository.diff > .ui.container.fluid.padded {
+  position: relative;
+  z-index: var(--anime-z-content);
+  width: min(1280px, calc(100vw - 48px)) !important;
+  max-width: 1280px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.page-content.repository.diff > .ui.container.fluid.padded:has(.choose.branch .ui.dropdown.visible),
+.page-content.repository.diff > .ui.container.fluid.padded:has(.choose.branch .ui.dropdown.active) {
+  z-index: var(--anime-z-dropdown-scope) !important;
+  overflow: visible !important;
+}
+
+.page-content.repository.diff.compare > .ui.container.fluid.padded {
+  width: min(1280px, calc(100vw - 48px)) !important;
+  max-width: 1280px !important;
+}
+
+.page-content.repository.diff .ui.segment.choose.branch {
+  position: relative;
+  z-index: var(--anime-z-pagebar);
+  gap: 10px 12px;
+  overflow: visible !important;
+  border-color: var(--anime-glass-border-strong) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(232, 249, 255, 0.18) 58%, rgba(255, 246, 251, 0.16)),
+    rgba(255, 255, 255, 0.62) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+}
+
+.page-content.repository.diff .ui.segment.choose.branch:has(.ui.dropdown.visible),
+.page-content.repository.diff .ui.segment.choose.branch:has(.ui.dropdown.active) {
+  z-index: var(--anime-z-dropdown-scope) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch {
+  position: relative;
+  z-index: var(--anime-z-pagebar);
+  max-width: min(100%, 42rem);
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch.visible,
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch.active {
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .ui.basic.button {
+  max-width: min(100%, 42rem);
+  background: rgba(255, 255, 255, 0.76) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .ui.basic.button .text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu {
+  z-index: var(--anime-z-dropdown-menu) !important;
+  width: max-content;
+  min-width: min(34rem, calc(100vw - 40px));
+  max-width: min(46rem, calc(100vw - 40px));
+  max-height: min(30rem, calc(100vh - 9rem));
+  padding: 8px !important;
+  overflow: hidden !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08) 52%),
+    var(--anime-popup-bg-strong) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .ui.icon.search.input {
+  width: 100%;
+  margin: 0 0 8px;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .ui.icon.search.input input {
+  background: rgba(255, 255, 255, 0.68) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .header {
+  margin: 0 0 6px;
+  border: 1px solid rgba(95, 139, 180, 0.18);
+  border-radius: 6px;
+  background: rgba(238, 248, 255, 0.48) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .header .column {
+  color: var(--anime-text-muted) !important;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu {
+  max-height: min(20rem, calc(100vh - 18rem));
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  border: 0 !important;
+  outline: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  scrollbar-gutter: stable;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu > .item {
+  max-width: 100%;
+  border-bottom: 1px solid rgba(95, 139, 180, 0.1) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+  color: var(--anime-text) !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu > .item.selected,
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu > .item.active {
+  background: var(--anime-file-tree-row-active) !important;
+  color: #176fc2 !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.68);
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu::-webkit-scrollbar {
+  width: 10px;
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu > .reference-list-menu::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  background: rgba(71, 163, 255, 0.42);
+}
+
+.page-content.repository.diff .commit-header {
+  position: relative;
+  z-index: var(--anime-z-content);
+  overflow: visible !important;
+  padding: 16px 18px !important;
+  border-color: var(--anime-glass-border-strong) !important;
+  border-radius: 8px 8px 0 0 !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.46), rgba(232, 249, 255, 0.2) 58%, rgba(255, 246, 251, 0.18)),
+    var(--anime-commit-bg) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(24px) saturate(1.22);
+  -webkit-backdrop-filter: blur(24px) saturate(1.22);
+}
+
+.page-content.repository.diff .commit-header > .tw-flex {
+  align-items: flex-start;
+  gap: 12px !important;
+  min-width: 0;
+}
+
+.page-content.repository.diff .commit-header h3 {
+  min-width: 0;
+  color: var(--anime-text);
+  line-height: 1.45;
+}
+
+.page-content.repository.diff .commit-header .commit-summary {
+  display: inline;
+  overflow: visible;
+  color: var(--anime-text);
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.page-content.repository.diff .commit-header-buttons {
+  position: relative;
+  z-index: calc(var(--anime-z-content) + 2);
+  gap: 8px;
+  justify-content: flex-end;
+  min-width: max-content;
+}
+
+.page-content.repository.diff .commit-header:has(.ui.dropdown.visible),
+.page-content.repository.diff .commit-header:has(.ui.dropdown.active),
+.page-content.repository.diff .commit-header-buttons:has(.ui.dropdown.visible),
+.page-content.repository.diff .commit-header-buttons:has(.ui.dropdown.active) {
+  z-index: var(--anime-z-dropdown-scope) !important;
+  overflow: visible !important;
+}
+
+.page-content.repository.diff .commit-header-buttons .ui.dropdown.visible,
+.page-content.repository.diff .commit-header-buttons .ui.dropdown.active {
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.page-content.repository.diff .commit-header-buttons .ui.dropdown.visible > .menu,
+.page-content.repository.diff .commit-header-buttons .ui.dropdown.active > .menu {
+  z-index: var(--anime-z-dropdown-menu) !important;
+}
+
+.page-content.repository.diff .commit-body {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(95, 139, 180, 0.2);
+  border-radius: 8px;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--anime-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.page-content.repository.diff .branch-and-tag-area {
+  margin-top: 10px;
+  color: var(--anime-text-muted);
+}
+
+.page-content.repository.diff .branch-and-tag-area .divider {
+  height: 1px;
+  margin: 10px 0 8px;
+  background: linear-gradient(90deg, transparent, rgba(95, 139, 180, 0.28), transparent);
+}
+
+.page-content.repository.diff .branch-and-tag-area .ellipsis-button {
+  border-color: rgba(95, 139, 180, 0.28) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: var(--anime-text-muted) !important;
+  box-shadow: var(--anime-glass-inset-highlight);
+}
+
+.page-content.repository.diff .branch-and-tag-detail {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(95, 139, 180, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.page-content.repository.diff .commit-header + .ui.bottom.attached.segment {
+  position: relative;
+  z-index: var(--anime-z-content);
+  gap: 10px 14px;
+  margin-bottom: 14px;
+  padding: 10px 14px !important;
+  border-top: 0 !important;
+  border-color: var(--anime-glass-border-strong) !important;
+  border-radius: 0 0 8px 8px !important;
+  overflow: visible !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.1)),
+    var(--anime-commit-bg-strong) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(22px) saturate(1.18);
+  -webkit-backdrop-filter: blur(22px) saturate(1.18);
+}
+
+.page-content.repository.diff .commit-header + .ui.bottom.attached.segment .flex-text-inline {
+  min-width: 0;
+}
+
+.page-content.repository.diff .commit-header + .ui.bottom.attached.segment .commit-id-short {
+  border: 1px solid rgba(95, 139, 180, 0.24) !important;
+  background: rgba(238, 248, 255, 0.9) !important;
+  color: #176fc2 !important;
+  box-shadow: var(--anime-glass-inset-highlight);
+}
+
+.page-content.repository.diff .diff-detail-box {
+  position: sticky;
+  top: 0;
+  z-index: calc(var(--anime-z-pagebar) + 1) !important;
+  min-height: var(--anime-diff-detail-height);
+  height: auto;
+  margin: 14px 0 12px !important;
+  padding: 8px 10px !important;
+  border: 1px solid rgba(95, 139, 180, 0.26);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.14)),
+    var(--anime-diff-toolbar-bg) !important;
+  box-shadow: 0 12px 28px rgba(51, 93, 132, 0.12), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+}
+
+.page-content.repository.diff .diff-detail-box .diff-detail-stats {
+  min-width: 0;
+  color: var(--anime-text);
+}
+
+.page-content.repository.diff .diff-detail-box .diff-detail-stats strong:nth-of-type(1) {
+  color: #ad7614;
+}
+
+.page-content.repository.diff .diff-detail-box .diff-detail-stats strong:nth-of-type(2) {
+  color: #2f9f6a;
+}
+
+.page-content.repository.diff .diff-detail-box .diff-detail-stats strong:nth-of-type(3) {
+  color: #df5d7c;
+}
+
+.page-content.repository.diff .diff-detail-actions {
+  position: relative;
+  z-index: calc(var(--anime-z-content) + 2);
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.page-content.repository.diff .diff-detail-actions .ui.dropdown.visible,
+.page-content.repository.diff .diff-detail-actions .ui.dropdown.active {
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.page-content.repository.diff #diff-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.page-content.repository.diff #diff-file-tree,
+.page-content.repository.diff .diff-file-tree {
+  top: calc(var(--anime-diff-detail-height) + 12px);
+  z-index: var(--anime-z-content) !important;
+  flex: 0 0 clamp(15rem, 21vw, 24rem);
+  max-width: clamp(15rem, 24vw, 26rem);
+  max-height: calc(100vh - var(--anime-diff-detail-height) - 24px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.14) 48%),
+    rgba(255, 255, 255, 0.66) !important;
+}
+
+.page-content.repository.diff #diff-file-boxes {
+  width: auto !important;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 !important;
+  flex: 1 1 auto;
+}
+
+.page-content.repository.diff .diff-file-box {
+  position: relative;
+  z-index: var(--anime-z-content);
+  overflow: visible !important;
+  border-color: rgba(95, 139, 180, 0.28) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.5) !important;
+  box-shadow: var(--anime-glass-shadow-soft), var(--anime-glass-inset-highlight);
+}
+
+.page-content.repository.diff .diff-file-box:target {
+  border-color: rgba(71, 163, 255, 0.58) !important;
+  box-shadow: var(--anime-accent-glow), var(--anime-glass-shadow-soft) !important;
+}
+
+.page-content.repository.diff .diff-file-header.sticky-2nd-row {
+  top: var(--anime-diff-detail-height);
+  z-index: var(--anime-z-pagebar) !important;
+  min-height: 44px;
+  border-color: rgba(95, 139, 180, 0.3) !important;
+  border-radius: 8px 8px 0 0 !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(238, 248, 255, 0.3)),
+    rgba(255, 255, 255, 0.88) !important;
+  box-shadow: 0 10px 22px rgba(51, 93, 132, 0.14), var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(20px) saturate(1.18);
+  -webkit-backdrop-filter: blur(20px) saturate(1.18);
+}
+
+.page-content.repository.diff .diff-file-name,
+.page-content.repository.diff .diff-file-name .flex-text-block {
+  min-width: 0;
+}
+
+.page-content.repository.diff .diff-file-name .file-link {
+  max-width: min(100%, 78ch);
+  color: var(--anime-text) !important;
+}
+
+.page-content.repository.diff .diff-file-header-actions {
+  min-width: 0;
+}
+
+.page-content.repository.diff .diff-file-header :is(.ui.label, .ui.basic.label) {
+  border-color: rgba(95, 139, 180, 0.22) !important;
+  background: rgba(238, 248, 255, 0.86) !important;
+  color: var(--anime-text-muted) !important;
+}
+
+.page-content.repository.diff .diff-file-body {
+  border-color: rgba(95, 139, 180, 0.24) !important;
+  border-radius: 0 0 8px 8px !important;
+  overflow-x: auto;
+  background: var(--anime-code-panel-bg) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.44);
+}
+
+.page-content.repository.diff .diff-file-body .file-body.file-code {
+  min-width: 0;
+  overflow-x: auto;
+  background: transparent !important;
+}
+
+.page-content.repository.diff .diff-file-body table.chroma,
+.page-content.repository.diff .diff-file-body .chroma {
+  min-width: 100%;
+  background: transparent !important;
+}
+
+.page-content.repository.diff .lines-num,
+.page-content.repository.diff .code-line-menu {
+  background: rgba(235, 246, 253, 0.84) !important;
+}
+
 .repository.file.list #repo-files-table td.name a,
 .repository.file.list #repo-files-table td.message a,
 .commit-list a,
 .repo-title a {
   color: #1e517e !important;
+}
+
+.ui.label.commit-id-short,
+.repository .commit-id-short,
+.commit-list .commit-id-short,
+.latest-commit .commit-id-short {
+  position: relative;
+  z-index: 0 !important;
+}
+
+.repository .ui.dropdown.active,
+.repository .ui.dropdown.visible,
+.commit-list .ui.dropdown.active,
+.commit-list .ui.dropdown.visible,
+.latest-commit .ui.dropdown.active,
+.latest-commit .ui.dropdown.visible {
+  position: relative;
+  z-index: var(--anime-z-dropdown) !important;
+}
+
+.repository .ui.dropdown.active > .menu,
+.repository .ui.dropdown.visible > .menu,
+.commit-list .ui.dropdown.active > .menu,
+.commit-list .ui.dropdown.visible > .menu,
+.latest-commit .ui.dropdown.active > .menu,
+.latest-commit .ui.dropdown.visible > .menu {
+  z-index: var(--anime-z-dropdown-menu) !important;
 }
 
 .repository.file.list #repo-files-table svg,
@@ -958,7 +1798,6 @@ h4 {
 .lines-code,
 .lines-code pre,
 .chroma,
-.cm-editor,
 .cm-scroller {
   color: #213145 !important;
 }
@@ -1012,23 +1851,36 @@ h4 {
 }
 
 .ui.popup,
-.ui.dropdown .menu,
-.ui.context.menu {
+.ui.dropdown > .menu,
+.ui.context.menu,
+overflow-menu .overflow-menu-popup,
+#notification-container .ui.message,
+.toastify {
   z-index: var(--anime-z-dropdown) !important;
-  border: 1px solid var(--anime-glass-border-strong) !important;
+  border: 1px solid var(--anime-popup-border) !important;
   border-radius: 8px !important;
+  outline: 1px solid rgba(255, 255, 255, 0.58);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.06) 52%),
     var(--anime-popup-bg) !important;
+  background-clip: padding-box;
   color: var(--anime-text) !important;
-  box-shadow: 0 22px 54px rgba(45, 78, 112, 0.18), var(--anime-glass-inset-highlight) !important;
-  backdrop-filter: blur(24px) saturate(1.24);
-  -webkit-backdrop-filter: blur(24px) saturate(1.24);
+  box-shadow: var(--anime-popup-shadow) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
 }
 
-.ui.modal,
-.ui.dimmer {
-  z-index: var(--anime-z-modal) !important;
+.ui.popup::before {
+  background: var(--anime-popup-arrow-bg) !important;
+  box-shadow: -1px -1px 0 0 var(--anime-popup-border) !important;
+}
+
+overflow-menu .overflow-menu-popup::before {
+  border-bottom-color: var(--anime-popup-border) !important;
+}
+
+overflow-menu .overflow-menu-popup::after {
+  border-bottom-color: var(--anime-popup-arrow-bg) !important;
 }
 
 /*
@@ -1046,7 +1898,7 @@ html[data-theme="anime-glass-light"] .ui.fluid.selection.dropdown > .menu {
   overflow-y: auto !important;
   overscroll-behavior: contain;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.08) 52%),
     var(--anime-dropdown-long-bg) !important;
   scrollbar-gutter: stable;
 }
@@ -1071,11 +1923,20 @@ html[data-theme="anime-glass-light"] .ui.fluid.selection.dropdown > .menu {
   background: rgba(71, 163, 255, 0.42);
 }
 
-.ui.dropdown .menu {
+.ui.dropdown:not(.selection) > .menu {
   overflow: visible !important;
 }
 
-.ui.dropdown .menu > .item {
+.ui.dropdown.visible > .menu,
+.ui.dropdown.active > .menu,
+.ui.dropdown > .menu.transition.visible {
+  z-index: var(--anime-z-dropdown-menu) !important;
+}
+
+.ui.dropdown > .menu > .item,
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .item {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
   color: var(--anime-text) !important;
   border-radius: 6px !important;
   transition:
@@ -1084,8 +1945,35 @@ html[data-theme="anime-glass-light"] .ui.fluid.selection.dropdown > .menu {
     transform var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
-.ui.dropdown .menu > .item:hover,
-.ui.dropdown .menu > .item:focus-visible {
+.ui.dropdown > .menu > .item:last-child,
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .item:last-child {
+  border-bottom: 0 !important;
+}
+
+.ui.dropdown > .menu > .header,
+.ui.context.menu > .header {
+  margin: 0 0 3px;
+  padding: 9px 12px 7px !important;
+  border-bottom: 0 !important;
+  color: var(--anime-text-muted) !important;
+  background: transparent !important;
+}
+
+.ui.dropdown > .menu > .divider,
+.ui.context.menu > .divider {
+  display: block !important;
+  width: 100% !important;
+  height: 0 !important;
+  margin: 6px 0 !important;
+  border-top: 1px solid rgba(95, 139, 180, 0.2) !important;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+.ui.dropdown > .menu > .item:hover,
+.ui.dropdown > .menu > .item:focus-visible,
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .item:hover,
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .item:focus-visible {
   outline: 0;
   background:
     linear-gradient(90deg, rgba(71, 163, 255, 0.16), rgba(103, 217, 206, 0.1)) !important;
@@ -1093,11 +1981,23 @@ html[data-theme="anime-glass-light"] .ui.fluid.selection.dropdown > .menu {
   transform: translate3d(2px, 0, 0);
 }
 
-.ui.dropdown .menu > .active.item,
-.ui.dropdown .menu > .selected.item {
+.ui.dropdown > .menu > .active.item,
+.ui.dropdown > .menu > .selected.item,
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .active.item,
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .selected.item {
   background: var(--anime-surface-active) !important;
   color: #176fc2 !important;
   box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.62);
+}
+
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu),
+.ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu).menu {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .ui.divider {
@@ -1145,10 +2045,10 @@ footer {
   :root {
     --anime-glass-bg: rgba(255, 255, 255, 0.9);
     --anime-glass-bg-strong: rgba(255, 255, 255, 0.94);
-    --anime-popup-bg: rgba(255, 255, 255, 0.94);
-    --anime-popup-bg-strong: rgba(255, 255, 255, 0.96);
-    --anime-popup-arrow-bg: rgba(255, 255, 255, 0.94);
-    --anime-dropdown-long-bg: rgba(255, 255, 255, 0.96);
+    --anime-popup-bg: rgba(255, 255, 255, 0.98);
+    --anime-popup-bg-strong: rgba(255, 255, 255, 0.99);
+    --anime-popup-arrow-bg: rgba(255, 255, 255, 0.98);
+    --anime-dropdown-long-bg: rgba(255, 255, 255, 0.99);
     --color-navbar: rgba(255, 255, 255, 0.92);
   }
 }
@@ -1222,8 +2122,16 @@ footer {
   .ui.cards > .card:hover,
   .repository .issue.list > .item:hover,
   .repository .timeline-item .content:hover,
-  .ui.dropdown .menu > .item:hover,
-  .ui.dropdown .menu > .item:focus-visible,
+  .repository .repo-view-file-tree-container :is(a, button, .item):hover,
+  .repository .repo-view-file-tree-container :is(a, button, .item):focus-visible,
+  .repository #diff-file-tree :is(.item-file, .item-directory):hover,
+  .repository #diff-file-tree :is(.item-file, .item-directory):focus-visible,
+  .repository .diff-file-tree :is(.item-file, .item-directory):hover,
+  .repository .diff-file-tree :is(.item-file, .item-directory):focus-visible,
+  .ui.dropdown > .menu > .item:hover,
+  .ui.dropdown > .menu > .item:focus-visible,
+  .ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .item:hover,
+  .ui.dropdown > .menu > :is(.scrolling.menu, .reference-list-menu) > .item:focus-visible,
   .ui.button:not(.icon):hover,
   .btn:hover {
     transform: none !important;
@@ -1231,14 +2139,76 @@ footer {
 }
 
 @media (max-width: 991.98px) {
+  .page-content.repository.diff > .ui.container.fluid.padded {
+    width: calc(100vw - 20px) !important;
+  }
+
+  .page-content.repository.diff.compare > .ui.container.fluid.padded {
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+  }
+
+  .page-content.repository.diff .commit-header > .tw-flex {
+    flex-direction: column;
+  }
+
+  .page-content.repository.diff .commit-header-buttons {
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-start;
+  }
+
+  .page-content.repository.diff .diff-detail-box {
+    position: relative;
+    top: 0;
+    gap: 8px;
+  }
+
+  .page-content.repository.diff .diff-file-header.sticky-2nd-row {
+    top: 0;
+  }
+
+  .repository #diff-container {
+    flex-direction: column;
+  }
+
+  .repository #diff-file-tree,
+  .repository .diff-file-tree {
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    max-height: 18rem;
+    flex: 1 1 auto;
+  }
+
+  .page-content.repository.diff #diff-file-tree,
+  .page-content.repository.diff .diff-file-tree {
+    max-width: none;
+    max-height: 18rem;
+  }
+
+  .page-content.admin > .ui.container.flex-container {
+    width: calc(100% - 20px) !important;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .page-content.admin .flex-container-nav {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    flex: 1 1 auto;
+  }
+
+  .page-content.admin .flex-container-main {
+    width: 100%;
+  }
+
   .page-content.dashboard > .ui.container,
   .page-content.dashboard.feeds > .ui.container {
     width: calc(100% - 20px) !important;
-  }
-
-  .page-content.dashboard > .ui.container > .ui.stackable.grid,
-  .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid {
-    display: block !important;
   }
 
   .page-content.dashboard > .ui.container.flex-container,
@@ -1256,14 +2226,6 @@ footer {
     flex: 1 1 auto;
   }
 
-  .page-content.dashboard > .ui.container > .ui.stackable.grid > .ten.wide.column,
-  .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .ten.wide.column,
-  .page-content.dashboard > .ui.container > .ui.stackable.grid > .six.wide.column,
-  .page-content.dashboard.feeds > .ui.container > .ui.stackable.grid > .six.wide.column {
-    position: static;
-    width: 100% !important;
-    flex-basis: auto;
-  }
 }
 
 @media (max-width: 767.98px) {
@@ -1291,6 +2253,53 @@ footer {
   .ui.table,
   .repository.file.list #repo-files-table {
     box-shadow: var(--anime-glass-shadow-soft);
+  }
+
+  .page-content.repository.diff .commit-header {
+    padding: 14px !important;
+  }
+
+  .page-content.repository.diff .ui.segment.choose.branch {
+    align-items: stretch;
+  }
+
+  .page-content.repository.diff .choose.branch .ui.dropdown.select-branch {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .ui.basic.button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .page-content.repository.diff .choose.branch .ui.dropdown.select-branch > .menu {
+    right: auto !important;
+    left: 0 !important;
+    min-width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+  }
+
+  .page-content.repository.diff .commit-header + .ui.bottom.attached.segment {
+    align-items: flex-start;
+  }
+
+  .page-content.repository.diff .commit-header + .ui.bottom.attached.segment > .tw-flex-1 {
+    display: none;
+  }
+
+  .page-content.repository.diff .diff-file-header {
+    align-items: stretch;
+  }
+
+  .page-content.repository.diff .diff-file-header-actions {
+    justify-content: flex-start !important;
+  }
+
+  .ui.modal {
+    width: calc(100vw - 20px) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
@@ -1380,71 +2389,6 @@ html[data-theme="anime-glass-light"] .page-content.dashboard .user-heatmap {
   z-index: var(--anime-z-content) !important;
 }
 
-html[data-theme="anime-glass-light"] .page-content.dashboard .dashboard-repos,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .dashboard-repos,
-html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search,
-html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search.ui.attached.segment,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search.ui.attached.segment {
-  overflow: visible !important;
-}
-
-html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search,
-html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search.ui.attached.segment,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search.ui.attached.segment {
-  position: relative;
-  z-index: var(--anime-z-pagebar) !important;
-}
-
-html[data-theme="anime-glass-light"] .page-content.dashboard .repository.list,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repository.list,
-html[data-theme="anime-glass-light"] .page-content.dashboard .ui.two.item.menu,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .ui.two.item.menu,
-html[data-theme="anime-glass-light"] .page-content.dashboard .repo-owner-name-list,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repo-owner-name-list {
-  position: relative;
-  z-index: var(--anime-z-content) !important;
-}
-
-html[data-theme="anime-glass-light"] .ui.menu,
-html[data-theme="anime-glass-light"] .dashboard-navbar .ui.menu,
-html[data-theme="anime-glass-light"] .ui.dropdown,
-html[data-theme="anime-glass-light"] .ui.dropdown .menu {
-  overflow: visible !important;
-}
-
-html[data-theme="anime-glass-light"] .ui.dropdown.active,
-html[data-theme="anime-glass-light"] .ui.dropdown.visible,
-html[data-theme="anime-glass-light"] .ui.dropdown.item.active,
-html[data-theme="anime-glass-light"] .ui.dropdown.item.visible {
-  position: relative;
-  z-index: var(--anime-z-dropdown) !important;
-}
-
-html[data-theme="anime-glass-light"] .page-content.dashboard .dashboard-repos .ui.dropdown.active,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .dashboard-repos .ui.dropdown.active,
-html[data-theme="anime-glass-light"] .page-content.dashboard .dashboard-repos .ui.dropdown.visible,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .dashboard-repos .ui.dropdown.visible,
-html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search .ui.dropdown.active,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search .ui.dropdown.active,
-html[data-theme="anime-glass-light"] .page-content.dashboard .repos-search .ui.dropdown.visible,
-html[data-theme="anime-glass-light"] .page-content.dashboard.feeds .repos-search .ui.dropdown.visible {
-  position: relative;
-  z-index: var(--anime-z-dropdown) !important;
-}
-
-html[data-theme="anime-glass-light"] .ui.dropdown .menu,
-html[data-theme="anime-glass-light"] .ui.popup,
-html[data-theme="anime-glass-light"] .ui.context.menu {
-  z-index: var(--anime-z-dropdown) !important;
-}
-
-html[data-theme="anime-glass-light"] .ui.modal,
-html[data-theme="anime-glass-light"] .ui.dimmer {
-  z-index: var(--anime-z-modal) !important;
-}
-
 /*
   Final repository filter glass overrides.
   Gitea renders this area as:
@@ -1489,28 +2433,73 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item,
 .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item,
 .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item {
+  position: relative;
+  border-radius: 6px !important;
   color: var(--anime-text-muted) !important;
   background: transparent !important;
+  transform: translate3d(0, 0, 0);
   transition:
     color var(--anime-motion-fast) var(--anime-ease-standard),
     background-color var(--anime-motion-fast) var(--anime-ease-standard),
-    box-shadow var(--anime-motion-fast) var(--anime-ease-standard);
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item::after,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item::after,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item::after {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  left: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--anime-menu-indicator);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleX(0.36);
+  transform-origin: center;
+  transition:
+    opacity var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-medium) var(--anime-ease-emphasized);
 }
 
 #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
-#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible,
 .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
-.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover {
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible {
   color: var(--anime-text) !important;
-  background: rgba(103, 217, 206, 0.1) !important;
+  background: rgba(103, 217, 206, 0.16) !important;
+  box-shadow: 0 8px 18px rgba(55, 96, 132, 0.1), var(--anime-glass-inset-highlight) !important;
+  transform: translate3d(0, -1px, 0);
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover::after,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible::after,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover::after,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible::after,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover::after,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible::after {
+  opacity: 0.74;
+  transform: scaleX(1);
 }
 
 #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active,
 .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active,
 .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active {
   color: #176fc2 !important;
-  background: rgba(71, 163, 255, 0.06) !important;
-  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.58) !important;
+  background: rgba(71, 163, 255, 0.1) !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.62), var(--anime-glass-inset-highlight) !important;
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active::after,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active::after,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item.active::after {
+  opacity: 0.9;
+  transform: scaleX(1);
 }
 
 #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item .ui.circular.mini.grey.label,
@@ -1519,6 +2508,38 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
   border-color: rgba(95, 139, 180, 0.14) !important;
   background: rgba(238, 248, 255, 0.34) !important;
   color: var(--anime-text-muted) !important;
+  transition:
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    color var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover .ui.circular.mini.grey.label,
+#dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible .ui.circular.mini.grey.label,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover .ui.circular.mini.grey.label,
+.page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible .ui.circular.mini.grey.label,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover .ui.circular.mini.grey.label,
+.page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible .ui.circular.mini.grey.label {
+  border-color: rgba(71, 163, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.54) !important;
+  color: #176fc2 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dashboard-repo-list .overflow-menu-items .item:hover,
+  #dashboard-repo-list .overflow-menu-items .item:focus-visible,
+  .page-content.dashboard .overflow-menu-items .item:hover,
+  .page-content.dashboard .overflow-menu-items .item:focus-visible,
+  .page-content.dashboard.feeds .overflow-menu-items .item:hover,
+  .page-content.dashboard.feeds .overflow-menu-items .item:focus-visible,
+  #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
+  #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible,
+  .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
+  .page-content.dashboard #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible,
+  .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:hover,
+  .page-content.dashboard.feeds #dashboard-repo-list overflow-menu.repos-filter .overflow-menu-items > .item:focus-visible {
+    transform: none !important;
+  }
 }
 
 /*
@@ -1597,17 +2618,17 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 
 .page-content.dashboard > .secondary-nav .menu.context-user-switch,
 .page-content.dashboard > .secondary-nav .context.user.overflow.menu,
-.page-content.dashboard > .secondary-nav .ui.dropdown.visible .menu,
-.page-content.dashboard > .secondary-nav .ui.dropdown.active .menu,
+.page-content.dashboard > .secondary-nav .ui.dropdown.visible:not(.selection) > .menu,
+.page-content.dashboard > .secondary-nav .ui.dropdown.active:not(.selection) > .menu,
 .page-content.dashboard.feeds > .secondary-nav .menu.context-user-switch,
 .page-content.dashboard.feeds > .secondary-nav .context.user.overflow.menu,
-.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.visible .menu,
-.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.active .menu,
-.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.visible .menu,
-.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.active .menu,
-.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.visible .menu,
-.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.active .menu {
-  z-index: calc(var(--anime-z-dashboard-dropdown) + 1) !important;
+.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.visible:not(.selection) > .menu,
+.page-content.dashboard.feeds > .secondary-nav .ui.dropdown.active:not(.selection) > .menu,
+.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.visible:not(.selection) > .menu,
+.page-content.dashboard #dashboard-repo-list .repos-search .ui.dropdown.active:not(.selection) > .menu,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.visible:not(.selection) > .menu,
+.page-content.dashboard.feeds #dashboard-repo-list .repos-search .ui.dropdown.active:not(.selection) > .menu {
+  z-index: var(--anime-z-dropdown-menu) !important;
   overflow: visible !important;
 }
 
@@ -1632,12 +2653,193 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
   overflow: visible !important;
 }
 
-#navbar .ui.dropdown.jump.item .menu,
-#navbar .ui.dropdown.jump.item.visible .menu,
-#navbar .ui.dropdown.jump.item.active .menu,
-#navbar .ui.dropdown.jump.item .menu.user-menu {
-  z-index: calc(var(--anime-z-navbar-dropdown) + 1) !important;
+#navbar:has(.ui.dropdown.jump.item.visible),
+#navbar:has(.ui.dropdown.jump.item.active) {
+  z-index: var(--anime-z-navbar-dropdown) !important;
+  isolation: isolate;
+}
+
+#navbar .ui.dropdown.jump.item > .menu,
+#navbar .ui.dropdown.jump.item.visible > .menu,
+#navbar .ui.dropdown.jump.item.active > .menu,
+#navbar .ui.dropdown.jump.item > .menu.user-menu {
+  z-index: var(--anime-z-navbar-dropdown-menu) !important;
   overflow: visible !important;
+}
+
+#navbar .ui.dropdown.jump.item > .menu {
+  min-width: 11.5rem;
+  padding: 6px !important;
+  border-color: rgba(72, 117, 158, 0.42) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.58);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(245, 251, 255, 0.14) 54%),
+    rgba(255, 255, 255, 0.9) !important;
+  background-clip: padding-box;
+  box-shadow: 0 24px 64px rgba(30, 61, 92, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.48), var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .header {
+  margin: 0 0 4px;
+  padding: 8px 10px !important;
+  border-bottom: 0 !important;
+  border-radius: 6px 6px 0 0 !important;
+  background: transparent !important;
+  color: var(--anime-text-muted) !important;
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .divider {
+  display: block !important;
+  width: 100% !important;
+  height: 0 !important;
+  margin: 6px 0 !important;
+  border-top: 1px solid rgba(95, 139, 180, 0.2) !important;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .item {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  margin: 1px 0 !important;
+  padding: 8px 10px !important;
+  border: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  background-image: none !important;
+  color: var(--anime-text) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .item::after {
+  display: none !important;
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .item:hover,
+#navbar .ui.dropdown.jump.item > .menu > .item:focus-visible {
+  outline: 0;
+  background: rgba(71, 163, 255, 0.12) !important;
+  color: var(--anime-text) !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.44) !important;
+  transform: none !important;
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .active.item,
+#navbar .ui.dropdown.jump.item > .menu > .selected.item {
+  background: rgba(71, 163, 255, 0.14) !important;
+  color: #176fc2 !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.62) !important;
+}
+
+#navbar .ui.dropdown.jump.item > .menu > .item .svg {
+  flex: 0 0 auto;
+  color: #4883b8;
+}
+
+/*
+  Global dropdown stacking contract:
+  raise the nearest paint container when it owns an open dropdown. A high
+  z-index on the menu alone cannot escape a lower parent stacking context.
+*/
+html[data-theme="anime-glass-light"] :where(
+  .page-content,
+  .repository,
+  .organization,
+  .admin,
+  .explore,
+  .user.profile,
+  .ui.container,
+  .ui.grid,
+  .ui.segment,
+  .ui.attached.segment,
+  .ui.segments,
+  .ui.card,
+  .ui.cards > .card,
+  .ui.table,
+  .ui.table tbody,
+  .ui.table tr,
+  .ui.table td,
+  .ui.form,
+  .ui.menu,
+  .ui.list,
+  .repo-button-row,
+  .commits-table,
+  .commit-header,
+  .diff-detail-box,
+  .diff-file-box,
+  .diff-file-header,
+  .file-header,
+  .comment-header,
+  .branch-and-tag-area,
+  .choose.branch,
+  .repos-search,
+  .dashboard-repos,
+  #dashboard-repo-list,
+  .repository.file.list #repo-files-table
+):has(.ui.dropdown.visible),
+html[data-theme="anime-glass-light"] :where(
+  .page-content,
+  .repository,
+  .organization,
+  .admin,
+  .explore,
+  .user.profile,
+  .ui.container,
+  .ui.grid,
+  .ui.segment,
+  .ui.attached.segment,
+  .ui.segments,
+  .ui.card,
+  .ui.cards > .card,
+  .ui.table,
+  .ui.table tbody,
+  .ui.table tr,
+  .ui.table td,
+  .ui.form,
+  .ui.menu,
+  .ui.list,
+  .repo-button-row,
+  .commits-table,
+  .commit-header,
+  .diff-detail-box,
+  .diff-file-box,
+  .diff-file-header,
+  .file-header,
+  .comment-header,
+  .branch-and-tag-area,
+  .choose.branch,
+  .repos-search,
+  .dashboard-repos,
+  #dashboard-repo-list,
+  .repository.file.list #repo-files-table
+):has(.ui.dropdown.active) {
+  position: relative !important;
+  z-index: var(--anime-z-dropdown-scope) !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.dropdown.visible,
+html[data-theme="anime-glass-light"] .ui.dropdown.active,
+html[data-theme="anime-glass-light"] .ui.dropdown.item.visible,
+html[data-theme="anime-glass-light"] .ui.dropdown.item.active {
+  position: relative !important;
+  z-index: var(--anime-z-dropdown) !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.dropdown.visible > .menu,
+html[data-theme="anime-glass-light"] .ui.dropdown.active > .menu,
+html[data-theme="anime-glass-light"] .ui.dropdown.item.visible > .menu,
+html[data-theme="anime-glass-light"] .ui.dropdown.item.active > .menu,
+html[data-theme="anime-glass-light"] .ui.context.menu,
+html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup {
+  z-index: var(--anime-z-dropdown-menu) !important;
 }
 
 /*
@@ -1658,13 +2860,15 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 .tippy-box[data-theme="menu"],
 .tippy-box[data-theme="box-with-header"] {
   z-index: calc(var(--anime-z-tooltip) + 1) !important;
-  border: 1px solid rgba(95, 139, 180, 0.2) !important;
+  border: 1px solid var(--anime-popup-border) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.58);
   background-color: var(--anime-popup-bg) !important;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 54%) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.1) 54%) !important;
+  background-clip: padding-box;
   color: var(--anime-text) !important;
-  box-shadow: 0 18px 44px rgba(45, 78, 112, 0.18), var(--anime-glass-inset-highlight) !important;
-  backdrop-filter: blur(24px) saturate(1.24);
-  -webkit-backdrop-filter: blur(24px) saturate(1.24);
+  box-shadow: var(--anime-popup-shadow) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
 }
 
 [data-tippy-root] .tippy-box[data-theme="default"] .tippy-svg-arrow-inner,
@@ -1676,21 +2880,27 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
   fill: var(--anime-popup-arrow-bg) !important;
 }
 
+[data-tippy-root] .tippy-box[data-theme="default"] .tippy-svg-arrow-outer,
+[data-tippy-root] .tippy-box[data-theme="menu"] .tippy-svg-arrow-outer,
+[data-tippy-root] .tippy-box[data-theme="box-with-header"] .tippy-svg-arrow-outer,
+.tippy-box[data-theme="default"] .tippy-svg-arrow-outer,
+.tippy-box[data-theme="menu"] .tippy-svg-arrow-outer,
+.tippy-box[data-theme="box-with-header"] .tippy-svg-arrow-outer {
+  fill: var(--anime-popup-border) !important;
+}
+
 [data-tippy-root] .tippy-box[data-theme="tooltip"],
 .tippy-box[data-theme="tooltip"] {
   z-index: calc(var(--anime-z-tooltip) + 1) !important;
   background-color: var(--anime-popup-bg-strong) !important;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 58%) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08) 58%) !important;
+  background-clip: padding-box;
   color: var(--anime-text) !important;
-  border: 1px solid rgba(95, 139, 180, 0.18) !important;
-  box-shadow: 0 14px 34px rgba(45, 78, 112, 0.16), var(--anime-glass-inset-highlight) !important;
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
-}
-
-.page-content.dashboard #dashboard-repo-list .ui.two.item.menu,
-.page-content.dashboard.feeds #dashboard-repo-list .ui.two.item.menu {
-  margin-top: 0 !important;
+  border: 1px solid var(--anime-popup-border) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.58);
+  box-shadow: var(--anime-popup-shadow) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
 }
 
 [data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-content,
@@ -1705,9 +2915,46 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
   fill: var(--anime-popup-bg-strong) !important;
 }
 
-.ui.modal,
+.ui.modal {
+  z-index: calc(var(--anime-z-modal) + 1) !important;
+  border: 1px solid var(--anime-popup-border) !important;
+  border-radius: 8px !important;
+  outline: 1px solid rgba(255, 255, 255, 0.58);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.14)),
+    var(--anime-popup-bg-strong) !important;
+  background-clip: padding-box;
+  color: var(--anime-text) !important;
+  box-shadow: 0 30px 90px rgba(30, 61, 92, 0.34), 0 0 0 1px rgba(255, 255, 255, 0.68), var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(18px) saturate(1.16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.16);
+}
+
+.ui.modal > .header,
+.ui.modal > .content,
+.ui.modal > .actions {
+  border-color: rgba(95, 139, 180, 0.22) !important;
+  background: transparent !important;
+  color: var(--anime-text) !important;
+}
+
+.ui.modal > .header {
+  background: rgba(238, 248, 255, 0.5) !important;
+}
+
+.ui.modal > .actions {
+  background: rgba(238, 248, 255, 0.42) !important;
+}
+
+.ui.modal > .close {
+  color: var(--anime-text-muted) !important;
+}
+
 .ui.dimmer {
   z-index: var(--anime-z-modal) !important;
+  background-color: rgba(35, 57, 82, 0.3) !important;
+  backdrop-filter: blur(6px) saturate(1.05);
+  -webkit-backdrop-filter: blur(6px) saturate(1.05);
 }
 
 /*
