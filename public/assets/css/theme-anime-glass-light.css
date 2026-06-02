@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-02-popup-transparency */
+/* Anime Glass Light v2026-06-02-dropdown-scroll-fix */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-02-popup-transparency";
+  --theme-version: "2026-06-02-dropdown-scroll-fix";
 }
 
 :root {
@@ -25,14 +25,21 @@ gitea-theme-meta-info {
   --anime-glass-bg: rgba(255, 255, 255, 0.52);
   --anime-glass-bg-strong: rgba(255, 255, 255, 0.68);
   --anime-glass-bg-soft: rgba(255, 255, 255, 0.36);
+  --anime-surface-hover: rgba(255, 255, 255, 0.58);
+  --anime-surface-active: rgba(71, 163, 255, 0.16);
+  --anime-surface-pressed: rgba(103, 217, 206, 0.18);
   --anime-popup-bg: rgba(255, 255, 255, 0.78);
   --anime-popup-bg-strong: rgba(255, 255, 255, 0.86);
   --anime-popup-arrow-bg: rgba(255, 255, 255, 0.84);
+  --anime-dropdown-long-bg: rgba(255, 255, 255, 0.88);
+  --anime-dropdown-max-height: min(14rem, calc(100vh - 12rem));
   --anime-glass-border: rgba(95, 139, 180, 0.24);
   --anime-glass-border-strong: rgba(83, 169, 255, 0.34);
   --anime-glass-shadow: 0 18px 44px rgba(51, 93, 132, 0.14);
   --anime-glass-shadow-soft: 0 10px 26px rgba(51, 93, 132, 0.1);
   --anime-glass-shadow-hover: 0 22px 54px rgba(51, 93, 132, 0.18);
+  --anime-glass-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  --anime-accent-glow: 0 0 0 1px rgba(71, 163, 255, 0.16), 0 14px 34px rgba(71, 163, 255, 0.12);
   --anime-glass-blur: 24px;
   --anime-accent-blue: #47a3ff;
   --anime-accent-cyan: #67d9ce;
@@ -56,6 +63,7 @@ gitea-theme-meta-info {
   --anime-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
   --anime-hover-lift: -2px;
   --anime-focus-ring: 0 0 0 3px rgba(71, 163, 255, 0.14);
+  --anime-menu-indicator: linear-gradient(90deg, var(--anime-accent-cyan), var(--anime-accent-blue), var(--anime-accent-pink));
 
   --fonts-proportional: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans", sans-serif;
   --fonts-monospace: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
@@ -353,6 +361,10 @@ footer {
   transform: translate3d(0, var(--anime-hover-lift), 0);
 }
 
+.dashboard.feeds .news:focus-within {
+  box-shadow: var(--anime-glass-shadow-hover), var(--anime-focus-ring);
+}
+
 .dashboard.feeds .news .commit-id,
 .dashboard.feeds .news .sha,
 .dashboard.feeds .news code {
@@ -472,6 +484,7 @@ footer {
   background: rgba(255, 255, 255, 0.16) !important;
   transition:
     background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    box-shadow var(--anime-motion-fast) var(--anime-ease-standard),
     transform var(--anime-motion-medium) var(--anime-ease-standard);
 }
 
@@ -488,7 +501,15 @@ footer {
 .page-content.dashboard #dashboard-repo-list .repo-owner-name-list li.active,
 .page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list li.active {
   background: rgba(103, 217, 206, 0.16) !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.58);
   transform: translate3d(2px, 0, 0);
+}
+
+.page-content.dashboard #dashboard-repo-list .repo-owner-name-list .repo-list-link:focus-visible,
+.page-content.dashboard.feeds #dashboard-repo-list .repo-owner-name-list .repo-list-link:focus-visible {
+  outline: 0;
+  border-radius: 6px;
+  box-shadow: var(--anime-focus-ring);
 }
 
 #dashboard-repo-list .overflow-menu-items,
@@ -581,6 +602,7 @@ header .navbar {
 .ui.menu .item,
 .ui.secondary.menu .item,
 .ui.tabs.container .item {
+  position: relative;
   color: var(--anime-text-muted) !important;
   border-radius: 8px !important;
   transition:
@@ -590,11 +612,40 @@ header .navbar {
     box-shadow var(--anime-motion-medium) var(--anime-ease-standard);
 }
 
+.ui.menu > .item::after,
+.ui.secondary.menu > .item::after,
+.ui.tabs.container > .item::after {
+  position: absolute;
+  right: 10px;
+  bottom: 4px;
+  left: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--anime-menu-indicator);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleX(0.35);
+  transform-origin: center;
+  transition:
+    opacity var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-medium) var(--anime-ease-emphasized);
+}
+
 .ui.menu .item:hover,
 .ui.secondary.menu .item:hover,
 .ui.tabs.container .item:hover {
   color: var(--anime-text) !important;
   background: rgba(71, 163, 255, 0.12) !important;
+}
+
+.ui.menu .item:focus-visible,
+.ui.secondary.menu .item:focus-visible,
+.ui.tabs.container .item:focus-visible {
+  outline: 0;
+  color: var(--anime-text) !important;
+  background: var(--anime-surface-active) !important;
+  box-shadow: var(--anime-focus-ring), var(--anime-accent-glow);
 }
 
 .ui.menu > .item:hover,
@@ -603,12 +654,22 @@ header .navbar {
   transform: translate3d(0, -1px, 0);
 }
 
+.ui.menu > .item:hover::after,
+.ui.menu > .active.item::after,
+.ui.secondary.menu > .item:hover::after,
+.ui.secondary.menu > .active.item::after,
+.ui.tabs.container > .item:hover::after,
+.ui.tabs.container > .active.item::after {
+  opacity: 0.86;
+  transform: scaleX(1);
+}
+
 .ui.menu .active.item,
 .ui.secondary.menu .active.item,
 .ui.tabs.container .active.item {
   color: #176fc2 !important;
   background: rgba(71, 163, 255, 0.16) !important;
-  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.72);
+  box-shadow: inset 0 -1px 0 rgba(71, 163, 255, 0.42);
 }
 
 .repository .header-wrapper,
@@ -650,8 +711,10 @@ header .navbar {
 .settings .key.list .item {
   border: 1px solid var(--anime-glass-border) !important;
   border-radius: 8px !important;
-  background: var(--anime-glass-bg) !important;
-  box-shadow: var(--anime-glass-shadow);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 46%),
+    var(--anime-glass-bg) !important;
+  box-shadow: var(--anime-glass-shadow), var(--anime-glass-inset-highlight);
   backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.22);
   -webkit-backdrop-filter: blur(var(--anime-glass-blur)) saturate(1.22);
   transition:
@@ -666,7 +729,7 @@ header .navbar {
 .repository .issue.list > .item:hover,
 .repository .timeline-item .content:hover {
   border-color: rgba(83, 169, 255, 0.26) !important;
-  box-shadow: var(--anime-glass-shadow-hover);
+  box-shadow: var(--anime-glass-shadow-hover), var(--anime-glass-inset-highlight);
   transform: translate3d(0, var(--anime-hover-lift), 0);
 }
 
@@ -719,27 +782,33 @@ h4 {
 
 .ui.button {
   border: 1px solid rgba(95, 139, 180, 0.24) !important;
-  background: rgba(255, 255, 255, 0.72) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.06)),
+    rgba(255, 255, 255, 0.66) !important;
   color: var(--anime-text) !important;
-  box-shadow: 0 8px 18px rgba(55, 96, 132, 0.08);
+  box-shadow: 0 8px 18px rgba(55, 96, 132, 0.08), var(--anime-glass-inset-highlight);
 }
 
 .ui.button:not(.icon):hover,
 .btn:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.08)),
+    var(--anime-surface-hover) !important;
   transform: translate3d(0, -1px, 0);
-  box-shadow: 0 12px 28px rgba(55, 96, 132, 0.14);
+  box-shadow: 0 12px 28px rgba(55, 96, 132, 0.14), var(--anime-glass-inset-highlight);
 }
 
 .ui.button:not(.icon):active,
 .btn:active {
+  background: var(--anime-surface-pressed) !important;
   transform: translate3d(0, 0, 0);
-  box-shadow: 0 6px 14px rgba(55, 96, 132, 0.1);
+  box-shadow: 0 6px 14px rgba(55, 96, 132, 0.1), inset 0 1px 2px rgba(51, 93, 132, 0.12);
 }
 
 .ui.button:focus-visible,
 .btn:focus-visible {
   outline: 0;
-  box-shadow: var(--anime-focus-ring), 0 8px 18px rgba(55, 96, 132, 0.08);
+  box-shadow: var(--anime-focus-ring), var(--anime-accent-glow), var(--anime-glass-inset-highlight);
 }
 
 .ui.primary.button,
@@ -945,9 +1014,11 @@ h4 {
   z-index: var(--anime-z-dropdown) !important;
   border: 1px solid var(--anime-glass-border-strong) !important;
   border-radius: 8px !important;
-  background: var(--anime-popup-bg) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0) 52%),
+    var(--anime-popup-bg) !important;
   color: var(--anime-text) !important;
-  box-shadow: 0 22px 54px rgba(45, 78, 112, 0.18) !important;
+  box-shadow: 0 22px 54px rgba(45, 78, 112, 0.18), var(--anime-glass-inset-highlight) !important;
   backdrop-filter: blur(24px) saturate(1.24);
   -webkit-backdrop-filter: blur(24px) saturate(1.24);
 }
@@ -957,16 +1028,73 @@ h4 {
   z-index: var(--anime-z-modal) !important;
 }
 
+/*
+  Long Fomantic selection dropdowns, such as Gitea's license/gitignore/template
+  selectors, must scroll inside the popup instead of covering later form fields.
+*/
+.ui.selection.dropdown > .menu,
+.ui.search.selection.dropdown > .menu,
+.ui.fluid.selection.dropdown > .menu,
+html[data-theme="anime-glass-light"] .ui.selection.dropdown > .menu,
+html[data-theme="anime-glass-light"] .ui.search.selection.dropdown > .menu,
+html[data-theme="anime-glass-light"] .ui.fluid.selection.dropdown > .menu {
+  max-height: var(--anime-dropdown-max-height) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 52%),
+    var(--anime-dropdown-long-bg) !important;
+  scrollbar-gutter: stable;
+}
+
+.ui.selection.dropdown > .menu::-webkit-scrollbar,
+.ui.search.selection.dropdown > .menu::-webkit-scrollbar,
+.ui.fluid.selection.dropdown > .menu::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ui.selection.dropdown > .menu::-webkit-scrollbar-track,
+.ui.search.selection.dropdown > .menu::-webkit-scrollbar-track,
+.ui.fluid.selection.dropdown > .menu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ui.selection.dropdown > .menu::-webkit-scrollbar-thumb,
+.ui.search.selection.dropdown > .menu::-webkit-scrollbar-thumb,
+.ui.fluid.selection.dropdown > .menu::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.36);
+  border-radius: 999px;
+  background: rgba(71, 163, 255, 0.42);
+}
+
 .ui.dropdown .menu {
   overflow: visible !important;
 }
 
 .ui.dropdown .menu > .item {
   color: var(--anime-text) !important;
+  border-radius: 6px !important;
+  transition:
+    color var(--anime-motion-fast) var(--anime-ease-standard),
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-fast) var(--anime-ease-standard);
 }
 
-.ui.dropdown .menu > .item:hover {
-  background: rgba(71, 163, 255, 0.12) !important;
+.ui.dropdown .menu > .item:hover,
+.ui.dropdown .menu > .item:focus-visible {
+  outline: 0;
+  background:
+    linear-gradient(90deg, rgba(71, 163, 255, 0.16), rgba(103, 217, 206, 0.1)) !important;
+  color: var(--anime-text) !important;
+  transform: translate3d(2px, 0, 0);
+}
+
+.ui.dropdown .menu > .active.item,
+.ui.dropdown .menu > .selected.item {
+  background: var(--anime-surface-active) !important;
+  color: #176fc2 !important;
+  box-shadow: inset 2px 0 0 rgba(71, 163, 255, 0.62);
 }
 
 .ui.divider {
@@ -1017,6 +1145,7 @@ footer {
     --anime-popup-bg: rgba(255, 255, 255, 0.94);
     --anime-popup-bg-strong: rgba(255, 255, 255, 0.96);
     --anime-popup-arrow-bg: rgba(255, 255, 255, 0.94);
+    --anime-dropdown-long-bg: rgba(255, 255, 255, 0.96);
     --color-navbar: rgba(255, 255, 255, 0.92);
   }
 }
@@ -1090,6 +1219,8 @@ footer {
   .ui.cards > .card:hover,
   .repository .issue.list > .item:hover,
   .repository .timeline-item .content:hover,
+  .ui.dropdown .menu > .item:hover,
+  .ui.dropdown .menu > .item:focus-visible,
   .ui.button:not(.icon):hover,
   .btn:hover {
     transform: none !important;
@@ -1526,8 +1657,9 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
   z-index: calc(var(--anime-z-tooltip) + 1) !important;
   border: 1px solid rgba(95, 139, 180, 0.2) !important;
   background-color: var(--anime-popup-bg) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 54%) !important;
   color: var(--anime-text) !important;
-  box-shadow: 0 18px 44px rgba(45, 78, 112, 0.18) !important;
+  box-shadow: 0 18px 44px rgba(45, 78, 112, 0.18), var(--anime-glass-inset-highlight) !important;
   backdrop-filter: blur(24px) saturate(1.24);
   -webkit-backdrop-filter: blur(24px) saturate(1.24);
 }
@@ -1545,9 +1677,10 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 .tippy-box[data-theme="tooltip"] {
   z-index: calc(var(--anime-z-tooltip) + 1) !important;
   background-color: var(--anime-popup-bg-strong) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 58%) !important;
   color: var(--anime-text) !important;
   border: 1px solid rgba(95, 139, 180, 0.18) !important;
-  box-shadow: 0 14px 34px rgba(45, 78, 112, 0.16) !important;
+  box-shadow: 0 14px 34px rgba(45, 78, 112, 0.16), var(--anime-glass-inset-highlight) !important;
   backdrop-filter: blur(22px) saturate(1.2);
   -webkit-backdrop-filter: blur(22px) saturate(1.2);
 }
@@ -1567,4 +1700,17 @@ html[data-theme="anime-glass-light"] .ui.dimmer {
 .ui.modal,
 .ui.dimmer {
   z-index: var(--anime-z-modal) !important;
+}
+
+/*
+  Final guard for long form dropdowns after all navbar/dashboard overflow rules.
+*/
+html[data-theme="anime-glass-light"] .ui.selection.dropdown.visible > .menu,
+html[data-theme="anime-glass-light"] .ui.selection.dropdown.active > .menu,
+.ui.selection.dropdown.visible > .menu,
+.ui.selection.dropdown.active > .menu {
+  max-height: var(--anime-dropdown-max-height) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
 }
