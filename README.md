@@ -15,11 +15,9 @@ THEMES = anime-glass-light
 <img src="https://img.cdn1.vip/i/6a1fddbaa63f4_1780473274.webp">
 登录页
 <img src="https://img.cdn1.vip/i/6a1fde280c955_1780473384.webp">
-仓库页
-<img src="https://img.cdn1.vip/i/6a1fdead16efa_1780473517.webp">
 详情页
 <img src="https://img.cdn1.vip/i/6a1fdef479b32_1780473588.webp">
 
-我比较喜欢蓝色，然后背景也设置成了蓝色，如果设置成粉色（默认图）会没那么瞎眼
+如果设置成粉色（默认图）会没那么瞎眼
 
 <img src="https://img.cdn1.vip/i/6a1fe002a1322_1780473858.webp">
