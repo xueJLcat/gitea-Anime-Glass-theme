@@ -1,9 +1,9 @@
-/* Anime Glass Light v2026-06-02-v59-icon-color-polish */
+/* Anime Glass Light v2026-06-02-v71-explore-entity-login-transparent */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-02-v59-icon-color-polish";
+  --theme-version: "2026-06-02-v71-explore-entity-login-transparent";
 }
 
 :root {
@@ -11,47 +11,48 @@ gitea-theme-meta-info {
 
   /*
     Replace this with your image-host URL, for example:
-    --anime-bg-url: url("https://cdn.example.com/gitea/bg.webp");
+    --anime-bg-url: url("https://cdn.example.com/gitea/anime-light-bg.webp");
     You can also host it in Gitea custom assets:
-    --anime-bg-url: url("../img/bg.webp");
+    --anime-bg-url: url("../img/anime-light-bg.webp");
   */
-  --anime-bg-url: url("../img/bg.webp");
+  --anime-bg-url: url("../img/anime-light-bg.webp");
 
   --anime-bg-opacity: 1;
   --anime-bg-position: center center;
   --anime-bg-size: cover;
-  --anime-bg-wash: rgba(244, 250, 255, 0.46);
-  --anime-bg-wash-strong: rgba(255, 255, 255, 0.66);
-  --anime-glass-bg: rgba(255, 255, 255, 0.52);
-  --anime-glass-bg-strong: rgba(255, 255, 255, 0.68);
-  --anime-glass-bg-soft: rgba(255, 255, 255, 0.36);
-  --anime-surface-hover: rgba(255, 255, 255, 0.58);
+  --anime-bg-wash: rgba(244, 250, 255, 0.12);
+  --anime-bg-wash-strong: rgba(255, 255, 255, 0.18);
+  --anime-bg-wash-tail: rgba(250, 253, 255, 0.18);
+  --anime-glass-bg: rgba(255, 255, 255, 0.28);
+  --anime-glass-bg-strong: rgba(255, 255, 255, 0.38);
+  --anime-glass-bg-soft: rgba(255, 255, 255, 0.18);
+  --anime-surface-hover: rgba(255, 255, 255, 0.34);
   --anime-surface-active: rgba(71, 163, 255, 0.16);
   --anime-surface-pressed: rgba(103, 217, 206, 0.18);
-  --anime-popup-bg: rgba(255, 255, 255, 0.8);
-  --anime-popup-bg-strong: rgba(255, 255, 255, 0.86);
-  --anime-popup-arrow-bg: rgba(255, 255, 255, 0.84);
+  --anime-popup-bg: rgba(255, 255, 255, 0.58);
+  --anime-popup-bg-strong: rgba(255, 255, 255, 0.66);
+  --anime-popup-arrow-bg: rgba(255, 255, 255, 0.62);
   --anime-popup-border: rgba(72, 117, 158, 0.38);
   --anime-popup-shadow: 0 24px 64px rgba(30, 61, 92, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.54), var(--anime-glass-inset-highlight);
-  --anime-dropdown-long-bg: rgba(255, 255, 255, 0.86);
+  --anime-dropdown-long-bg: rgba(255, 255, 255, 0.62);
   --anime-dropdown-max-height: min(14rem, calc(100vh - 12rem));
   --anime-admin-nav-width: 12.5rem;
-  --anime-file-tree-bg: rgba(255, 255, 255, 0.5);
+  --anime-file-tree-bg: rgba(255, 255, 255, 0.24);
   --anime-file-tree-row-hover: rgba(103, 217, 206, 0.14);
   --anime-file-tree-row-active: rgba(71, 163, 255, 0.16);
-  --anime-commit-bg: rgba(255, 255, 255, 0.62);
-  --anime-commit-bg-strong: rgba(255, 255, 255, 0.72);
-  --anime-diff-toolbar-bg: rgba(255, 255, 255, 0.74);
-  --anime-code-panel-bg: rgba(251, 254, 255, 0.72);
-  --anime-repo-dropdown-bg: rgba(255, 255, 255, 0.72);
-  --anime-repo-dropdown-bg-strong: rgba(255, 255, 255, 0.78);
+  --anime-commit-bg: rgba(255, 255, 255, 0.32);
+  --anime-commit-bg-strong: rgba(255, 255, 255, 0.42);
+  --anime-diff-toolbar-bg: rgba(255, 255, 255, 0.38);
+  --anime-code-panel-bg: rgba(251, 254, 255, 0.36);
+  --anime-repo-dropdown-bg: rgba(255, 255, 255, 0.42);
+  --anime-repo-dropdown-bg-strong: rgba(255, 255, 255, 0.48);
   --anime-diff-detail-height: 52px;
   --anime-commits-table-bg: rgba(255, 255, 255, 0.22);
   --anime-commits-table-head-bg: rgba(255, 255, 255, 0.28);
   --anime-commits-table-hover-bg: rgba(103, 217, 206, 0.11);
-  --anime-control-bg: rgba(255, 255, 255, 0.72);
+  --anime-control-bg: rgba(255, 255, 255, 0.28);
   --anime-control-border: rgba(88, 132, 170, 0.38);
-  --anime-control-hover-bg: rgba(255, 255, 255, 0.82);
+  --anime-control-hover-bg: rgba(255, 255, 255, 0.38);
   --anime-control-checked-bg: linear-gradient(135deg, var(--anime-accent-blue), var(--anime-accent-cyan));
   --anime-control-checked-shadow: 0 8px 18px rgba(71, 163, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.44);
   --anime-glass-border: rgba(95, 139, 180, 0.24);
@@ -69,6 +70,11 @@ gitea-theme-meta-info {
   --anime-text: #263447;
   --anime-text-muted: #607086;
   --anime-text-subtle: #7a8799;
+  --anime-logo-accent: var(--anime-accent-blue);
+  --anime-logo-accent-strong: #176fc2;
+  --anime-logo-filter: hue-rotate(178deg) saturate(1.26) brightness(1.04);
+  --anime-logo-hover-filter: hue-rotate(178deg) saturate(1.42) brightness(1.08);
+  --anime-logo-shadow: drop-shadow(0 8px 16px rgba(71, 163, 255, 0.2));
   --anime-z-content: 10;
   --anime-z-pagebar: 1000;
   --anime-z-dropdown-scope: 1790;
@@ -108,21 +114,21 @@ gitea-theme-meta-info {
   --color-primary-light-6: #f2f9ff;
   --color-primary-light-7: #f8fcff;
 
-  --color-secondary: rgba(255, 255, 255, 0.56);
-  --color-secondary-alpha-60: rgba(255, 255, 255, 0.42);
+  --color-secondary: rgba(255, 255, 255, 0.26);
+  --color-secondary-alpha-60: rgba(255, 255, 255, 0.2);
   --color-secondary-dark-1: rgba(236, 245, 252, 0.7);
   --color-secondary-dark-2: rgba(218, 234, 246, 0.76);
   --color-secondary-dark-3: rgba(201, 223, 239, 0.82);
   --color-secondary-dark-4: rgba(182, 210, 231, 0.88);
-  --color-secondary-light-1: rgba(255, 255, 255, 0.66);
-  --color-secondary-light-2: rgba(255, 255, 255, 0.74);
-  --color-secondary-light-3: rgba(255, 255, 255, 0.82);
-  --color-secondary-light-4: #ffffff;
+  --color-secondary-light-1: rgba(255, 255, 255, 0.34);
+  --color-secondary-light-2: rgba(255, 255, 255, 0.42);
+  --color-secondary-light-3: rgba(255, 255, 255, 0.5);
+  --color-secondary-light-4: rgba(255, 255, 255, 0.58);
 
   --color-body: transparent;
-  --color-box-header: rgba(255, 255, 255, 0.58);
-  --color-box-body: rgba(255, 255, 255, 0.44);
-  --color-box-body-highlight: rgba(238, 248, 255, 0.56);
+  --color-box-header: rgba(255, 255, 255, 0.28);
+  --color-box-body: rgba(255, 255, 255, 0.2);
+  --color-box-body-highlight: rgba(238, 248, 255, 0.28);
   --color-text: var(--anime-text);
   --color-text-light: var(--anime-text-muted);
   --color-text-light-1: #4c5d72;
@@ -131,28 +137,28 @@ gitea-theme-meta-info {
   --color-footer: rgba(255, 255, 255, 0.58);
   --color-timeline: rgba(96, 134, 169, 0.24);
   --color-input-text: var(--anime-text);
-  --color-input-background: rgba(255, 255, 255, 0.58);
+  --color-input-background: rgba(255, 255, 255, 0.18);
   --color-input-border: rgba(88, 132, 170, 0.28);
   --color-input-border-hover: rgba(71, 163, 255, 0.52);
-  --color-navbar: rgba(255, 255, 255, 0.5);
-  --color-light: rgba(255, 255, 255, 0.56);
-  --color-light-mimic-enabled: rgba(255, 255, 255, 0.56);
+  --color-navbar: rgba(255, 255, 255, 0.22);
+  --color-light: rgba(255, 255, 255, 0.24);
+  --color-light-mimic-enabled: rgba(255, 255, 255, 0.24);
   --color-hover: rgba(92, 190, 216, 0.16);
   --color-active: rgba(71, 163, 255, 0.16);
   --color-menu: rgba(255, 255, 255, 0.5);
-  --color-card: rgba(255, 255, 255, 0.48);
+  --color-card: rgba(255, 255, 255, 0.22);
   --color-markup-table-row: rgba(255, 255, 255, 0.38);
   --color-markup-code-block: rgba(248, 252, 255, 0.54);
-  --color-code-bg: rgba(248, 252, 255, 0.54);
-  --color-code-sidebar-bg: rgba(255, 255, 255, 0.54);
+  --color-code-bg: rgba(248, 252, 255, 0.28);
+  --color-code-sidebar-bg: rgba(255, 255, 255, 0.26);
   --color-diff-removed-row-bg: rgba(255, 159, 195, 0.16);
   --color-diff-added-row-bg: rgba(118, 217, 154, 0.16);
   --color-diff-removed-word-bg: rgba(255, 118, 161, 0.28);
   --color-diff-added-word-bg: rgba(93, 205, 136, 0.28);
   --color-border: rgba(95, 139, 180, 0.22);
-  --color-reaction-bg: rgba(255, 255, 255, 0.68);
+  --color-reaction-bg: rgba(255, 255, 255, 0.32);
   --color-reaction-active-bg: rgba(71, 163, 255, 0.18);
-  --color-label-bg: rgba(238, 248, 255, 0.78);
+  --color-label-bg: rgba(238, 248, 255, 0.32);
   --color-heatmap-0: rgba(255, 255, 255, 0.42);
   --color-heatmap-1: rgba(183, 224, 255, 0.94);
   --color-heatmap-2: rgba(129, 204, 255, 0.96);
@@ -186,7 +192,7 @@ body::before {
   z-index: -2;
   background-color: #f7fbff;
   background-image:
-    linear-gradient(135deg, var(--anime-bg-wash-strong), var(--anime-bg-wash) 42%, rgba(250, 253, 255, 0.56)),
+    linear-gradient(135deg, var(--anime-bg-wash-strong), var(--anime-bg-wash) 42%, var(--anime-bg-wash-tail)),
     var(--anime-bg-url);
   background-position: var(--anime-bg-position);
   background-size: var(--anime-bg-size);
@@ -2872,7 +2878,7 @@ html[data-theme="anime-glass-light"] body::before {
   height: 100vh !important;
   background-color: #f7fbff !important;
   background-image:
-    linear-gradient(135deg, var(--anime-bg-wash-strong), var(--anime-bg-wash) 42%, rgba(250, 253, 255, 0.56)),
+    linear-gradient(135deg, var(--anime-bg-wash-strong), var(--anime-bg-wash) 42%, var(--anime-bg-wash-tail)),
     var(--anime-bg-url) !important;
   background-position: var(--anime-bg-position) !important;
   background-size: var(--anime-bg-size) !important;
@@ -3284,6 +3290,97 @@ html[data-theme="anime-glass-light"] .page-content.dashboard .user-heatmap {
 #navbar .ui.dropdown.jump.item > .menu > .item .svg {
   flex: 0 0 auto;
   color: #4883b8;
+}
+
+#navbar-logo img,
+.page-content.home img.logo,
+img.logo[src$="/assets/img/logo.svg"],
+img[src$="/assets/img/logo.svg"][alt="Logo"] {
+  filter: var(--anime-logo-filter) var(--anime-logo-shadow);
+  transition:
+    filter var(--anime-motion-medium) var(--anime-ease-standard),
+    opacity var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+#navbar-logo:hover img,
+#navbar-logo:focus-visible img,
+.page-content.home img.logo:hover {
+  filter: var(--anime-logo-hover-filter) var(--anime-logo-shadow);
+}
+
+html[data-theme="anime-glass-light"] .page-content.home .ui.stackable.page.grid > .column {
+  padding: 24px 28px !important;
+  border: 1px solid rgba(95, 139, 180, 0.18) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04) 58%),
+    rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 0 12px 30px rgba(51, 93, 132, 0.08), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(18px) saturate(1.14);
+  -webkit-backdrop-filter: blur(18px) saturate(1.14);
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .ui.container > .ui.small.secondary.filter.menu,
+html[data-theme="anime-glass-light"] .page-content.explore .flex-list {
+  padding: 12px !important;
+  border: 1px solid rgba(95, 139, 180, 0.16) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 12px 30px rgba(51, 93, 132, 0.07), var(--anime-glass-inset-highlight);
+  backdrop-filter: blur(20px) saturate(1.14);
+  -webkit-backdrop-filter: blur(20px) saturate(1.14);
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .flex-list > .flex-item {
+  margin: 4px 0 !important;
+  padding: 14px 16px !important;
+  border: 1px solid rgba(95, 139, 180, 0.12) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 58%),
+    rgba(255, 255, 255, 0.2) !important;
+  box-shadow: var(--anime-glass-inset-highlight);
+  transition:
+    background-color var(--anime-motion-fast) var(--anime-ease-standard),
+    border-color var(--anime-motion-fast) var(--anime-ease-standard),
+    transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .flex-list > .flex-item:hover {
+  border-color: rgba(83, 169, 255, 0.24) !important;
+  background: rgba(255, 255, 255, 0.32) !important;
+  transform: translate3d(0, -1px, 0);
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.input > input,
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form input:not([type]),
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form input[type="email"],
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form input[type="password"],
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form input[type="text"] {
+  border-color: rgba(88, 132, 170, 0.24) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01)),
+    rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 6px 14px rgba(51, 93, 132, 0.04) !important;
+  backdrop-filter: blur(12px) saturate(1.08);
+  -webkit-backdrop-filter: blur(12px) saturate(1.08);
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.input > input:focus,
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form input:focus {
+  border-color: rgba(71, 163, 255, 0.46) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.24) !important;
+  box-shadow: var(--anime-focus-ring), inset 0 1px 0 rgba(255, 255, 255, 0.36) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.button.external-login-link,
+html[data-theme="anime-glass-light"] .page-content.user.signin .signin-passkey {
+  background: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: var(--anime-glass-inset-highlight) !important;
+  backdrop-filter: blur(12px) saturate(1.08);
+  -webkit-backdrop-filter: blur(12px) saturate(1.08);
 }
 
 /*
@@ -5147,6 +5244,709 @@ body:has(#dashboard-repo-list .ui.dropdown.icon.button > .menu.transition.visibl
   #dashboard-repo-list overflow-menu.repos-filter > .overflow-menu-items::-webkit-scrollbar {
     display: none !important;
   }
+}
+
+/*
+  Final white-surface clamp: keep this late so Gitea component defaults and
+  older theme sections cannot leave opaque white panels on top of the image.
+*/
+html[data-theme="anime-glass-light"] :where(
+  .repository .header-wrapper,
+  .repository .repo-header,
+  .repository .repo-title,
+  .repository .repo-buttons,
+  .repository-summary,
+  .repository-menu,
+  .repo-button-row,
+  .repo-home-filelist,
+  .repo-grid-filelist-sidebar,
+  .page-content.repository .ui.segment,
+  .page-content.repository .ui.segments,
+  .page-content.repository .ui.attached.segment,
+  .page-content.repository .ui.table,
+  .page-content.repository .ui.menu,
+  .page-content.repository overflow-menu.ui.menu,
+  .page-content.repository .clone-panel,
+  .page-content.repository .clone-panel .item,
+  .page-content.user.signin .ui.segment,
+  .page-content.user.signin .ui.form,
+  .page-content.user.signin .oauth2-panel,
+  .page-content.user.signin .openid-panel
+) {
+  border-color: rgba(95, 139, 180, 0.14) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 62%),
+    rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0 10px 24px rgba(51, 93, 132, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(20px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.12) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .repository .header-wrapper,
+  .repository .repo-header,
+  .repository-summary,
+  .repo-button-row
+) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 58%),
+    rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .repository.file.list #repo-files-table,
+  #repo-files-table,
+  #repo-files-table tbody,
+  #repo-files-table tbody tr,
+  #repo-files-table .repo-file-line,
+  #repo-files-table .repo-file-item,
+  #repo-files-table .repo-file-cell,
+  .page-content.repository .ui.table tbody,
+  .page-content.repository .ui.table tr,
+  .page-content.repository .ui.table td
+) {
+  background: rgba(255, 255, 255, 0.03) !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .repository.file.list #repo-files-table thead th,
+  .repository.file.list #repo-files-table .repo-file-last-commit,
+  #repo-files-table thead th,
+  #repo-files-table .repo-file-last-commit,
+  .page-content.repository .ui.table thead th
+) {
+  border-color: rgba(95, 139, 180, 0.12) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.07) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .repository.file.list #repo-files-table tbody tr:hover,
+  #repo-files-table tbody tr:hover,
+  #repo-files-table .repo-file-line:hover,
+  #repo-files-table .repo-file-item:hover,
+  .page-content.repository .ui.table tbody tr:hover
+) {
+  background: rgba(103, 217, 206, 0.11) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .ui.input > input,
+  .ui.form input:not([type]),
+  .ui.form input[type="text"],
+  .ui.form input[type="email"],
+  .ui.form input[type="password"],
+  .ui.form input[type="search"],
+  .ui.form input[type="url"],
+  .ui.form input[type="number"],
+  .ui.form textarea,
+  .ui.selection.dropdown,
+  .ui.search.dropdown,
+  .ui.dropdown.button,
+  .branch-selector-dropdown .button
+) {
+  border-color: rgba(88, 132, 170, 0.18) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.07) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 4px 10px rgba(51, 93, 132, 0.03) !important;
+  backdrop-filter: blur(12px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .ui.input > input:focus,
+  .ui.form input:focus,
+  .ui.form textarea:focus,
+  .ui.selection.dropdown:focus,
+  .ui.selection.dropdown.active,
+  .ui.search.dropdown.active
+) {
+  border-color: rgba(71, 163, 255, 0.4) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    var(--anime-focus-ring),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .ui.button:not(.primary):not(.green):not(.blue):not(.red):not(.orange):not(.yellow):not(.teal):not(.purple):not(.pink):not(.negative):not(.positive),
+  .ui.basic.button,
+  .ui.basic.buttons .button,
+  .repo-button-row .ui.button,
+  .page-content.repository .ui.button:not(.primary):not(.green):not(.blue):not(.red):not(.negative):not(.positive)
+) {
+  border-color: rgba(88, 132, 170, 0.16) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 4px 10px rgba(51, 93, 132, 0.03) !important;
+  backdrop-filter: blur(12px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .ui.button:not(.primary):not(.green):not(.blue):not(.red):not(.orange):not(.yellow):not(.teal):not(.purple):not(.pink):not(.negative):not(.positive):hover,
+  .ui.basic.button:hover,
+  .ui.basic.buttons .button:hover,
+  .repo-button-row .ui.button:hover,
+  .page-content.repository .ui.button:not(.primary):not(.green):not(.blue):not(.red):not(.negative):not(.positive):hover
+) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.16) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .ui.dropdown > .menu,
+  .ui.dropdown .menu,
+  .ui.menu .ui.dropdown .menu,
+  overflow-menu .overflow-menu-popup,
+  .page-content.repository .ui.dropdown > .menu
+) {
+  border-color: rgba(95, 139, 180, 0.22) !important;
+  background: rgba(255, 255, 255, 0.34) !important;
+  box-shadow:
+    0 20px 52px rgba(30, 61, 92, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+  backdrop-filter: blur(22px) saturate(1.16) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.16) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  #navbar,
+  header .navbar,
+  footer.page-footer,
+  .page-footer
+) {
+  border-color: rgba(95, 139, 180, 0.12) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 8px 20px rgba(51, 93, 132, 0.04) !important;
+  backdrop-filter: blur(16px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .repository-summary .item,
+  .repository-summary .repository-menu-item,
+  .repository-menu .item,
+  .repository-menu a,
+  .repo-button-row .item,
+  .repo-home-filelist .repo-file-line,
+  .repo-home-filelist .repo-file-item,
+  .repo-home-filelist .repo-file-cell,
+  .repo-grid-filelist-sidebar .item,
+  .repo-grid-filelist-sidebar .ui.list .item
+) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Shared responsive list contract for repository, user, and organization lists. */
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) :where(
+  .ui.container,
+  .flex-list,
+  .flex-item,
+  .flex-item-main,
+  .flex-item-header,
+  .flex-item-title,
+  .flex-item-body,
+  .flex-item-trailing
+) {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-list {
+  width: 100% !important;
+  overflow-x: clip !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-list > .flex-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-item-leading {
+  flex: 0 0 auto !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-item-main {
+  flex: 1 1 auto !important;
+  width: auto !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-item-header {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) max-content !important;
+  align-items: start !important;
+  column-gap: 12px !important;
+  row-gap: 6px !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) :where(.flex-item-title, .flex-item-body, .flex-item-title a, .flex-item-body a) {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-item-trailing {
+  display: flex !important;
+  flex: 0 1 auto !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 6px 10px !important;
+  min-width: 0 !important;
+  max-width: min(42%, 18rem) !important;
+  white-space: normal !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.explore,
+  .page-content.repository,
+  .page-content.user.profile,
+  .page-content.organization,
+  .page-content.organization.profile
+) .flex-item-trailing > * {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > .ui.container,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.container {
+  width: min(100%, 1280px) !important;
+  max-width: calc(100vw - 32px) !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.repository:not(.diff),
+  .page-content.organization.profile,
+  .page-content.user.profile
+) > .ui.container:not(.fluid),
+html[data-theme="anime-glass-light"] .page-content.repository:not(.diff) > .secondary-nav > .ui.container:not(.fluid),
+html[data-theme="anime-glass-light"] .page-content.repository:not(.diff) > .ui.container:not(.fluid) {
+  width: min(1280px, calc(100vw - 32px)) !important;
+  max-width: calc(100vw - 32px) !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.repository:not(.diff),
+  .page-content.organization.profile,
+  .page-content.user.profile
+) > .ui.container:not(.fluid) > :where(.ui.grid, .ui.stackable.grid, .ui.mobile.reversed.stackable.grid) {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.repository:not(.diff) > .secondary-nav {
+  min-width: 0 !important;
+  max-width: 100vw !important;
+  overflow-x: clip !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.repository:not(.diff) > .secondary-nav > .ui.container:not(.fluid) > :where(.repo-header, overflow-menu.ui.menu) {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] :where(
+  .page-content.repository:not(.diff),
+  .page-content.organization.profile,
+  .page-content.user.profile
+) > .ui.container:not(.fluid) > :where(.ui.grid, .ui.stackable.grid, .ui.mobile.reversed.stackable.grid) > .column {
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.organization.profile > .ui.container.tw-flex {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  min-width: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.organization.profile #org-info {
+  min-width: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.organization.profile .org-avatar {
+  flex: 0 0 auto !important;
+}
+
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) .ui.container > .ui.small.secondary.filter.menu {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) #repo-search-form,
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) .ui.small.secondary.filter.menu > form.ui.form {
+  display: flex !important;
+  flex: 1 1 100% !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) #repo-search-form > .ui.action.input,
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input {
+  flex: 1 1 32rem !important;
+  min-width: min(100%, 18rem) !important;
+  max-width: 100% !important;
+}
+
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) #repo-search-form > .ui.dropdown,
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) .ui.small.secondary.filter.menu > form.ui.form > .ui.dropdown {
+  flex: 0 0 auto !important;
+}
+
+@media (max-width: 1280px) {
+  html[data-theme="anime-glass-light"] .page-content.explore > .ui.container,
+  html[data-theme="anime-glass-light"] .page-content.explore .ui.container {
+    max-width: calc(100vw - 24px) !important;
+  }
+
+  html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) #repo-search-form > .ui.action.input,
+  html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input {
+    flex-basis: 100% !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html[data-theme="anime-glass-light"] :where(
+    .page-content.explore,
+    .page-content.repository,
+    .page-content.user.profile,
+    .page-content.organization,
+    .page-content.organization.profile
+  ) .flex-list > .flex-item {
+    gap: 10px !important;
+  }
+
+  html[data-theme="anime-glass-light"] :where(
+    .page-content.explore,
+    .page-content.repository,
+    .page-content.user.profile,
+    .page-content.organization,
+    .page-content.organization.profile
+  ) .flex-item-header {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  html[data-theme="anime-glass-light"] :where(
+    .page-content.explore,
+    .page-content.repository,
+    .page-content.user.profile,
+    .page-content.organization,
+    .page-content.organization.profile
+  ) .flex-item-trailing {
+    justify-content: flex-start !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Explore top chrome should stay transparent over the background image. */
+html[data-theme="anime-glass-light"] :where(#navbar, header .navbar) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(95, 139, 180, 0.1) !important;
+  box-shadow: 0 6px 16px rgba(51, 93, 132, 0.03) !important;
+  backdrop-filter: blur(10px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.06) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.ui.secondary.menu.secondary-nav,
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.ui.secondary.pointing.tabular.menu.secondary-nav {
+  border-color: rgba(95, 139, 180, 0.1) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 0 6px 16px rgba(51, 93, 132, 0.03) !important;
+  backdrop-filter: blur(10px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.06) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav > .overflow-menu-items {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav > .overflow-menu-items > .item {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav > .overflow-menu-items > .item.active {
+  background: rgba(71, 163, 255, 0.12) !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.58) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .ui.container > .ui.small.secondary.filter.menu {
+  border-color: rgba(95, 139, 180, 0.1) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.05) !important;
+  box-shadow:
+    0 6px 16px rgba(51, 93, 132, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(10px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.06) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore :where(
+  #repo-search-form,
+  #repo-search-form > .ui.action.input,
+  #repo-search-form > .ui.action.input > input,
+  #repo-search-form > .ui.action.input > .button,
+  #repo-search-form > .ui.dropdown,
+  #repo-search-form > .ui.dropdown.item
+) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.045) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 10px rgba(51, 93, 132, 0.025) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore #repo-search-form > .ui.dropdown:hover,
+html[data-theme="anime-glass-light"] .page-content.explore #repo-search-form > .ui.dropdown:focus-visible,
+html[data-theme="anime-glass-light"] .page-content.explore #repo-search-form > .ui.dropdown.active {
+  background: rgba(71, 163, 255, 0.1) !important;
+}
+
+/* Hard clamp for the top explore bars: remove the remaining white glass wash. */
+html[data-theme="anime-glass-light"] :where(#navbar, header .navbar) {
+  background: transparent !important;
+  border-color: rgba(95, 139, 180, 0.08) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] :where(#navbar, header .navbar) :where(.item, a.item) {
+  background: transparent !important;
+}
+
+html[data-theme="anime-glass-light"] :where(#navbar, header .navbar) :where(.item.active, .item:hover, a.item.active, a.item:hover) {
+  background: rgba(71, 163, 255, 0.1) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav,
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav > .overflow-menu-items,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.container > .ui.small.secondary.filter.menu {
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .ui.container > .ui.small.secondary.filter.menu {
+  border-color: rgba(95, 139, 180, 0.08) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore :where(
+  #repo-search-form,
+  #repo-search-form > .ui.action.input,
+  #repo-search-form > .ui.action.input > input,
+  #repo-search-form > .ui.action.input > .button,
+  #repo-search-form > .ui.dropdown,
+  #repo-search-form > .ui.dropdown.item
+) {
+  background: rgba(255, 255, 255, 0.025) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .flex-list {
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .flex-list > .flex-item {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.045) !important;
+  box-shadow: none !important;
+}
+
+/* Final top-active clamp: active states use only an underline, never a pale box. */
+html[data-theme="anime-glass-light"] :where(#navbar, header .navbar) :where(.item.active, .item:hover, a.item.active, a.item:hover) {
+  background: transparent !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.62) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav > .overflow-menu-items > .item.active,
+html[data-theme="anime-glass-light"] .page-content.explore > overflow-menu.secondary-nav > .overflow-menu-items > .item:hover {
+  background: transparent !important;
+  box-shadow: inset 0 -2px 0 rgba(71, 163, 255, 0.58) !important;
+}
+
+html[data-theme="anime-glass-light"] :where(.page-content.explore, .page-content.organization.profile, .page-content.user.profile) :where(
+  #repo-search-form,
+  #repo-search-form > .ui.action.input,
+  #repo-search-form > .ui.action.input > input,
+  #repo-search-form > .ui.action.input > .button,
+  #repo-search-form > .ui.action.input > button,
+  #repo-search-form > .ui.action.input > button.ui.icon.button,
+  #repo-search-form > .ui.dropdown,
+  #repo-search-form > .ui.dropdown.item
+) {
+  background: transparent !important;
+  box-shadow: inset 0 0 0 1px rgba(95, 139, 180, 0.1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.explore .ui.small.secondary.filter.menu > form.ui.form,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input > input,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input > .button,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input > button,
+html[data-theme="anime-glass-light"] .page-content.explore .ui.small.secondary.filter.menu > form.ui.form > .ui.action.input > button.ui.icon.button {
+  background: transparent !important;
+  box-shadow: inset 0 0 0 1px rgba(95, 139, 180, 0.1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Final login clamp: keep sign-in fields and remember checkbox off the white surface. */
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form :where(
+  #user_name,
+  #password,
+  input[name="user_name"],
+  input[name="password"]
+) {
+  border-color: rgba(88, 132, 170, 0.2) !important;
+  background: transparent !important;
+  box-shadow: inset 0 0 0 1px rgba(95, 139, 180, 0.1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.form :where(
+  #user_name,
+  #password,
+  input[name="user_name"],
+  input[name="password"]
+):focus {
+  border-color: rgba(71, 163, 255, 0.46) !important;
+  background: transparent !important;
+  box-shadow: var(--anime-focus-ring), inset 0 0 0 1px rgba(71, 163, 255, 0.16) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.checkbox:has(input[name="remember"]) label::before {
+  border-color: rgba(88, 132, 170, 0.26) !important;
+  background: transparent !important;
+  box-shadow: inset 0 0 0 1px rgba(95, 139, 180, 0.08) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.checkbox:has(input[name="remember"]):hover label::before {
+  border-color: rgba(71, 163, 255, 0.42) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.checkbox:has(input[name="remember"]:focus-visible) label::before {
+  border-color: rgba(71, 163, 255, 0.58) !important;
+  box-shadow: var(--anime-focus-ring), inset 0 0 0 1px rgba(71, 163, 255, 0.14) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.checkbox:has(input[name="remember"]:checked) label::before {
+  border-color: rgba(47, 146, 236, 0.62) !important;
+  background: rgba(71, 163, 255, 0.28) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22), 0 0 0 2px rgba(71, 163, 255, 0.08) !important;
+}
+
+html[data-theme="anime-glass-light"] .page-content.user.signin .ui.checkbox:has(input[name="remember"]:checked) label::after {
+  opacity: 1 !important;
+  transform: rotate(45deg) scale(1);
 }
 
 /*
