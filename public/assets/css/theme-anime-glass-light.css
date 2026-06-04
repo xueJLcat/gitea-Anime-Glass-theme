@@ -1,13 +1,20 @@
-/* Anime Glass Light v2026-06-03-v88-bg-soft-blur */
+/* Anime Glass Light v2026-06-04-v109-form-editor-checkbox-guards */
 
 gitea-theme-meta-info {
   --theme-display-name: "Anime Glass Light";
   --theme-description: "A bright anime-background glassmorphism theme for private Gitea instances.";
-  --theme-version: "2026-06-03-v88-bg-soft-blur";
+  --theme-color-scheme: "light";
+  --theme-version: "2026-06-04-v109-form-editor-checkbox-guards";
 }
 
 :root {
   --is-dark-theme: false;
+  color-scheme: light;
+  accent-color: var(--color-accent, var(--anime-accent-blue));
+  --line-height-default: normal;
+  --checkbox-size: 14px;
+  --z-index-modal: 1001;
+  --z-index-toast: 1002;
 
   /*
     Replace this with your image-host URL, for example:
@@ -81,16 +88,26 @@ gitea-theme-meta-info {
   --anime-logo-hover-filter: hue-rotate(150deg) saturate(1.72) brightness(1.12);
   --anime-logo-shadow: drop-shadow(0 8px 16px rgba(36, 173, 224, 0.32));
   --anime-z-content: 10;
-  --anime-z-pagebar: 1000;
-  --anime-z-dropdown-scope: 1790;
-  --anime-z-dropdown: 1800;
-  --anime-z-dropdown-menu: 1850;
+  --anime-z-content-raised: 12;
+  --anime-z-pagebar: 700;
+  --anime-z-pagebar-raised: 701;
+  --anime-z-dropdown-scope: 820;
+  --anime-z-dropdown: 830;
+  --anime-z-dropdown-menu: 840;
   --anime-z-dashboard-dropdown: var(--anime-z-dropdown);
-  --anime-z-navbar: 3000;
-  --anime-z-navbar-dropdown: 4600;
-  --anime-z-navbar-dropdown-menu: 4700;
-  --anime-z-tooltip: 4000;
-  --anime-z-modal: 5000;
+  --anime-z-navbar: 900;
+  --anime-z-navbar-dropdown: 930;
+  --anime-z-navbar-dropdown-menu: 940;
+  --anime-z-navbar-dropdown-button: 941;
+  --anime-z-tooltip: 950;
+  --anime-z-tooltip-raised: 951;
+  --anime-z-tooltip-content: 952;
+  --anime-z-editor-fullscreen: 960;
+  --anime-z-editor-toolbar: 961;
+  --anime-z-expander: 996;
+  --anime-z-search: 998;
+  --anime-z-dimmer: 1000;
+  --anime-z-modal: var(--z-index-modal, 1001);
   --anime-motion-fast: 140ms;
   --anime-motion-medium: 220ms;
   --anime-motion-slow: 360ms;
@@ -169,6 +186,107 @@ gitea-theme-meta-info {
   --color-heatmap-2: rgba(129, 204, 255, 0.96);
   --color-heatmap-3: rgba(65, 164, 245, 0.98);
   --color-heatmap-4: rgba(31, 120, 214, 1);
+
+  /*
+    Official Gitea v1.26 token bridge.
+    The imported light theme defines the full contract; these overrides keep
+    newly named upstream variables visually aligned with the anime glass palette.
+  */
+  --color-primary-alpha-10: rgba(71, 163, 255, 0.10);
+  --color-primary-alpha-20: rgba(71, 163, 255, 0.20);
+  --color-primary-alpha-30: rgba(71, 163, 255, 0.30);
+  --color-primary-alpha-40: rgba(71, 163, 255, 0.40);
+  --color-primary-alpha-50: rgba(71, 163, 255, 0.50);
+  --color-primary-alpha-60: rgba(71, 163, 255, 0.60);
+  --color-primary-alpha-70: rgba(71, 163, 255, 0.70);
+  --color-primary-alpha-80: rgba(71, 163, 255, 0.80);
+  --color-primary-alpha-90: rgba(71, 163, 255, 0.90);
+  --color-secondary-alpha-10: rgba(88, 132, 170, 0.10);
+  --color-secondary-alpha-20: rgba(88, 132, 170, 0.20);
+  --color-secondary-alpha-30: rgba(88, 132, 170, 0.30);
+  --color-secondary-alpha-40: rgba(88, 132, 170, 0.40);
+  --color-secondary-alpha-50: rgba(88, 132, 170, 0.50);
+  --color-secondary-alpha-70: rgba(88, 132, 170, 0.70);
+  --color-secondary-alpha-80: rgba(88, 132, 170, 0.80);
+  --color-secondary-alpha-90: rgba(88, 132, 170, 0.90);
+  --color-secondary-bg: rgba(242, 249, 255, 0.72);
+  --color-secondary-dark-5: #7a8188;
+  --color-secondary-dark-6: #6a7178;
+  --color-secondary-dark-7: #5b6269;
+  --color-secondary-dark-8: #4b5259;
+
+  --color-text-dark: #172336;
+  --color-placeholder-text: var(--anime-text-subtle);
+  --color-caret: var(--anime-text);
+  --color-hover-opaque: rgba(238, 248, 255, 0.64);
+  --color-shadow: rgba(30, 61, 92, 0.18);
+  --color-shadow-opaque: rgba(187, 207, 225, 0.92);
+  --color-light-border: rgba(95, 139, 180, 0.22);
+  --color-button: rgba(255, 255, 255, 0.66);
+  --color-input-toggle-background: rgba(88, 132, 170, 0.22);
+  --color-logo: var(--anime-logo-accent);
+  --color-expand-button: rgba(207, 232, 250, 0.88);
+  --color-editor-line-highlight: var(--color-secondary-alpha-30);
+  --color-editor-selection: var(--color-primary-alpha-30);
+  --color-project-column-bg: var(--color-secondary-light-4);
+  --color-priority-text: #8250df;
+  --color-highlight-fg: #eed200;
+  --color-highlight-bg: #f5efc5;
+  --color-overlay-backdrop: rgba(35, 57, 82, 0.38);
+  --color-transparency-grid-light: #fafafa;
+  --color-transparency-grid-dark: #e2e2e2;
+  --gitea-iframe-bgcolor: var(--color-box-body);
+
+  --color-nav-bg: var(--color-navbar);
+  --color-nav-hover-bg: rgba(103, 217, 206, 0.16);
+  --color-nav-text: var(--anime-text);
+  --color-secondary-nav-bg: rgba(255, 255, 255, 0.34);
+  --color-footer: var(--color-nav-bg);
+
+  --color-tooltip-text: #f8fcff;
+  --color-tooltip-bg: rgba(24, 42, 62, 0.94);
+  --color-markup-code-inline: rgba(71, 163, 255, 0.10);
+  --color-accent: var(--anime-accent-blue);
+  --color-small-accent: rgba(71, 163, 255, 0.14);
+  --color-label-text: var(--anime-text);
+  --color-label-hover-bg: rgba(71, 163, 255, 0.20);
+  --color-label-active-bg: rgba(71, 163, 255, 0.34);
+  --color-reaction-hover-bg: rgba(103, 217, 206, 0.18);
+
+  --color-info-border: rgba(71, 163, 255, 0.32);
+  --color-info-bg: rgba(221, 244, 255, 0.62);
+  --color-info-text: #176fc2;
+  --color-success-border: rgba(76, 190, 126, 0.34);
+  --color-success-bg: rgba(218, 251, 225, 0.58);
+  --color-success-text: #1d7f4f;
+  --color-warning-border: rgba(230, 174, 66, 0.36);
+  --color-warning-bg: rgba(255, 248, 197, 0.62);
+  --color-warning-text: #9a6700;
+  --color-error-border: rgba(255, 126, 170, 0.36);
+  --color-error-bg: rgba(255, 235, 233, 0.62);
+  --color-error-bg-hover: rgba(255, 220, 215, 0.70);
+  --color-error-bg-active: rgba(255, 206, 203, 0.76);
+  --color-error-text: #c43463;
+
+  --color-diff-added-fg: #2f9f6a;
+  --color-diff-added-linenum-bg: rgba(118, 217, 154, 0.20);
+  --color-diff-added-row-border: rgba(118, 217, 154, 0.22);
+  --color-diff-removed-fg: #d04f7a;
+  --color-diff-removed-linenum-bg: rgba(255, 159, 195, 0.22);
+  --color-diff-removed-row-border: rgba(255, 159, 195, 0.24);
+  --color-diff-moved-row-bg: rgba(251, 221, 96, 0.18);
+  --color-diff-moved-row-border: rgba(230, 174, 66, 0.26);
+  --color-diff-inactive: rgba(238, 248, 255, 0.46);
+
+  --color-console-fg: #172336;
+  --color-console-fg-subtle: #607086;
+  --color-console-bg: rgba(248, 252, 255, 0.76);
+  --color-console-border: rgba(95, 139, 180, 0.22);
+  --color-console-hover-bg: rgba(103, 217, 206, 0.14);
+  --color-console-active-bg: rgba(71, 163, 255, 0.18);
+  --color-console-menu-bg: rgba(255, 255, 255, 0.82);
+  --color-console-menu-border: rgba(95, 139, 180, 0.22);
+  --color-console-link: #237ed4;
 }
 
 html {
@@ -1157,8 +1275,8 @@ body input[type="radio"]:not(.hidden) {
   position: relative;
   display: inline-grid;
   place-content: center;
-  width: 15px;
-  height: 15px;
+  width: var(--checkbox-size, 14px);
+  height: var(--checkbox-size, 14px);
   margin: 0 4px 0 0;
   vertical-align: -2px;
   border: 1px solid var(--anime-control-border) !important;
@@ -1294,8 +1412,8 @@ body .issue-checkbox input[type="radio"] {
   left: auto;
   display: inline-grid;
   place-content: center;
-  width: 15px;
-  height: 15px;
+  width: var(--checkbox-size, 14px);
+  height: var(--checkbox-size, 14px);
   margin: 0 4px 0 0;
   vertical-align: -2px;
   border: 1px solid var(--anime-control-border) !important;
@@ -1964,7 +2082,7 @@ body .issue-checkbox input[type="checkbox"]:is(:indeterminate, .indeterminate)::
 
 .page-content.repository.diff .commit-header-buttons {
   position: relative;
-  z-index: calc(var(--anime-z-content) + 2);
+  z-index: var(--anime-z-content-raised);
   gap: 8px;
   justify-content: flex-end;
   min-width: max-content;
@@ -2126,7 +2244,7 @@ body .issue-checkbox input[type="checkbox"]:is(:indeterminate, .indeterminate)::
 .page-content.repository.diff .diff-detail-box {
   position: sticky;
   top: 0;
-  z-index: calc(var(--anime-z-pagebar) + 1) !important;
+  z-index: var(--anime-z-pagebar-raised) !important;
   min-height: var(--anime-diff-detail-height);
   height: auto;
   margin: 14px 0 12px !important;
@@ -2160,7 +2278,7 @@ body .issue-checkbox input[type="checkbox"]:is(:indeterminate, .indeterminate)::
 
 .page-content.repository.diff .diff-detail-actions {
   position: relative;
-  z-index: calc(var(--anime-z-content) + 2);
+  z-index: var(--anime-z-content-raised);
   gap: 6px;
   flex-wrap: wrap;
 }
@@ -3515,7 +3633,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup {
 .tippy-box[data-theme="default"],
 .tippy-box[data-theme="menu"],
 .tippy-box[data-theme="box-with-header"] {
-  z-index: calc(var(--anime-z-tooltip) + 1) !important;
+  z-index: var(--anime-z-tooltip-raised) !important;
   border: 1px solid var(--anime-popup-border) !important;
   outline: 1px solid rgba(255, 255, 255, 0.58);
   background-color: var(--anime-popup-bg) !important;
@@ -3547,7 +3665,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup {
 
 [data-tippy-root] .tippy-box[data-theme="tooltip"],
 .tippy-box[data-theme="tooltip"] {
-  z-index: calc(var(--anime-z-tooltip) + 1) !important;
+  z-index: var(--anime-z-tooltip-raised) !important;
   background-color: var(--anime-popup-bg-strong) !important;
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08) 58%) !important;
   background-clip: padding-box;
@@ -3561,7 +3679,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup {
 
 [data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-content,
 .tippy-box[data-theme="tooltip"] .tippy-content {
-  z-index: calc(var(--anime-z-tooltip) + 2) !important;
+  z-index: var(--anime-z-tooltip-content) !important;
 }
 
 [data-tippy-root] .tippy-box[data-theme="tooltip"] .tippy-svg-arrow-inner,
@@ -3572,7 +3690,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup {
 }
 
 .ui.modal {
-  z-index: calc(var(--anime-z-modal) + 1) !important;
+  z-index: var(--anime-z-modal) !important;
   border: 1px solid var(--anime-popup-border) !important;
   border-radius: 8px !important;
   outline: 1px solid rgba(255, 255, 255, 0.58);
@@ -3607,7 +3725,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup {
 }
 
 .ui.dimmer {
-  z-index: var(--anime-z-modal) !important;
+  z-index: var(--anime-z-dimmer) !important;
   background-color: rgba(35, 57, 82, 0.3) !important;
   backdrop-filter: blur(6px) saturate(1.05);
   -webkit-backdrop-filter: blur(6px) saturate(1.05);
@@ -4056,7 +4174,7 @@ html[data-theme="anime-glass-light"] .repo-button-row .ui.button {
   normal checkbox/radio controls to visible native-Gitea-like inputs.
 */
 html[data-theme="anime-glass-light"] {
-  --checkbox-size: 15px;
+  --checkbox-size: 14px;
 }
 
 html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible),
@@ -4259,10 +4377,10 @@ body .ui.checkbox:not(.toggle):not(.slider):not(.invisible),
 body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) {
   position: relative;
   display: inline-block;
-  min-width: var(--checkbox-size, 15px);
-  min-height: var(--checkbox-size, 15px);
+  min-width: var(--checkbox-size, 14px);
+  min-height: var(--checkbox-size, 14px);
   padding: 1px;
-  line-height: var(--checkbox-size, 15px);
+  line-height: var(--checkbox-size, 14px);
   vertical-align: baseline;
 }
 
@@ -4270,7 +4388,7 @@ body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label,
 body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label {
   position: relative;
   display: block;
-  min-height: var(--checkbox-size, 15px);
+  min-height: var(--checkbox-size, 14px);
   margin-left: 22px !important;
   padding-left: 0 !important;
   color: var(--anime-text) !important;
@@ -4295,10 +4413,10 @@ body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="ra
   z-index: 1 !important;
   display: inline-grid !important;
   place-content: center !important;
-  width: var(--checkbox-size, 15px) !important;
-  height: var(--checkbox-size, 15px) !important;
-  min-width: var(--checkbox-size, 15px) !important;
-  min-height: var(--checkbox-size, 15px) !important;
+  width: var(--checkbox-size, 14px) !important;
+  height: var(--checkbox-size, 14px) !important;
+  min-width: var(--checkbox-size, 14px) !important;
+  min-height: var(--checkbox-size, 14px) !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 1px solid var(--anime-control-border) !important;
@@ -7596,7 +7714,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu.ui.menu > .overflow-menu-button,
   .page-content.repository > .secondary-nav overflow-menu.ui.menu > .overflow-menu-button {
     position: relative !important;
-    z-index: calc(var(--anime-repo-overflow-popup-z) + 1) !important;
+    z-index: var(--anime-z-navbar-dropdown-button) !important;
     flex: 0 0 auto !important;
   }
 
@@ -7685,7 +7803,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   .page-content.repository.diff :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) :is(.ui.dropdown, .ui.dropdown.button, .ui.icon.dropdown),
   .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) :is(.ui.dropdown, .ui.dropdown.button, .ui.icon.dropdown) {
     position: relative !important;
-    z-index: 12000 !important;
+    z-index: var(--anime-z-dropdown) !important;
     overflow: visible !important;
   }
 
@@ -7693,7 +7811,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu,
   .page-content.repository.diff :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu,
   .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu {
-    z-index: 13000 !important;
+    z-index: var(--anime-z-dropdown-menu) !important;
     max-width: min(240px, var(--anime-mobile-repo-width)) !important;
   }
 
@@ -7705,7 +7823,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     max-width: 100% !important;
     margin: 0 !important;
     overflow: visible !important;
-    z-index: 12000 !important;
+    z-index: var(--anime-z-dropdown) !important;
   }
 
   html[data-theme="anime-glass-light"] .page-content.repository.diff :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) overflow-menu.ui.menu > .overflow-menu-items,
@@ -7722,7 +7840,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) overflow-menu.ui.menu > .overflow-menu-popup,
   .page-content.repository.diff :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) overflow-menu.ui.menu > .overflow-menu-popup,
   .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) overflow-menu.ui.menu > .overflow-menu-popup {
-    z-index: 13000 !important;
+    z-index: var(--anime-z-dropdown-menu) !important;
   }
 
   /*
@@ -7807,8 +7925,8 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     --anime-mobile-card-bg-strong: rgba(255, 255, 255, 0.52);
     --anime-mobile-card-border: rgba(95, 139, 180, 0.2);
     --anime-mobile-card-shadow: 0 10px 26px rgba(51, 93, 132, 0.1), var(--anime-glass-inset-highlight);
-    --anime-mobile-menu-z: 80000;
-    --anime-mobile-popup-z: 90000;
+    --anime-mobile-menu-z: var(--anime-z-navbar-dropdown);
+    --anime-mobile-popup-z: var(--anime-z-navbar-dropdown-menu);
   }
 
   html[data-theme="anime-glass-light"] body {
@@ -8023,7 +8141,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] .page-content.repository overflow-menu > .overflow-menu-button,
   .page-content.repository overflow-menu > .overflow-menu-button {
     position: relative !important;
-    z-index: calc(var(--anime-mobile-popup-z) + 1) !important;
+    z-index: var(--anime-z-navbar-dropdown-button) !important;
   }
 
   html[data-theme="anime-glass-light"] .page-content.repository overflow-menu > .overflow-menu-popup,
@@ -8147,8 +8265,8 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     --anime-mobile-card-bg: rgba(255, 255, 255, 0.34);
     --anime-mobile-card-bg-strong: rgba(255, 255, 255, 0.46);
     --anime-mobile-card-shadow: 0 10px 26px rgba(51, 93, 132, 0.10), var(--anime-glass-inset-highlight);
-    --anime-mobile-repo-menu-z: 2147483000;
-    --anime-mobile-repo-popup-z: 2147483100;
+    --anime-mobile-repo-menu-z: var(--anime-z-navbar-dropdown);
+    --anime-mobile-repo-popup-z: var(--anime-z-navbar-dropdown-menu);
   }
 
   html[data-theme="anime-glass-light"],
@@ -8276,7 +8394,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-button,
   .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-button {
     position: relative !important;
-    z-index: calc(var(--anime-mobile-repo-popup-z) + 1) !important;
+    z-index: var(--anime-z-navbar-dropdown-button) !important;
   }
 
   html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-popup,
@@ -8354,7 +8472,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   .page-content.repository.diff :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) :is(.ui.dropdown, .ui.dropdown.button, .ui.icon.dropdown),
   .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) :is(.ui.dropdown, .ui.dropdown.button, .ui.icon.dropdown) {
     position: relative !important;
-    z-index: 2000 !important;
+    z-index: var(--anime-z-dropdown) !important;
     overflow: visible !important;
   }
 
@@ -8362,7 +8480,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu,
   .page-content.repository.diff :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu,
   .repository.view.issue :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu {
-    z-index: 2100 !important;
+    z-index: var(--anime-z-dropdown-menu) !important;
   }
 
   /*
@@ -8537,12 +8655,10 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   - overflow-menu.ts creates ".overflow-menu-button" and ".overflow-menu-popup" as direct children of the same overflow-menu element.
   - Gitea base.css uses --page-margin-x as the global horizontal page margin variable.
 
-  Important design decision:
-  Absolute popup stacking kept failing because many glass blocks create stacking
-  contexts through backdrop-filter/position/z-index. On mobile, repository unit
-  overflow popups are therefore rendered fixed to the viewport. This breaks them
-  out of the local stacking chain and prevents PR tabs/diff cards from covering
-  the popup.
+  Current design decision:
+  Keep repository overflow popups inside the official overflow-menu component
+  flow. The later source-alignment guard caps layer values and prevents PR
+  tabs/diff cards from covering the popup without viewport-fixed positioning.
 */
 @media (max-width: 991.98px) {
   html[data-theme="anime-glass-light"] {
@@ -8554,7 +8670,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     --anime-mobile-card-bg: rgba(255, 255, 255, 0.34);
     --anime-mobile-card-bg-strong: rgba(255, 255, 255, 0.48);
     --anime-mobile-card-shadow: 0 10px 26px rgba(51, 93, 132, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.52);
-    --anime-mobile-popup-z: 2147483647;
+    --anime-mobile-popup-z: var(--anime-z-navbar-dropdown-menu);
   }
 
   html[data-theme="anime-glass-light"],
@@ -8658,7 +8774,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   .page-content.repository > .secondary-nav overflow-menu,
   .page-content.repository > .secondary-nav overflow-menu.ui.menu {
     position: relative !important;
-    z-index: 999999 !important;
+    z-index: var(--anime-z-pagebar) !important;
     overflow: visible !important;
     isolation: isolate !important;
     transform: none !important;
@@ -8675,15 +8791,17 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
 
   html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-popup,
   .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-popup {
-    position: fixed !important;
-    top: 10.8rem !important;
-    right: var(--anime-mobile-edge-x) !important;
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
     left: auto !important;
     z-index: var(--anime-mobile-popup-z) !important;
-    min-width: 136px !important;
-    width: max-content !important;
-    max-width: min(240px, calc(100vw - (var(--anime-mobile-edge-x) * 2))) !important;
-    max-height: min(72vh, 30rem) !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: min(52vh, 24rem) !important;
+    margin: 8px 0 0 !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
     pointer-events: auto !important;
@@ -8739,13 +8857,13 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   html[data-theme="anime-glass-light"] :is(.repository.view.issue, .page-content.repository.diff) :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) :is(.ui.dropdown, .ui.dropdown.button, .ui.icon.dropdown),
   :is(.repository.view.issue, .page-content.repository.diff) :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) :is(.ui.dropdown, .ui.dropdown.button, .ui.icon.dropdown) {
     position: relative !important;
-    z-index: 2000 !important;
+    z-index: var(--anime-z-dropdown) !important;
     overflow: visible !important;
   }
 
   html[data-theme="anime-glass-light"] :is(.repository.view.issue, .page-content.repository.diff) :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu,
   :is(.repository.view.issue, .page-content.repository.diff) :is(.diff-detail-box, .diff-file-box, .diff-file-header, .diff-file-header-actions) .ui.dropdown > .menu {
-    z-index: 2100 !important;
+    z-index: var(--anime-z-dropdown-menu) !important;
   }
 
   /*
@@ -8972,7 +9090,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     min-width: 0 !important;
     overflow: visible !important;
     position: relative !important;
-    z-index: 2000 !important;
+    z-index: var(--anime-z-pagebar) !important;
     isolation: isolate !important;
     box-sizing: border-box !important;
   }
@@ -8995,7 +9113,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     min-width: 0 !important;
     overflow: visible !important;
     position: relative !important;
-    z-index: 2100 !important;
+    z-index: var(--anime-z-navbar-dropdown) !important;
     isolation: isolate !important;
     box-sizing: border-box !important;
   }
@@ -9027,7 +9145,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
   :is(.page-content.repository, .repository) .secondary-nav overflow-menu.ui.secondary.pointing.menu > .overflow-menu-button,
   :is(.page-content.repository, .repository) .secondary-nav overflow-menu.ui.secondary.menu > .overflow-menu-button {
     position: relative !important;
-    z-index: 2200 !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
     flex: 0 0 38px !important;
     width: 38px !important;
     min-width: 38px !important;
@@ -9049,7 +9167,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     padding: 6px !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    z-index: 2300 !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
     border: 1px solid rgba(72, 117, 158, 0.28) !important;
     border-radius: 10px !important;
     background: rgba(255, 255, 255, 0.82) !important;
@@ -9335,7 +9453,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     padding: 0 !important;
     overflow: visible !important;
     position: relative !important;
-    z-index: 2100 !important;
+    z-index: var(--anime-z-navbar-dropdown) !important;
     isolation: isolate !important;
     box-sizing: border-box !important;
   }
@@ -9392,7 +9510,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     position: relative !important;
     inset: auto !important;
     transform: none !important;
-    z-index: 2200 !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
   }
 
   html[data-theme="anime-glass-light"] :is(.page-content.repository, .repository) .secondary-nav overflow-menu.ui.secondary.pointing.menu > .overflow-menu-popup,
@@ -9412,7 +9530,7 @@ body :is(.ui.primary.button, .ui.green.button, .ui.blue.button, .ui.red.button, 
     padding: 6px !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    z-index: 2300 !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
     border: 1px solid rgba(72, 117, 158, 0.28) !important;
     border-radius: 10px !important;
     background: rgba(255, 255, 255, 0.82) !important;
@@ -9566,8 +9684,6 @@ html[data-theme="anime-glass-light"] {
     .repository .header-wrapper,
     .repository .repo-header,
     .repo-header,
-    .repo-title,
-    .repo-buttons,
     .dashboard-navbar,
     .page-content.dashboard .dashboard-navbar,
     .page-content.dashboard.feeds .dashboard-navbar
@@ -9799,7 +9915,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup > a.item
     max-width: 100% !important;
     overflow: visible !important;
     position: relative !important;
-    z-index: 2100 !important;
+    z-index: var(--anime-z-navbar-dropdown) !important;
     isolation: isolate !important;
     box-sizing: border-box !important;
   }
@@ -9833,7 +9949,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup > a.item
     position: relative !important;
     inset: auto !important;
     transform: none !important;
-    z-index: 2200 !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
   }
 
   html[data-theme="anime-glass-light"] :is(.page-content.repository, .repository) .secondary-nav overflow-menu.ui.secondary.pointing.menu > .overflow-menu-popup,
@@ -9843,7 +9959,7 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup > a.item
     width: 100% !important;
     max-width: 100% !important;
     margin: 8px 0 0 !important;
-    z-index: 2300 !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
   }
 
   /*
@@ -9880,5 +9996,845 @@ html[data-theme="anime-glass-light"] overflow-menu .overflow-menu-popup > a.item
 
   html[data-theme="anime-glass-light"] .repository :is(.diff-removed-row, .del-code, .removed-code) {
     background-color: var(--color-diff-removed-row-bg) !important;
+  }
+}
+
+
+/*
+  v93 final upstream color token bridge
+
+  Keep late Gitea v1.26 palette, ANSI console, and syntax highlighting tokens
+  on the anime glass palette after older historical patches have run.
+*/
+html[data-theme="anime-glass-light"] {
+  --color-red: #ff7eaa;
+  --color-red-light: #ff9fc3;
+  --color-red-dark-1: #f26898;
+  --color-red-dark-2: #dd557f;
+  --color-orange: #e99a3a;
+  --color-orange-light: #f0b45f;
+  --color-orange-dark-1: #cf8324;
+  --color-orange-dark-2: #a8661b;
+  --color-yellow: #e6b84a;
+  --color-yellow-dark-1: #b98512;
+  --color-olive: #8fbd4f;
+  --color-green: var(--anime-accent-mint);
+  --color-green-light: #a5e6bb;
+  --color-green-dark-1: #55c780;
+  --color-green-dark-2: #42ad69;
+  --color-teal: var(--anime-accent-cyan);
+  --color-blue: var(--anime-accent-blue);
+  --color-blue-light: #82c3ff;
+  --color-purple: #8b7cf6;
+  --color-purple-dark-1: #6c5ce7;
+  --color-pink: var(--anime-accent-pink);
+  --color-grey: #697d92;
+  --color-black: #172336;
+  --color-white: #ffffff;
+  --color-git: #f07b58;
+
+  --color-red-badge: #e0567a;
+  --color-red-badge-bg: rgba(224, 86, 122, 0.14);
+  --color-red-badge-hover-bg: rgba(224, 86, 122, 0.26);
+  --color-green-badge: #3fbf7f;
+  --color-green-badge-bg: rgba(63, 191, 127, 0.14);
+  --color-green-badge-hover-bg: rgba(63, 191, 127, 0.26);
+  --color-yellow-badge: #c89424;
+  --color-yellow-badge-bg: rgba(200, 148, 36, 0.14);
+  --color-yellow-badge-hover-bg: rgba(200, 148, 36, 0.26);
+  --color-orange-badge: #d88b2f;
+  --color-orange-badge-bg: rgba(216, 139, 47, 0.14);
+  --color-orange-badge-hover-bg: rgba(216, 139, 47, 0.26);
+
+  --color-ansi-black: #263447;
+  --color-ansi-red: #e0567a;
+  --color-ansi-green: #3fbf7f;
+  --color-ansi-yellow: #c89424;
+  --color-ansi-blue: #2d8fe8;
+  --color-ansi-magenta: #8b7cf6;
+  --color-ansi-cyan: #22b8c7;
+  --color-ansi-white: var(--color-console-fg-subtle);
+  --color-ansi-bright-black: #607086;
+  --color-ansi-bright-red: #ff7eaa;
+  --color-ansi-bright-green: #76d99a;
+  --color-ansi-bright-yellow: #e6b84a;
+  --color-ansi-bright-blue: #63b2ff;
+  --color-ansi-bright-magenta: #a99cff;
+  --color-ansi-bright-cyan: #67d9ce;
+  --color-ansi-bright-white: var(--color-console-fg);
+
+  --color-syntax-keyword: #176fc2;
+  --color-syntax-bool: #0f8fc7;
+  --color-syntax-control: #8b66d9;
+  --color-syntax-name: #7b5c1f;
+  --color-syntax-type: #b14c82;
+  --color-syntax-number: #1f78d1;
+  --color-syntax-operator: #176fc2;
+  --color-syntax-regexp: #8b66d9;
+  --color-syntax-string: #2f8f5f;
+  --color-syntax-comment: #607086;
+  --color-syntax-invalid: #c43463;
+  --color-syntax-link: var(--color-primary);
+  --color-syntax-tag: #176fc2;
+  --color-syntax-attribute: #6c5ce7;
+  --color-syntax-property: #2060a0;
+  --color-syntax-variable: #9a6700;
+  --color-syntax-string-special: #7d8f1f;
+  --color-syntax-escape: #9a6700;
+  --color-syntax-entity: #6c5ce7;
+  --color-syntax-preproc: #2d8f6a;
+  --color-syntax-preproc-file: #1f78d1;
+  --color-syntax-decorator: #2d8f6a;
+  --color-syntax-namespace: #607086;
+  --color-syntax-name-pseudo: #6c5ce7;
+  --color-syntax-comment-special: #8b66d9;
+  --color-syntax-text: inherit;
+  --color-syntax-text-alt: #4c5d72;
+  --color-syntax-punctuation: inherit;
+  --color-syntax-whitespace: #9aa7b8;
+  --color-syntax-diff-fg: #172336;
+  --color-syntax-deleted-bg: rgba(255, 159, 195, 0.24);
+  --color-syntax-inserted-bg: rgba(118, 217, 154, 0.22);
+  --color-syntax-emph: #9a6700;
+  --color-syntax-strong: inherit;
+  --color-syntax-heading: #7b5c1f;
+  --color-syntax-subheading: #2f8f5f;
+  --color-syntax-output: #607086;
+  --color-syntax-prompt: #9a6700;
+  --color-syntax-traceback: #c43463;
+  --color-syntax-matching-bracket-bg: rgba(103, 217, 206, 0.24);
+  --color-syntax-nonmatching-bracket-bg: rgba(255, 126, 170, 0.22);
+}
+
+
+/*
+  v94 official source alignment guard
+
+  Gitea v1.26 uses overflow-menu as a relative flex component with the popup as
+  a direct child. Earlier mobile patches used viewport-fixed popups and max z-index
+  values to escape local glass stacking contexts. Keep the v84/v87 mobile grid
+  behavior, but cap the layer values below modals and force repository unit-menu
+  popups back into the component flow.
+*/
+@media (max-width: 991.98px) {
+  html[data-theme="anime-glass-light"] {
+    --anime-mobile-menu-z: var(--anime-z-navbar-dropdown);
+    --anime-mobile-popup-z: var(--anime-z-navbar-dropdown-menu);
+    --anime-mobile-repo-menu-z: var(--anime-z-navbar-dropdown);
+    --anime-mobile-repo-popup-z: var(--anime-z-navbar-dropdown-menu);
+  }
+
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav,
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav > .ui.container {
+    position: relative !important;
+    z-index: var(--anime-z-pagebar) !important;
+    overflow: visible !important;
+  }
+
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu,
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu.ui.menu,
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu.ui.secondary.menu,
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu.ui.secondary.pointing.menu {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) var(--anime-mobile-menu-button-size, 38px) !important;
+    grid-template-areas:
+      "items button"
+      "popup popup" !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    position: relative !important;
+    z-index: var(--anime-z-navbar-dropdown) !important;
+    isolation: isolate !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-items {
+    grid-area: items !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+  }
+
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-items::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-button {
+    grid-area: button !important;
+    align-self: stretch !important;
+    justify-self: stretch !important;
+    width: var(--anime-mobile-menu-button-size, 38px) !important;
+    min-width: var(--anime-mobile-menu-button-size, 38px) !important;
+    max-width: var(--anime-mobile-menu-button-size, 38px) !important;
+    margin: 0 !important;
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
+  }
+
+  html[data-theme="anime-glass-light"] .page-content.repository > .secondary-nav overflow-menu > .overflow-menu-popup {
+    grid-area: popup !important;
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    max-height: min(52vh, 24rem) !important;
+    margin: 8px 0 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    z-index: var(--anime-z-navbar-dropdown-menu) !important;
+  }
+}
+
+
+/*
+  v95 checkbox source contract guard
+
+  Gitea v1.26 draws ordinary checkbox/radio controls with the real input
+  element. Toggle/slider controls still hide that input and draw through the
+  label pseudo-elements, and DashboardRepoList.vue intentionally marks filter
+  inputs as tw-pointer-events-none so the parent menu item owns the click.
+*/
+html[data-theme="anime-glass-light"] {
+  --checkbox-size: 14px;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible),
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible),
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible),
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) {
+  position: relative;
+  display: inline-block;
+  min-width: var(--checkbox-size, 14px);
+  min-height: var(--checkbox-size, 14px);
+  padding: 1px;
+  line-height: var(--checkbox-size, 14px);
+  vertical-align: baseline;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label {
+  position: relative;
+  display: block;
+  min-height: var(--checkbox-size, 14px);
+  margin-left: 20px !important;
+  padding-left: 0 !important;
+  color: var(--color-text, var(--anime-text)) !important;
+  cursor: pointer;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::after,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::after,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) label::after,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) label::after {
+  display: none !important;
+  content: none !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"] {
+  position: absolute !important;
+  top: 1px !important;
+  left: 0 !important;
+  z-index: 1 !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  width: var(--checkbox-size, 14px) !important;
+  min-width: var(--checkbox-size, 14px) !important;
+  height: var(--checkbox-size, 14px) !important;
+  min-height: var(--checkbox-size, 14px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid var(--anime-control-border, var(--color-input-border)) !important;
+  background: var(--anime-control-bg, var(--color-input-background)) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 4px 10px rgba(51, 93, 132, 0.08) !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  print-color-adjust: exact;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"] {
+  border-radius: 4px !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"],
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"] {
+  border-radius: 50% !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]::before {
+  display: block !important;
+  width: 5px;
+  height: 9px;
+  margin-top: -1px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  background: transparent !important;
+  box-shadow: 1px 1px 0 rgba(18, 76, 128, 0.18);
+  content: "" !important;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]::before {
+  display: block !important;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(18, 76, 128, 0.18);
+  content: "" !important;
+  transform: scale(0);
+  transition: transform var(--anime-motion-fast) var(--anime-ease-standard);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked),
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked),
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked),
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked, :indeterminate, .indeterminate),
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked) {
+  border-color: rgba(47, 146, 236, 0.76) !important;
+  background: var(--anime-control-checked-bg, var(--color-primary)) !important;
+  box-shadow: var(--anime-control-checked-shadow, none) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked)::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked)::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked)::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:checked, .checked)::before {
+  transform: rotate(45deg) scale(1);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:indeterminate, .indeterminate)::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:indeterminate, .indeterminate)::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:indeterminate, .indeterminate)::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="checkbox"]:is(:indeterminate, .indeterminate)::before {
+  width: 9px;
+  height: 2px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(18, 76, 128, 0.18);
+  transform: scale(1);
+}
+
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked)::before,
+html[data-theme="anime-glass-light"] .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked)::before,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked)::before,
+body .ui.radio.checkbox:not(.toggle):not(.slider):not(.invisible) input[type="radio"]:is(:checked, .checked)::before {
+  transform: scale(1);
+}
+
+html[data-theme="anime-glass-light"] .ui.disabled.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+html[data-theme="anime-glass-light"] .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[disabled] ~ label,
+body .ui.disabled.checkbox:not(.toggle):not(.slider):not(.invisible) label,
+body .ui.checkbox:not(.toggle):not(.slider):not(.invisible) input[disabled] ~ label {
+  cursor: default !important;
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+html[data-theme="anime-glass-light"] :is(.ui.toggle.checkbox, .ui.slider.checkbox) input[type="checkbox"],
+html[data-theme="anime-glass-light"] :is(.ui.toggle.checkbox, .ui.slider.checkbox) input[type="radio"],
+body :is(.ui.toggle.checkbox, .ui.slider.checkbox) input[type="checkbox"],
+body :is(.ui.toggle.checkbox, .ui.slider.checkbox) input[type="radio"] {
+  opacity: 0 !important;
+  pointer-events: auto !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox {
+  display: grid !important;
+  grid-template-columns: var(--repo-filter-check-size, 16px) minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 20px !important;
+  padding: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input.tw-pointer-events-none,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input.tw-pointer-events-none {
+  position: relative !important;
+  inset: auto !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  place-self: center !important;
+  width: var(--repo-filter-check-size, 16px) !important;
+  min-width: var(--repo-filter-check-size, 16px) !important;
+  height: var(--repo-filter-check-size, 16px) !important;
+  min-height: var(--repo-filter-check-size, 16px) !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="anime-glass-light"] #dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input.tw-pointer-events-none + label,
+#dashboard-repo-list .ui.dropdown.icon.button > .menu > .item > .ui.checkbox > input.tw-pointer-events-none + label {
+  position: static !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 20px !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  overflow: hidden !important;
+  line-height: 20px !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  pointer-events: none !important;
+}
+
+
+/*
+  v97 action input source contract guard
+
+  Gitea's input module treats .ui.action.input as a single flex control: the
+  text input drops the adjoining corner, and the following button/dropdown owns
+  the opposite rounded edge. Keep that geometry after page-level glass rules.
+*/
+html[data-theme="anime-glass-light"] .ui.input {
+  position: relative;
+  display: inline-flex;
+  color: var(--color-input-text, var(--anime-text)) !important;
+  font-weight: var(--font-weight-normal, 400);
+}
+
+html[data-theme="anime-glass-light"] .ui.input > input {
+  flex: 1 0 auto;
+  max-width: 100%;
+  margin: 0;
+  outline: none;
+  border: 1px solid var(--color-input-border) !important;
+  border-radius: var(--border-radius, 8px) !important;
+  background: var(--color-input-background) !important;
+  color: var(--color-input-text, var(--anime-text)) !important;
+  font-family: var(--fonts-regular, var(--fonts-proportional)) !important;
+  line-height: var(--line-height-default, 1.4);
+  text-align: start;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input {
+  display: inline-flex !important;
+  align-items: stretch !important;
+  max-width: 100%;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input > .button,
+html[data-theme="anime-glass-light"] .ui.action.input > .buttons {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  margin: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input > .button,
+html[data-theme="anime-glass-light"] .ui.action.input > .buttons > .button {
+  margin: 0 !important;
+  padding-top: 0.78571429em;
+  padding-bottom: 0.78571429em;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input .ui.ui.button {
+  border-color: var(--color-input-border) !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input,
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > .ui.input > input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right-color: transparent !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input > .dropdown:first-child,
+html[data-theme="anime-glass-light"] .ui.action.input > .button:first-child,
+html[data-theme="anime-glass-light"] .ui.action.input > .buttons:first-child > .button {
+  border-radius: var(--border-radius, 8px) 0 0 var(--border-radius, 8px) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input > .dropdown:not(:first-child),
+html[data-theme="anime-glass-light"] .ui.action.input > .button:not(:first-child),
+html[data-theme="anime-glass-light"] .ui.action.input > .buttons:not(:first-child) > .button {
+  border-radius: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input > .dropdown:last-child,
+html[data-theme="anime-glass-light"] .ui.action.input > .button:last-child,
+html[data-theme="anime-glass-light"] .ui.action.input > .buttons:last-child > .button {
+  border-radius: 0 var(--border-radius, 8px) var(--border-radius, 8px) 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus + .ui.dropdown.selection,
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus + .ui.dropdown.selection:hover,
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus + .button,
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus + .button:hover,
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus + i.icon + .button,
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus + i.icon + .button:hover {
+  border-left-color: var(--color-primary) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input:not([class*="left action"]) > input:focus {
+  border-right-color: var(--color-primary) !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.fluid.input {
+  display: flex !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.fluid.input > input {
+  width: 0 !important;
+}
+
+
+/*
+  v98 repo file search layer guard
+
+  RepoFileSearch.vue teleports .file-search-popup to <body>. Keep it above repo
+  cards/toolbars created by the theme, but below Gitea's official modal/toast
+  layer. The classic .ui.search results share the same contract.
+*/
+html[data-theme="anime-glass-light"] .ui.search {
+  position: relative;
+}
+
+html[data-theme="anime-glass-light"] .ui.search > .results,
+html[data-theme="anime-glass-light"] .file-search-popup {
+  z-index: var(--anime-z-search) !important;
+  border: 1px solid var(--anime-popup-border, var(--color-secondary)) !important;
+  background: var(--anime-popup-bg-strong, var(--color-menu)) !important;
+  color: var(--color-text, var(--anime-text)) !important;
+  box-shadow: var(--anime-popup-shadow, 0 6px 18px var(--color-shadow)) !important;
+}
+
+html[data-theme="anime-glass-light"] .file-search-popup {
+  position: absolute;
+  border-radius: var(--border-radius, 8px) !important;
+  overflow-y: auto;
+}
+
+html[data-theme="anime-glass-light"] .file-search-results .item {
+  color: var(--color-text, var(--anime-text)) !important;
+  border-bottom-color: var(--color-secondary) !important;
+  background: transparent !important;
+}
+
+html[data-theme="anime-glass-light"] .file-search-results .item:hover,
+html[data-theme="anime-glass-light"] .file-search-results .item.selected {
+  background: var(--color-hover, var(--anime-surface-hover)) !important;
+}
+
+
+/*
+  v103 repository header source contract guard
+
+  Gitea's repo header uses .repo-header as the surface and keeps .repo-title,
+  .repo-buttons and .repo-button-row as flex layout contents. Do not turn those
+  internal layout groups into independent glass cards.
+*/
+html[data-theme="anime-glass-light"] .repository :is(.repo-title, .repo-buttons, .repo-button-row),
+html[data-theme="anime-glass-light"] :is(.repo-title, .repo-buttons, .repo-button-row) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-theme="anime-glass-light"] .repository .repo-buttons,
+html[data-theme="anime-glass-light"] .repository .repo-button-row,
+html[data-theme="anime-glass-light"] .repo-button-row {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+html[data-theme="anime-glass-light"] .repo-button-row .ui.button,
+html[data-theme="anime-glass-light"] .repo-view-container .ui.button.repo-view-file-tree-toggle {
+  flex-shrink: 0 !important;
+  min-height: 30px !important;
+  margin: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .repo-button-row .repo-file-search-container .ui.input {
+  height: 30px;
+}
+
+
+/*
+  v105 swagger standalone guard
+
+  templates/swagger/openapi-viewer.tmpl loads the current theme before
+  swagger.css, without the normal Gitea page shell. Keep the API docs on a
+  stable light surface instead of the global anime background layer.
+*/
+html[data-theme="anime-glass-light"]:has(#swagger-ui),
+html[data-theme="anime-glass-light"] body:has(#swagger-ui) {
+  background: var(--gitea-iframe-bgcolor, var(--color-box-body)) !important;
+}
+
+html[data-theme="anime-glass-light"] body:has(#swagger-ui)::before,
+html[data-theme="anime-glass-light"] body:has(#swagger-ui)::after {
+  display: none !important;
+}
+
+html[data-theme="anime-glass-light"] :is(#swagger-ui, .swagger-ui, .swagger-ui .scheme-container) {
+  background: var(--gitea-iframe-bgcolor, var(--color-box-body)) !important;
+}
+
+html[data-theme="anime-glass-light"] .swagger-back-link {
+  z-index: var(--anime-z-content-raised);
+}
+
+/*
+  v107 official component layout guards
+
+  These controls look like ordinary inputs, but official Gitea CSS gives them
+  component-specific spacing and geometry. Keep the anime control styling from
+  leaking into those layout contracts.
+*/
+html[data-theme="anime-glass-light"] .clone-buttons-combo {
+  display: flex !important;
+  align-items: stretch !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .clone-buttons-combo > .ui.button:not(:last-child) {
+  border-right: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .ui.action.input.clone-buttons-combo input {
+  border-radius: 0 !important;
+}
+
+html[data-theme="anime-glass-light"] .markup input[type="checkbox"] {
+  margin-inline-end: 0.25em !important;
+  margin-bottom: 0.25em !important;
+  cursor: default !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  vertical-align: middle !important;
+}
+
+html[data-theme="anime-glass-light"] .markup .task-list-item input[type="checkbox"] {
+  margin-inline: -1.4em 0.6em !important;
+  margin-bottom: 0.25em !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+}
+
+html[data-theme="anime-glass-light"] .markup .task-list-item input[type="checkbox"] + p {
+  display: inline;
+  margin-inline-start: -0.2em;
+}
+
+html[data-theme="anime-glass-light"] .color-picker-combo {
+  display: flex;
+  position: relative;
+}
+
+html[data-theme="anime-glass-light"] .color-picker-combo input {
+  padding-left: 32px !important;
+}
+
+html[data-theme="anime-glass-light"] .color-picker-combo .preview-square {
+  position: absolute;
+  aspect-ratio: 1;
+  width: 16px;
+  height: 16px;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+html[data-theme="anime-glass-light"] .image-diff-container .diff-overlay input {
+  max-width: 300px;
+}
+
+/*
+  v108 editor fullscreen and expander layer guard
+
+  EasyMDE and text-expander still use small local z-index values in upstream
+  CSS. The theme's navbar/pagebar/dropdown scale is higher, so fullscreen
+  editors and mention suggestions need mapped layers below modals and toasts.
+*/
+html[data-theme="anime-glass-light"] .EasyMDEContainer .CodeMirror-fullscreen {
+  position: fixed !important;
+  inset: 50px 0 0 !important;
+  height: auto !important;
+  z-index: var(--anime-z-editor-fullscreen) !important;
+  border-right: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background: var(--color-body) !important;
+}
+
+html[data-theme="anime-glass-light"] .EasyMDEContainer .editor-toolbar.fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 50px !important;
+  z-index: var(--anime-z-editor-toolbar) !important;
+  border: 0 !important;
+  background: var(--color-body) !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="anime-glass-light"] .EasyMDEContainer .editor-toolbar.fullscreen .revert-to-textarea {
+  display: none !important;
+}
+
+html[data-theme="anime-glass-light"] .EasyMDEContainer .editor-preview-full,
+html[data-theme="anime-glass-light"] .EasyMDEContainer .editor-preview-side {
+  z-index: var(--anime-z-editor-fullscreen) !important;
+  background: var(--color-body) !important;
+}
+
+html[data-theme="anime-glass-light"] text-expander .suggestions,
+html[data-theme="anime-glass-light"] .tribute-container {
+  z-index: var(--anime-z-expander) !important;
+  border: 1px solid var(--anime-popup-border, var(--color-secondary)) !important;
+  background: var(--anime-popup-bg-strong, var(--color-menu)) !important;
+  color: var(--color-text, var(--anime-text)) !important;
+  box-shadow: var(--anime-popup-shadow, 0 6px 18px var(--color-shadow)) !important;
+}
+
+/*
+  v109 form and editor checkbox alignment guard
+
+  Gitea form.css and codeeditor.css intentionally keep these checkboxes aligned
+  with their local labels/panels. Restore the local spacing after the global
+  themed checkbox skin above.
+*/
+html[data-theme="anime-glass-light"] .ui.form input[type="checkbox"]:not(.hidden) {
+  vertical-align: top !important;
+}
+
+html[data-theme="anime-glass-light"] .code-editor-container .cm-panel.cm-search input[type="checkbox"] {
+  margin: 0 !important;
+  cursor: pointer !important;
+}
+
+/*
+  v105 forced-colors accessibility guard
+
+  In Windows high-contrast mode, translucent glass layers and background images
+  can erase contrast. This block intentionally stays last so system colors win
+  over every theme token bridge and historical page patch above.
+*/
+@media (forced-colors: active) {
+  html[data-theme="anime-glass-light"] {
+    --color-body: Canvas;
+    --color-box-header: Canvas;
+    --color-box-body: Canvas;
+    --color-text: CanvasText;
+    --color-text-dark: CanvasText;
+    --color-text-light: CanvasText;
+    --color-input-text: CanvasText;
+    --color-input-background: Canvas;
+    --color-input-border: ButtonBorder;
+    --color-menu: Canvas;
+    --color-card: Canvas;
+    --color-border: ButtonBorder;
+    --color-nav-bg: Canvas;
+    --color-nav-hover-bg: Highlight;
+    --color-nav-text: CanvasText;
+    --color-secondary-nav-bg: Canvas;
+    --color-tooltip-bg: CanvasText;
+    --color-tooltip-text: Canvas;
+    --anime-control-border: ButtonBorder;
+    --anime-control-bg: Canvas;
+    --anime-control-hover-bg: Canvas;
+    --anime-control-checked-bg: Highlight;
+    --anime-control-checked-shadow: none;
+    --anime-focus-ring: 0 0 0 2px Highlight;
+    forced-color-adjust: auto;
+  }
+
+  html[data-theme="anime-glass-light"] body::before,
+  html[data-theme="anime-glass-light"] body::after {
+    display: none !important;
+  }
+
+  html[data-theme="anime-glass-light"] :is(
+    .ui.segment,
+    .ui.segments,
+    .ui.attached.segment,
+    .ui.card,
+    .ui.cards > .card,
+    .ui.table,
+    .ui.menu,
+    .ui.message,
+    .ui.search > .results,
+    .file-search-popup,
+    .repository .diff-file-box,
+    .repository .file-view,
+    .repository .markup,
+    overflow-menu .overflow-menu-popup
+  ) {
+    border-color: ButtonBorder !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html[data-theme="anime-glass-light"] a {
+    color: LinkText !important;
+  }
+
+  html[data-theme="anime-glass-light"] :is(.ui.primary.button, .ui.green.button, .ui.red.button, .ui.negative.button) {
+    border-color: ButtonBorder !important;
+    background: ButtonFace !important;
+    color: ButtonText !important;
   }
 }
